@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useRef } from "react";
 import { useHistory } from "react-router-dom";
 import Cookies from "js-cookie";
 
@@ -13,6 +13,8 @@ import { AuthContext } from "App";
 import AlertMessage from "components/utils/AlertMessage";
 import { signUp } from "lib/api/auth";
 import { SignUpParams } from "interfaces/index";
+import PrecBlockBox, { PrecBlockItem } from "components/precblock/PrecBlockBox";
+import { PrecBlockList } from "components/precblock/PrefBlockList";
 
 const useStyles = makeStyles((theme: Theme) => ({
   container: {
@@ -41,6 +43,8 @@ const SignUp: React.FC = () => {
 
   const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
+  const [precNo, setPrecNo] = useState<number | null>(null);
+  const [blockNo, setBlockNo] = useState<number | null>(null);
   const [password, setPassword] = useState<string>("");
   const [passwordConfirmation, setPasswordConfirmation] = useState<string>("");
   const [alertMessageOpen, setAlertMessageOpen] = useState<boolean>(false);
@@ -51,6 +55,8 @@ const SignUp: React.FC = () => {
     const params: SignUpParams = {
       name: name,
       email: email,
+      precNo: selectedPrecNo,
+      blockNo: selectedBlockNo,
       password: password,
       passwordConfirmation: passwordConfirmation,
     };
@@ -80,6 +86,54 @@ const SignUp: React.FC = () => {
       setAlertMessageOpen(true);
     }
   };
+  //Boxのアイテムとするprec一覧をStateで管理
+  const [precOptions] = useState<PrecBlockItem[]>(
+    PrecBlockList.map((p) => {
+      return {
+        no: p.precNo,
+        name: p.precName,
+      };
+    })
+  );
+  //選択中のprecNoをStateで管理
+  const [selectedPrecNo, setSelectedPrecNo] = useState<number>(
+    PrecBlockList[0].precNo
+  );
+
+  //選択中のprecに属するblockをRefで管理
+  const blockOptionsRef = useRef(
+    PrecBlockList.filter((p) => p.precNo === selectedPrecNo)[0].blocks.map(
+      (p) => {
+        return {
+          no: p.blockNo,
+          name: p.blockName,
+        };
+      }
+    )
+  );
+  //選択中のblockNoをStateで管理
+  const [selectedBlockNo, setSelectedBlockNo] = useState<number>(
+    PrecBlockList[0].blocks[0].blockNo
+  );
+
+  const onPrecBoxChangeHandler = (precNo: number) => {
+    //選択したprecNoをStateに指定
+    setSelectedPrecNo(precNo);
+    //選択したprecのblock一覧
+    const selectedPrecBlocks = PrecBlockList.filter(
+      (p) => p.precNo === precNo
+    )[0].blocks;
+    //選択したpreckに属する最初のblockをStateに指定
+    setSelectedBlockNo(selectedPrecBlocks[0].blockNo);
+
+    //選択したblockをRefに指定
+    blockOptionsRef.current = selectedPrecBlocks.map((p) => {
+      return {
+        no: p.blockNo,
+        name: p.blockName,
+      };
+    });
+  };
 
   return (
     <>
@@ -105,6 +159,21 @@ const SignUp: React.FC = () => {
               margin="dense"
               onChange={(event) => setEmail(event.target.value)}
             />
+            <PrecBlockBox
+              inputLabel="都道府県"
+              items={precOptions}
+              value={selectedPrecNo}
+              defaultValue={precOptions[0].no}
+              onChange={(selected) => onPrecBoxChangeHandler(selected)}
+            />
+            <PrecBlockBox
+              inputLabel="観測所"
+              items={blockOptionsRef.current}
+              value={selectedBlockNo}
+              defaultValue={1}
+              onChange={(selected) => setSelectedBlockNo(selected)}
+            />
+
             <TextField
               variant="outlined"
               required
