@@ -8,6 +8,7 @@ import SignIn from "components/pages/SignIn";
 
 import { getCurrentUser } from "lib/api/auth";
 import { User } from "interfaces/index";
+import UserEdit from "components/pages/UserEdit";
 
 // グローバルで扱う変数・関数
 export const AuthContext = createContext(
@@ -91,12 +92,15 @@ const App: React.FC = () => {
           <>
             <UnPrivate>
               <>
-                <Route path="/signin" component={SignIn} />
-                <Route path="/signup" component={SignUp} />
+                <Route exact path="/signin" component={SignIn} />
+                <Route exact path="/signup" component={SignUp} />
               </>
             </UnPrivate>
             <Private>
-              <Route exact path="/" component={Home} />
+              <>
+                <Route exact path="/user" component={UserEdit} />
+                <Route exact path="/" component={Home} />
+              </>
             </Private>
           </>
         </CommonLayout>
