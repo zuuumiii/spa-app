@@ -61,7 +61,7 @@ const App: React.FC = () => {
     }
   };
 
-  // ユーザーが認証済みかどうか　でルーティングを決定
+  // ユーザーが認証済みかどうかでルーティングを決定
   // 未認証だった場合は「/signin」ページに促す
   const Private = ({ children }: { children: React.ReactElement }) => {
     if (!loading) {
