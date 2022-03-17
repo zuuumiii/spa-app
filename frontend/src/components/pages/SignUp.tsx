@@ -43,8 +43,6 @@ const SignUp: React.FC = () => {
 
   const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
-  const [precNo, setPrecNo] = useState<number | null>(null);
-  const [blockNo, setBlockNo] = useState<number | null>(null);
   const [password, setPassword] = useState<string>("");
   const [passwordConfirmation, setPasswordConfirmation] = useState<string>("");
   const [alertMessageOpen, setAlertMessageOpen] = useState<boolean>(false);
@@ -170,7 +168,7 @@ const SignUp: React.FC = () => {
               inputLabel="観測所"
               items={blockOptionsRef.current}
               value={selectedBlockNo}
-              defaultValue={1}
+              defaultValue={47401}
               onChange={(selected) => setSelectedBlockNo(selected)}
             />
 
