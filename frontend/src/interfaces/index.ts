@@ -15,7 +15,7 @@ export interface SignInParams {
 // ユーザー更新
 export interface UserEditParams {
   name: string;
-  email: string;
+  //email: string;
 }
 
 // ユーザー認証

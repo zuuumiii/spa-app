@@ -1,5 +1,6 @@
 import React, { useState, useContext } from "react";
 import { useHistory } from "react-router-dom";
+import Cookies from "js-cookie";
 
 import { makeStyles, Theme } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
@@ -47,7 +48,6 @@ const UserEdit: React.FC = () => {
 
     const params: UserEditParams = {
       name: name,
-      email: email,
     };
 
     try {
@@ -55,6 +55,15 @@ const UserEdit: React.FC = () => {
       console.log(res);
 
       if (res.status === 200) {
+        //PUTするとトークンが変更されるので再ログイン処理
+        Cookies.set("_access_token", res.headers["access-token"]);
+        Cookies.set("_client", res.headers["client"]);
+        Cookies.set("_uid", res.headers["uid"]);
+
+        setIsSignedIn(true);
+        setCurrentUser(res.data.data);
+
+        histroy.push("/");
         console.log("User edit successfully!");
       } else {
         setAlertMessageOpen(true);
@@ -87,7 +96,7 @@ const UserEdit: React.FC = () => {
               label="Email"
               value={email}
               margin="dense"
-              onChange={(event) => setEmail(event.target.value)}
+              //onChange={(event) => setEmail(event.target.value)}
             />
             <Button
               type="submit"
@@ -95,7 +104,7 @@ const UserEdit: React.FC = () => {
               size="large"
               fullWidth
               color="default"
-              disabled={!name || !email ? true : false}
+              disabled={!name && !email ? true : false}
               className={classes.submitBtn}
               onClick={handleSubmit}
             >

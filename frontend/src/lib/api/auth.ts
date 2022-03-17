@@ -13,8 +13,15 @@ export const signIn = (params: SignInParams) => {
   return client.post("auth/sign_in", params);
 };
 
+//ユーザ情報更新
 export const userEdit = (params: UserEditParams) => {
-  return client.put("", params);
+  return client.put("auth/", params, {
+    headers: {
+      "access-token": Cookies.get("_access_token"),
+      client: Cookies.get("_client"),
+      uid: Cookies.get("_uid"),
+    },
+  });
 };
 
 // サインアウト（ログアウト）
