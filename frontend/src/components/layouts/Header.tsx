@@ -66,11 +66,11 @@ const Header: React.FC = () => {
           <>
             <Button
               component={Link}
-              to="/"
+              to="/user/"
               color="inherit"
               className={classes.linkBtn}
             >
-              {currentUser?.name}
+              {currentUser?.name} さん
             </Button>
             <Button
               color="inherit"

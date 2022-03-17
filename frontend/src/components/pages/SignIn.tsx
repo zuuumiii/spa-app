@@ -24,6 +24,9 @@ const useStyles = makeStyles((theme: Theme) => ({
     marginTop: theme.spacing(2),
     flexGrow: 1,
     textTransform: "none",
+    "&:hover": {
+      backgroundColor: "#80cbc4",
+    },
   },
   header: {
     textAlign: "center",
