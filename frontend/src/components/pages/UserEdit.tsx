@@ -40,7 +40,6 @@ const UserEdit: React.FC = () => {
   const { setIsSignedIn, setCurrentUser } = useContext(AuthContext);
 
   const [name, setName] = useState<string>("");
-  const [email, setEmail] = useState<string>("");
   const [alertMessageOpen, setAlertMessageOpen] = useState<boolean>(false);
 
   const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -89,22 +88,13 @@ const UserEdit: React.FC = () => {
               margin="dense"
               onChange={(event) => setName(event.target.value)}
             />
-            <TextField
-              variant="outlined"
-              required
-              fullWidth
-              label="Email"
-              value={email}
-              margin="dense"
-              //onChange={(event) => setEmail(event.target.value)}
-            />
             <Button
               type="submit"
               variant="contained"
               size="large"
               fullWidth
               color="default"
-              disabled={!name && !email ? true : false}
+              disabled={!name}
               className={classes.submitBtn}
               onClick={handleSubmit}
             >

@@ -2,6 +2,8 @@
 export interface SignUpParams {
   name: string;
   email: string;
+  precNo: number;
+  blockNo: number;
   password: string;
   passwordConfirmation: string;
 }
