@@ -66,7 +66,7 @@ const Header: React.FC = () => {
           <>
             <Button
               component={Link}
-              to="/user/"
+              to="/user"
               color="inherit"
               className={classes.linkBtn}
             >
