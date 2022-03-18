@@ -27,7 +27,7 @@ services:
       - db
   front:
     build: ./frontend
-    command: yarn start
+    command: npm start
     ports:
       - '3000:3000'
     stdin_open: true
