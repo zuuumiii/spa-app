@@ -29,7 +29,7 @@ services:
     build: 
       context: ./frontend
       dockerfile: Dockerfile
-    command: sh -c "cd spa-app && yarn start"
+    command: sh -c "yarn start"
     ports:
       - '3000:3000'
     stdin_open: true
