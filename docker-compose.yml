@@ -27,7 +27,7 @@ services:
       - db
   front:
     build: 
-      context: ./front
+      context: ./frontend
       dockerfile: Dockerfile
     command: sh -c "cd spa-app && yarn start"
     ports:
