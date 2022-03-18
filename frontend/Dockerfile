@@ -3,6 +3,7 @@ RUN mkdir /myapp
 WORKDIR /myapp
 COPY . .
 RUN yarn install
+RUN npm install react-scripts
 
 EXPOSE 3000
 CMD ["yarn", "run", "start"]
