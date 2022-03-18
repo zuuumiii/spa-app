@@ -26,10 +26,8 @@ services:
     depends_on:
       - db
   front:
-    build: 
-      context: ./frontend
-      dockerfile: Dockerfile
-    command: sh -c "cd spa-app && yarn start"
+    build: ./frontend
+    command: npm start
     ports:
       - '3000:3000'
     stdin_open: true
