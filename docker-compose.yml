@@ -35,6 +35,7 @@ services:
     stdin_open: true
     volumes:
       - ./frontend:/myapp
+      - /myapp/node_modules
     depends_on:
       - api
 volumes:
