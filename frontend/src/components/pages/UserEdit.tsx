@@ -157,14 +157,12 @@ const UserEdit: React.FC = () => {
               inputLabel="都道府県"
               items={precOptions}
               value={selectedPrecNo}
-              defaultValue={precOptions[0].no}
               onChange={(selected) => onPrecBoxChangeHandler(selected)}
             />
             <PrecBlockBox
               inputLabel="観測所"
               items={blockOptionsRef.current}
               value={selectedBlockNo}
-              defaultValue={47401}
               onChange={(selected) => setSelectedBlockNo(selected)}
             />
             <Button
