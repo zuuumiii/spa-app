@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useRef } from "react";
 import { useHistory } from "react-router-dom";
 import Cookies from "js-cookie";
 
@@ -13,6 +13,8 @@ import { AuthContext } from "App";
 import AlertMessage from "components/utils/AlertMessage";
 import { userEdit } from "lib/api/auth";
 import { UserEditParams } from "interfaces/index";
+import PrecBlockBox, { PrecBlockItem } from "components/precblock/PrecBlockBox";
+import { PrecBlockList } from "components/precblock/PrefBlockList";
 
 const useStyles = makeStyles((theme: Theme) => ({
   container: {
@@ -32,14 +34,16 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-// サインアップ用ページ
+// ユーザー編集ページ
 const UserEdit: React.FC = () => {
   const classes = useStyles();
   const histroy = useHistory();
 
-  const { setIsSignedIn, setCurrentUser } = useContext(AuthContext);
+  const { setIsSignedIn, setCurrentUser, currentUser } =
+    useContext(AuthContext);
 
-  const [name, setName] = useState<string>("");
+  const [name, setName] = useState<string>(currentUser!.name);
+  const [email, setEmail] = useState<string>(currentUser!.email);
   const [alertMessageOpen, setAlertMessageOpen] = useState<boolean>(false);
 
   const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -47,6 +51,9 @@ const UserEdit: React.FC = () => {
 
     const params: UserEditParams = {
       name: name,
+      email: email,
+      precNo: selectedPrecNo,
+      blockNo: selectedBlockNo,
     };
 
     try {
@@ -73,6 +80,55 @@ const UserEdit: React.FC = () => {
     }
   };
 
+  //Boxのアイテムとするprec一覧をStateで管理
+  const [precOptions] = useState<PrecBlockItem[]>(
+    PrecBlockList.map((p) => {
+      return {
+        no: p.precNo,
+        name: p.precName,
+      };
+    })
+  );
+  //選択中のprecNoをStateで管理
+  const [selectedPrecNo, setSelectedPrecNo] = useState<number>(
+    currentUser!.precNo
+  );
+
+  //選択中のprecに属するblockをRefで管理
+  const blockOptionsRef = useRef(
+    PrecBlockList.filter((p) => p.precNo === selectedPrecNo)[0].blocks.map(
+      (p) => {
+        return {
+          no: p.blockNo,
+          name: p.blockName,
+        };
+      }
+    )
+  );
+  //選択中のblockNoをStateで管理
+  const [selectedBlockNo, setSelectedBlockNo] = useState<number>(
+    currentUser!.blockNo
+  );
+
+  const onPrecBoxChangeHandler = (precNo: number) => {
+    //選択したprecNoをStateに指定
+    setSelectedPrecNo(precNo);
+    //選択したprecのblock一覧
+    const selectedPrecBlocks = PrecBlockList.filter(
+      (p) => p.precNo === precNo
+    )[0].blocks;
+    //選択したpreckに属する最初のblockをStateに指定
+    setSelectedBlockNo(selectedPrecBlocks[0].blockNo);
+
+    //選択したblockをRefに指定
+    blockOptionsRef.current = selectedPrecBlocks.map((p) => {
+      return {
+        no: p.blockNo,
+        name: p.blockName,
+      };
+    });
+  };
+
   return (
     <>
       <form noValidate autoComplete="off">
@@ -88,13 +144,34 @@ const UserEdit: React.FC = () => {
               margin="dense"
               onChange={(event) => setName(event.target.value)}
             />
+            <TextField
+              variant="outlined"
+              required
+              fullWidth
+              label="Email"
+              value={email}
+              margin="dense"
+              onChange={(event) => setEmail(event.target.value)}
+            />
+            <PrecBlockBox
+              inputLabel="都道府県"
+              items={precOptions}
+              value={selectedPrecNo}
+              onChange={(selected) => onPrecBoxChangeHandler(selected)}
+            />
+            <PrecBlockBox
+              inputLabel="観測所"
+              items={blockOptionsRef.current}
+              value={selectedBlockNo}
+              onChange={(selected) => setSelectedBlockNo(selected)}
+            />
             <Button
               type="submit"
               variant="contained"
               size="large"
               fullWidth
               color="default"
-              disabled={!name}
+              disabled={!name || !email ? true : false}
               className={classes.submitBtn}
               onClick={handleSubmit}
             >
