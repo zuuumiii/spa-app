@@ -38,4 +38,4 @@
 <br>
 
 # ER図
-[![Image from Gyazo](https://i.gyazo.com/96cb6023072d4089884bbef3f78daac0.png)](https://gyazo.com/96cb6023072d4089884bbef3f78daac0)
+[![Image from Gyazo](https://i.gyazo.com/6aa4c83692460f0f46eee8382763408b.png)](https://gyazo.com/6aa4c83692460f0f46eee8382763408b)
