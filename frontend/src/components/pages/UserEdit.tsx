@@ -32,14 +32,15 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-// サインアップ用ページ
+// ユーザー編集ページ
 const UserEdit: React.FC = () => {
   const classes = useStyles();
   const histroy = useHistory();
 
-  const { setIsSignedIn, setCurrentUser } = useContext(AuthContext);
+  const { setIsSignedIn, setCurrentUser, currentUser } =
+    useContext(AuthContext);
 
-  const [name, setName] = useState<string>("");
+  const [name, setName] = useState<string>(currentUser!.name);
   const [alertMessageOpen, setAlertMessageOpen] = useState<boolean>(false);
 
   const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
