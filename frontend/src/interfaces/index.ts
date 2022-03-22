@@ -18,6 +18,8 @@ export interface SignInParams {
 export interface UserEditParams {
   name: string;
   email: string;
+  precNo: number;
+  blockNo: number;
 }
 
 // ユーザー認証
@@ -27,6 +29,8 @@ export interface User {
   provider: string;
   email: string;
   name: string;
+  precNo: number;
+  blockNo: number;
   nickname?: string;
   image?: string;
   allowPasswordChange: boolean;
