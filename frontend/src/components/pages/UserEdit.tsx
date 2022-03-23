@@ -24,12 +24,25 @@ const useStyles = makeStyles((theme: Theme) => ({
     marginTop: theme.spacing(2),
     flexGrow: 1,
     textTransform: "none",
+    "&:hover": {
+      backgroundColor: "#4db6ac",
+    },
+  },
+  deleteBtn: {
+    backgroundColor: "#ff8a65",
+    marginTop: theme.spacing(2),
+    flexGrow: 1,
+    textTransform: "none",
+    "&:hover": {
+      backgroundColor: "#ff5722",
+    },
   },
   header: {
     textAlign: "center",
   },
   card: {
     padding: theme.spacing(2),
+    marginBottom: theme.spacing(10),
     maxWidth: 400,
   },
 }));
@@ -176,6 +189,21 @@ const UserEdit: React.FC = () => {
               onClick={handleSubmit}
             >
               Submit
+            </Button>
+          </CardContent>
+        </Card>
+        <Card className={classes.card}>
+          <CardHeader className={classes.header} title="User Delete" />
+          <CardContent>
+            <Button
+              type="submit"
+              variant="contained"
+              size="large"
+              fullWidth
+              color="default"
+              className={classes.deleteBtn}
+            >
+              User Delete
             </Button>
           </CardContent>
         </Card>

@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     flexGrow: 1,
     textTransform: "none",
     "&:hover": {
-      backgroundColor: "#80cbc4",
+      backgroundColor: "#4db6ac",
     },
   },
   header: {
