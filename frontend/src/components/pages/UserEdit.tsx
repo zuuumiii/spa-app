@@ -15,6 +15,7 @@ import { userEdit } from "lib/api/auth";
 import { UserEditParams } from "interfaces/index";
 import PrecBlockBox, { PrecBlockItem } from "components/precblock/PrecBlockBox";
 import { PrecBlockList } from "components/precblock/PrefBlockList";
+import DeleteModal from "components/modal/DeleteModal";
 
 const useStyles = makeStyles((theme: Theme) => ({
   container: {
@@ -26,15 +27,6 @@ const useStyles = makeStyles((theme: Theme) => ({
     textTransform: "none",
     "&:hover": {
       backgroundColor: "#4db6ac",
-    },
-  },
-  deleteBtn: {
-    backgroundColor: "#ff8a65",
-    marginTop: theme.spacing(2),
-    flexGrow: 1,
-    textTransform: "none",
-    "&:hover": {
-      backgroundColor: "#ff5722",
     },
   },
   header: {
@@ -195,16 +187,12 @@ const UserEdit: React.FC = () => {
         <Card className={classes.card}>
           <CardHeader className={classes.header} title="User Delete" />
           <CardContent>
-            <Button
-              type="submit"
-              variant="contained"
-              size="large"
-              fullWidth
-              color="default"
-              className={classes.deleteBtn}
-            >
-              User Delete
-            </Button>
+            <DeleteModal
+              text={"アカウント削除"}
+              onClick={() => console.log("アカウント削除!")}
+              modalTitle={"アカウント削除"}
+              modalText={"本当に削除してもよろしいですか？"}
+            />
           </CardContent>
         </Card>
       </form>
