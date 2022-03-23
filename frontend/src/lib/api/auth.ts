@@ -17,9 +17,9 @@ export const signIn = (params: SignInParams) => {
 export const userEdit = (params: UserEditParams) => {
   return client.put("auth/", params, {
     headers: {
-      "access-token": Cookies.get("_access_token"),
-      client: Cookies.get("_client"),
-      uid: Cookies.get("_uid"),
+      "access-token": Cookies.get("_access_token")!,
+      client: Cookies.get("_client")!,
+      uid: Cookies.get("_uid")!,
     },
   });
 };
@@ -28,9 +28,9 @@ export const userEdit = (params: UserEditParams) => {
 export const signOut = () => {
   return client.delete("auth/sign_out", {
     headers: {
-      "access-token": Cookies.get("_access_token"),
-      client: Cookies.get("_client"),
-      uid: Cookies.get("_uid"),
+      "access-token": Cookies.get("_access_token")!,
+      client: Cookies.get("_client")!,
+      uid: Cookies.get("_uid")!,
     },
   });
 };
@@ -45,9 +45,9 @@ export const getCurrentUser = () => {
     return;
   return client.get("/auth/sessions", {
     headers: {
-      "access-token": Cookies.get("_access_token"),
-      client: Cookies.get("_client"),
-      uid: Cookies.get("_uid"),
+      "access-token": Cookies.get("_access_token")!,
+      client: Cookies.get("_client")!,
+      uid: Cookies.get("_uid")!,
     },
   });
 };
