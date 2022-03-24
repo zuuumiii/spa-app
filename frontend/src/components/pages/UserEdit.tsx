@@ -11,7 +11,7 @@ import Button from "@material-ui/core/Button";
 
 import { AuthContext } from "App";
 import AlertMessage from "components/utils/AlertMessage";
-import { userEdit } from "lib/api/auth";
+import { userDelete, userEdit } from "lib/api/auth";
 import { UserEditParams } from "interfaces/index";
 import PrecBlockBox, { PrecBlockItem } from "components/precblock/PrecBlockBox";
 import { PrecBlockList } from "components/precblock/PrefBlockList";
@@ -82,6 +82,28 @@ const UserEdit: React.FC = () => {
     } catch (err) {
       console.log(err);
       setAlertMessageOpen(true);
+    }
+  };
+
+  const handleUserDelete = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    try {
+      const res = await userDelete();
+      console.log(res);
+      if (res.status === 200) {
+        //各Cookieを削除
+        Cookies.remove("_access_token");
+        Cookies.remove("_client");
+        Cookies.remove("_uid");
+
+        setIsSignedIn(false);
+        histroy.push("/signin");
+
+        console.log("Succeeded in User Delete");
+      } else {
+        console.log("Failed in User Delete");
+      }
+    } catch (err) {
+      console.log(err);
     }
   };
 
@@ -189,7 +211,7 @@ const UserEdit: React.FC = () => {
           <CardContent>
             <DeleteModal
               text={"アカウント削除"}
-              onClick={() => console.log("アカウント削除!")}
+              onClick={handleUserDelete}
               modalTitle={"アカウント削除"}
               modalText={"本当に削除してもよろしいですか？"}
             />
@@ -200,7 +222,7 @@ const UserEdit: React.FC = () => {
         open={alertMessageOpen}
         setOpen={setAlertMessageOpen}
         severity="error"
-        message="Invalid emai or password"
+        message="Invalid email or password"
       />
     </>
   );

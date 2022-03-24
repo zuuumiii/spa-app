@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
 
 interface DeleteModalProps {
   text: string;
-  onClick: () => void;
+  onClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
   modalTitle: string;
   modalText: string;
 }
@@ -60,19 +60,19 @@ const DeleteModal = ({
   };
 
   const handleOK = () => {
-    onClick();
+    onClick;
     handleClose();
   };
 
   const body = (
     <div className={classes.paper}>
       <h2>{modalTitle}</h2>
-      <p>{modalText}</p>
+      <Typography>{modalText}</Typography>
       <Button
         variant="contained"
         className={classes.deleteBtn}
         color="default"
-        onClick={() => handleOK()}
+        onClick={handleOK}
       >
         OK
       </Button>
