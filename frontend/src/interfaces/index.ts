@@ -41,7 +41,7 @@ export interface User {
 export interface FieldCreateParams {
   fieldName: string;
   product: string;
-  area: number;
+  area: number | null;
   startDate: Date | null;
   info: string;
   correct: number;

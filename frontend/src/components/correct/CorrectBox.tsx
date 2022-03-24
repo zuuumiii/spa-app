@@ -7,7 +7,7 @@ import InputLabel from "@material-ui/core/InputLabel";
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
-    margin: theme.spacing(3),
+    marginTop: theme.spacing(3),
   },
 }));
 
@@ -29,6 +29,9 @@ const CorrectBox: React.FC<Props> = (props) => {
     <FormControl className={classes.formControl}>
       <InputLabel>{inputLabel}</InputLabel>
       <Select
+        fullWidth
+        variant="outlined"
+        margin="dense"
         value={value}
         onChange={(e) => {
           if (e.target.value !== undefined) {
@@ -38,7 +41,7 @@ const CorrectBox: React.FC<Props> = (props) => {
       >
         {correctItems.map((item) => (
           <MenuItem value={item} key={item}>
-            {item}
+            {item}℃
           </MenuItem>
         ))}
       </Select>
