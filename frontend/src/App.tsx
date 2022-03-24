@@ -53,7 +53,7 @@ const App: React.FC = () => {
   }, [setCurrentUser]);
 
   //認証済みユーザーは「/signin」 「/signup」ページに入れない
-  // 未認証だった場合は「/」ページに促す
+  // 認証済みだった場合は「/」ページに促す
   const UnPrivate = ({ children }: { children: React.ReactElement }) => {
     if (!isSignedIn) {
       return children;

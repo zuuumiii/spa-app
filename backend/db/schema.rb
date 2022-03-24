@@ -10,7 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_17_085056) do
+ActiveRecord::Schema.define(version: 2022_03_24_052042) do
+
+  create_table "fields", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "field_name", null: false
+    t.string "product", null: false
+    t.float "area", default: 0.0
+    t.date "start_date", null: false
+    t.text "info"
+    t.integer "correct", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_fields_on_user_id"
+  end
 
   create_table "users", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "provider", default: "email", null: false
@@ -39,4 +52,5 @@ ActiveRecord::Schema.define(version: 2022_03_17_085056) do
     t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true
   end
 
+  add_foreign_key "fields", "users"
 end
