@@ -14,10 +14,8 @@ import DateFnsUtils from "@date-io/date-fns";
 
 import { AuthContext } from "App";
 import AlertMessage from "components/utils/AlertMessage";
-import { userDelete, userEdit } from "lib/api/auth";
 import { FieldCreateParams } from "interfaces/index";
-import PrecBlockBox, { PrecBlockItem } from "components/precblock/PrecBlockBox";
-import { PrecBlockList } from "components/precblock/PrefBlockList";
+import CorrectBox from "components/correct/CorrectBox";
 import { fieldNew } from "lib/api/field";
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -42,7 +40,6 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-// ユーザー編集ページ
 const FieldNew: React.FC = () => {
   const classes = useStyles();
   const histroy = useHistory();
@@ -81,55 +78,6 @@ const FieldNew: React.FC = () => {
       console.log("err");
       setAlertMessageOpen(true);
     }
-  };
-
-  //Boxのアイテムとするprec一覧をStateで管理
-  const [precOptions] = useState<PrecBlockItem[]>(
-    PrecBlockList.map((p) => {
-      return {
-        no: p.precNo,
-        name: p.precName,
-      };
-    })
-  );
-  //選択中のprecNoをStateで管理
-  const [selectedPrecNo, setSelectedPrecNo] = useState<number>(
-    currentUser!.precNo
-  );
-
-  //選択中のprecに属するblockをRefで管理
-  const blockOptionsRef = useRef(
-    PrecBlockList.filter((p) => p.precNo === selectedPrecNo)[0].blocks.map(
-      (p) => {
-        return {
-          no: p.blockNo,
-          name: p.blockName,
-        };
-      }
-    )
-  );
-  //選択中のblockNoをStateで管理
-  const [selectedBlockNo, setSelectedBlockNo] = useState<number>(
-    currentUser!.blockNo
-  );
-
-  const onPrecBoxChangeHandler = (precNo: number) => {
-    //選択したprecNoをStateに指定
-    setSelectedPrecNo(precNo);
-    //選択したprecのblock一覧
-    const selectedPrecBlocks = PrecBlockList.filter(
-      (p) => p.precNo === precNo
-    )[0].blocks;
-    //選択したpreckに属する最初のblockをStateに指定
-    setSelectedBlockNo(selectedPrecBlocks[0].blockNo);
-
-    //選択したblockをRefに指定
-    blockOptionsRef.current = selectedPrecBlocks.map((p) => {
-      return {
-        no: p.blockNo,
-        name: p.blockName,
-      };
-    });
   };
 
   return (
@@ -185,11 +133,10 @@ const FieldNew: React.FC = () => {
               margin="dense"
               onChange={(event) => setInfo(event.target.value)}
             />
-            <PrecBlockBox
-              inputLabel="観測所"
-              items={blockOptionsRef.current}
-              value={selectedBlockNo}
-              onChange={(selected) => setSelectedBlockNo(selected)}
+            <CorrectBox
+              inputLabel="補正値"
+              value={correct}
+              onChange={(selected) => setCorrect(selected)}
             />
             <Button
               type="submit"
