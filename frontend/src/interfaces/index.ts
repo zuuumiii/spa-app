@@ -37,3 +37,12 @@ export interface User {
   created_at: Date;
   updated_at: Date;
 }
+
+export interface FieldCreateParams {
+  fieldName: string;
+  product: string;
+  area: number;
+  startDate: Date | null;
+  info: string;
+  correct: number;
+}
