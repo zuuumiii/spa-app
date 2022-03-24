@@ -211,7 +211,7 @@ const UserEdit: React.FC = () => {
           <CardContent>
             <DeleteModal
               text={"アカウント削除"}
-              onClick={handleUserDelete}
+              onClick={(e) => handleUserDelete(e)}
               modalTitle={"アカウント削除"}
               modalText={"本当に削除してもよろしいですか？"}
             />

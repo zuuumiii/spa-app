@@ -13,6 +13,7 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "center",
   },
   deleteBtn: {
+    marginTop: theme.spacing(2),
     flexGrow: 1,
     textTransform: "none",
     "&:hover": {
@@ -20,6 +21,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   cancelBtn: {
+    marginTop: theme.spacing(2),
     backgroundColor: "#eeeeee",
     flexGrow: 1,
     textTransform: "none",
@@ -59,9 +61,9 @@ const DeleteModal = ({
     setOpen(false);
   };
 
-  const handleOK = () => {
-    onClick;
+  const handleOK = (e: React.MouseEvent<HTMLButtonElement>) => {
     handleClose();
+    return onClick(e);
   };
 
   const body = (
@@ -72,7 +74,7 @@ const DeleteModal = ({
         variant="contained"
         className={classes.deleteBtn}
         color="default"
-        onClick={handleOK}
+        onClick={(e) => handleOK(e)}
       >
         OK
       </Button>
