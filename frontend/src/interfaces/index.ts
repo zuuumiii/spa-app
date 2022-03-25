@@ -42,7 +42,7 @@ export interface FieldCreateParams {
   fieldName: string;
   product: string;
   area: number | null;
-  startDate: Date | null;
+  startDate: number | null;
   info: string;
   correct: number;
 }

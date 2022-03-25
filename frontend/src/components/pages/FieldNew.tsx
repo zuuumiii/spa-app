@@ -69,11 +69,17 @@ const FieldNew: React.FC = () => {
   const [area, setArea] = useState<number | null>(null);
   const [info, setInfo] = useState<string>("");
   const [correct, setCorrect] = useState<number>(0);
-  const [startDate, setStartDate] = useState<Date | null>(new Date());
+  const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
+  const [startDate, setStartDate] = useState<number | null>(
+    selectedDate!.getTime() / 1000
+  );
   const [alertMessageOpen, setAlertMessageOpen] = useState<boolean>(false);
 
   const changeDateHandler = (newDate: Date | null): void => {
-    setStartDate(newDate);
+    setSelectedDate(newDate);
+    //Railsで日付を扱うためにミリ秒に変換してstateにセット
+    const newTime: number | null = newDate!.getTime() / 1000;
+    setStartDate(newTime);
   };
 
   const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -129,7 +135,7 @@ const FieldNew: React.FC = () => {
               fullWidth
               label="圃場面積"
               value={area}
-              inputProps={{
+              InputProps={{
                 endAdornment: (
                   <InputAdornment position="end">単位（a）</InputAdornment>
                 ),
@@ -147,7 +153,7 @@ const FieldNew: React.FC = () => {
               >
                 <DatePicker
                   label="測定開始日"
-                  value={startDate}
+                  value={selectedDate}
                   format="yyyy年M月d日"
                   inputVariant="outlined"
                   margin="dense"
