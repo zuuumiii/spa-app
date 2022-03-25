@@ -18,7 +18,7 @@ import { AuthContext } from "App";
 import AlertMessage from "components/utils/AlertMessage";
 import { FieldCreateParams } from "interfaces/index";
 import CorrectBox from "components/correct/CorrectBox";
-import { fieldNew } from "lib/api/field";
+import { fieldCreate } from "lib/api/field";
 
 const useStyles = makeStyles((theme: Theme) => ({
   container: {
@@ -57,7 +57,7 @@ class JaLocalizedUtils extends DateFnsUtils {
   }
 }
 
-const FieldNew: React.FC = () => {
+const FieldCreate: React.FC = () => {
   const classes = useStyles();
   const histroy = useHistory();
 
@@ -95,8 +95,15 @@ const FieldNew: React.FC = () => {
     };
 
     try {
-      const res = await fieldNew(params);
+      const res = await fieldCreate(params);
       console.log(res);
+
+      if (res.status === 200) {
+        histroy.push("/");
+        console.log("Create successfully!");
+      } else {
+        setAlertMessageOpen(true);
+      }
     } catch (err) {
       console.log("err");
       setAlertMessageOpen(true);
@@ -201,4 +208,4 @@ const FieldNew: React.FC = () => {
   );
 };
 
-export default FieldNew;
+export default FieldCreate;
