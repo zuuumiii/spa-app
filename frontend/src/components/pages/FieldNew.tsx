@@ -129,13 +129,13 @@ const FieldNew: React.FC = () => {
               fullWidth
               label="圃場面積"
               value={area}
-              InputProps={{
+              inputProps={{
                 endAdornment: (
                   <InputAdornment position="end">単位（a）</InputAdornment>
                 ),
               }}
               margin="dense"
-              onChange={(event) => {
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                 const value: number = Number(event.target.value);
                 setArea(value);
               }}
