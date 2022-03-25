@@ -3,6 +3,11 @@ module Api
   
     class FieldsController < ApplicationController
     
+      def index
+        fields = Field.where(user_id: current_api_v1_user.id)
+        render json: { status: "SUCCESS", data: fields }
+      end
+
       def create 
        field = Field.new(field_params)
        if field.save
