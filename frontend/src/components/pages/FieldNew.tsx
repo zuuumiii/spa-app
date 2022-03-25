@@ -69,15 +69,15 @@ const FieldNew: React.FC = () => {
   const [area, setArea] = useState<number | null>(null);
   const [info, setInfo] = useState<string>("");
   const [correct, setCorrect] = useState<number>(0);
-  const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
+  const [selectedDate, setSelectedDate] = useState<Date | null>(new Date()); //選択した日付を保持
   const [startDate, setStartDate] = useState<number | null>(
     selectedDate!.getTime() / 1000
-  );
+  ); //初期値として洗濯中の日付（今日）をUNIX時間で設定
   const [alertMessageOpen, setAlertMessageOpen] = useState<boolean>(false);
 
   const changeDateHandler = (newDate: Date | null): void => {
     setSelectedDate(newDate);
-    //Railsで日付を扱うためにミリ秒に変換してstateにセット
+    //Railsで日付を扱うためにUNIX時間に変換してstateにセット
     const newTime: number | null = newDate!.getTime() / 1000;
     setStartDate(newTime);
   };
