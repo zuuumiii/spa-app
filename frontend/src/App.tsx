@@ -7,9 +7,19 @@ import SignUp from "components/pages/SignUp";
 import SignIn from "components/pages/SignIn";
 import FieldCreate from "components/pages/FieldCreate";
 
+import { makeStyles } from "@material-ui/styles";
+
 import { getCurrentUser } from "lib/api/auth";
 import { User } from "interfaces/index";
 import UserEdit from "components/pages/UserEdit";
+
+const useStyles = makeStyles(() => ({
+  container: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+  },
+}));
 
 // グローバルで扱う変数・関数
 export const AuthContext = createContext(
@@ -24,6 +34,7 @@ export const AuthContext = createContext(
 );
 
 const App: React.FC = () => {
+  const classes = useStyles();
   const [loading, setLoading] = useState<boolean>(true);
   const [isSignedIn, setIsSignedIn] = useState<boolean>(false);
   const [currentUser, setCurrentUser] = useState<User | undefined>();
@@ -92,17 +103,17 @@ const App: React.FC = () => {
         <CommonLayout>
           <>
             <UnPrivate>
-              <>
+              <div className={classes.container}>
                 <Route exact path="/signin" component={SignIn} />
                 <Route exact path="/signup" component={SignUp} />
-              </>
+              </div>
             </UnPrivate>
             <Private>
-              <>
+              <div>
                 <Route exact path="/fieldCreate" component={FieldCreate} />
                 <Route exact path="/user" component={UserEdit} />
                 <Route exact path="/" component={Home} />
-              </>
+              </div>
             </Private>
           </>
         </CommonLayout>

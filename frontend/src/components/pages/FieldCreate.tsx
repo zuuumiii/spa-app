@@ -1,6 +1,5 @@
-import React, { useState, useContext, useRef } from "react";
+import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
-import Cookies from "js-cookie";
 
 import { makeStyles, Theme } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
@@ -14,16 +13,12 @@ import DateFnsUtils from "@date-io/date-fns";
 import jaLocale from "date-fns/locale/ja";
 import { format } from "date-fns";
 
-import { AuthContext } from "App";
 import AlertMessage from "components/utils/AlertMessage";
 import { FieldCreateParams } from "interfaces/index";
 import CorrectBox from "components/correct/CorrectBox";
 import { fieldCreate } from "lib/api/field";
 
 const useStyles = makeStyles((theme: Theme) => ({
-  container: {
-    marginTop: theme.spacing(6),
-  },
   textField: {
     marginTop: theme.spacing(3),
   },
@@ -60,9 +55,6 @@ class JaLocalizedUtils extends DateFnsUtils {
 const FieldCreate: React.FC = () => {
   const classes = useStyles();
   const histroy = useHistory();
-
-  const { setIsSignedIn, setCurrentUser, currentUser } =
-    useContext(AuthContext);
 
   const [fieldName, setFieldName] = useState<string>("");
   const [product, setProduct] = useState<string>("");
