@@ -8,7 +8,7 @@ module Api
         fields = Field.where(user_id: current_api_v1_user.id)
         user = User.find(current_api_v1_user.id)
         fields = fields.each do |field|
-          result = get_accum(field.start_date, user.prec_no, user.block_no)
+          result = get_accum(field.start_date, user.prec_no, user.block_no, field.correct)
           field[:accum_temp] = result
           field.save
         end
@@ -31,7 +31,7 @@ module Api
       end
     
     
-      def get_accum(date,prec_no,block_no)        
+      def get_accum(date, prec_no, block_no, correct)        
         y_date = Date.yesterday
         y_year = y_date.year
         y_month = y_date.month
@@ -57,7 +57,7 @@ module Api
             start_month -= 12
           end
     
-          url = "http://www.data.jma.go.jp/obd/stats/etrn/view/daily_s1.php?prec_no=#{prec_no}&block_no=#{block_no}&year=#{start_year}&month=#{start_month + m}&day=1&view="
+          url = "http://www.data.jma.go.jp/obd/stats/etrn/view/daily_s1.php?prec_no=#{prec_no}&block_no=#{block_no}&year=#{start_year}&month=#{start_month + m}&day=1&view=" #daily_s1をa1に変えれば各地方局にも対応可能
           agent = Mechanize.new
           page = agent.get(url)
           
@@ -66,7 +66,7 @@ module Api
           if m == 0 #スタート月のデータ取得
             (td_length-(start_day-1)).times do |i|
               ave_temp = page.search("//*[@id='tablefix1']/tr[#{5+(start_day-1)+i}]").search('td')[6].inner_text #７番目のtdタグが日平均気温
-              ave_temps << ave_temp.delete("^0-9.-") #配列として@tempsに順に追加
+              ave_temps << ave_temp.delete("^0-9.-") #配列としてave_tempsに順に追加
             end
           elsif m == term_month - 1 #今月のデータ取得
             y_day.times do |i|
@@ -83,15 +83,16 @@ module Api
     
         total_temp = 0
         ave_temps.each do |temp|
-        temp = temp.to_f
-          if temp < 0 
-            temp = 0 #0度以下はデータとして加算しない
+          if temp.present?              #配列に値があるときのみ計算
+            temp = temp.to_f + correct  #ここで補正値計算 
+            if temp <= 0                #0度以下はデータとして加算しない。
+              temp = 0
+            end
+            total_temp += temp
           end
-          total_temp += temp
         end
-        return total_temp
+        return total_temp.round(2)
       end
-
     end
   end
 end
