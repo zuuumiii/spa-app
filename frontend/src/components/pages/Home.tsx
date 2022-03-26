@@ -29,14 +29,14 @@ const useStyles = makeStyles((theme: Theme) => ({
     alignItems: "center",
     height: 130,
     marginTop: theme.spacing(3),
-    backgroundColor: "#ffffff",
+    backgroundColor: "#eceff1",
   },
   paper: {
     textAlign: "center",
-    margin: theme.spacing(0, 0.5),
+    margin: theme.spacing(0),
     color: theme.palette.text.primary,
     height: 100,
-    backgroundColor: "#cfd8dc",
+
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",
@@ -47,7 +47,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     display: "block",
     justifyContent: "center",
     "&:hover": {
-      backgroundColor: "#b0bec5",
+      backgroundColor: "#26a69a",
     },
   },
 }));
@@ -73,68 +73,86 @@ const Home: React.FC = () => {
       <div className={classes.fieldsWrapper}>
         <Grid container spacing={3} direction="column">
           <Card className={classes.fieldContainer}>
-            <Grid container xs={12}>
-              <Grid item xs={1}>
-                <Card className={classes.paper}>
-                  <Button className={classes.btn}>
-                    <Typography>圃場名</Typography>
-                    <Typography>作物名</Typography>
-                    <Typography>60000℃</Typography>
-                  </Button>
-                </Card>
+            <Grid container>
+              <Grid item xs={2} className={classes.paper}>
+                <Button className={classes.btn}>
+                  <Typography>圃場名</Typography>
+                  <Typography>作物名</Typography>
+                  <Typography>60000℃</Typography>
+                </Button>
               </Grid>
-              <Grid item xs={2}>
-                <Card className={classes.paper}>
-                  <Button className={classes.btn}>
-                    <Typography>target1</Typography>
-                    <Typography>600℃</Typography>
-                  </Button>
-                </Card>
+              <Grid item xs={2} className={classes.paper}>
+                <Button className={classes.btn}>
+                  <Typography>target1</Typography>
+                  <Typography>600℃</Typography>
+                </Button>
               </Grid>
-              <Grid item xs={2}>
-                <Card className={classes.paper}>
+              <Grid item xs={2} className={classes.paper}>
+                <Button className={classes.btn}>
                   <Typography>target2</Typography>
-                  <Typography>27000℃</Typography>
-                </Card>
+                  <Typography>600℃</Typography>
+                </Button>
               </Grid>
-              <Grid item xs={1}>
-                <Card className={classes.paper}>
-                  <Typography>目標追加</Typography>
-                  <Typography>編集</Typography>
-                  <Typography>削除</Typography>
-                </Card>
+              <Grid item xs={2} className={classes.paper}>
+                <Button className={classes.btn}>
+                  <Typography>target2</Typography>
+                  <Typography>600℃</Typography>
+                </Button>
+              </Grid>
+              <Grid item xs={2} className={classes.paper}>
+                <Button className={classes.btn}>
+                  <Typography>target2</Typography>
+                  <Typography>600℃</Typography>
+                </Button>
+              </Grid>
+              <Grid item xs={2} className={classes.paper}>
+                <Button className={classes.btn}>
+                  <Typography>target2</Typography>
+                  <Typography>600℃</Typography>
+                </Button>
               </Grid>
             </Grid>
           </Card>
         </Grid>
         <Grid container spacing={3} direction="column">
           <Card className={classes.fieldContainer}>
-            <Grid container xs={12}>
-              <Grid item xs={1}>
-                <Card className={classes.paper}>
+            <Grid container>
+              <Grid item xs={2} className={classes.paper}>
+                <Button className={classes.btn}>
                   <Typography>圃場名</Typography>
                   <Typography>作物名</Typography>
                   <Typography>60000℃</Typography>
-                </Card>
+                </Button>
               </Grid>
-              <Grid item xs={2}>
-                <Card className={classes.paper}>
+              <Grid item xs={2} className={classes.paper}>
+                <Button className={classes.btn}>
                   <Typography>target1</Typography>
                   <Typography>600℃</Typography>
-                </Card>
+                </Button>
               </Grid>
-              <Grid item xs={2}>
-                <Card className={classes.paper}>
+              <Grid item xs={2} className={classes.paper}>
+                <Button className={classes.btn}>
                   <Typography>target2</Typography>
-                  <Typography>27000℃</Typography>
-                </Card>
+                  <Typography>600℃</Typography>
+                </Button>
               </Grid>
-              <Grid item xs={1}>
-                <Card className={classes.paper}>
-                  <Typography>目標追加</Typography>
-                  <Typography>編集</Typography>
-                  <Typography>削除</Typography>
-                </Card>
+              <Grid item xs={2} className={classes.paper}>
+                <Button className={classes.btn}>
+                  <Typography>target2</Typography>
+                  <Typography>600℃</Typography>
+                </Button>
+              </Grid>
+              <Grid item xs={2} className={classes.paper}>
+                <Button className={classes.btn}>
+                  <Typography>target2</Typography>
+                  <Typography>600℃</Typography>
+                </Button>
+              </Grid>
+              <Grid item xs={2} className={classes.paper}>
+                <Button className={classes.btn}>
+                  <Typography>target2</Typography>
+                  <Typography>600℃</Typography>
+                </Button>
               </Grid>
             </Grid>
           </Card>
