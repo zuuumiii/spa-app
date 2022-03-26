@@ -38,6 +38,7 @@ export interface User {
   updated_at: Date;
 }
 
+//圃場編集
 export interface FieldCreateParams {
   fieldName: string;
   product: string;
@@ -45,4 +46,17 @@ export interface FieldCreateParams {
   startDate: number | null;
   info: string;
   correct: number;
+}
+
+//圃場取得
+export interface FieldParams {
+  id: number;
+  fieldName: string;
+  product: string;
+  area: number | null;
+  startDate: number | null;
+  info: string;
+  correct: number;
+  accumTemp: number;
+  userID: number;
 }

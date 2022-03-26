@@ -4,13 +4,9 @@ import { Link } from "react-router-dom";
 
 import { makeStyles, Theme } from "@material-ui/core/styles";
 
-import Paper from "@material-ui/core/Paper";
-import { Card } from "@material-ui/core";
-import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
-import { Typography } from "@material-ui/core";
 
-import FieldsContent from "components/container/FieldsContent";
+import FieldsContent from "components/fields/FieldsIndex";
 
 const useStyles = makeStyles((theme: Theme) => ({
   createBtn: {
@@ -70,94 +66,7 @@ const Home: React.FC = () => {
       >
         新 規 圃 場 登 録
       </Button>
-      <div className={classes.fieldsWrapper}>
-        <Grid container spacing={3} direction="column">
-          <Card className={classes.fieldContainer}>
-            <Grid container>
-              <Grid item xs={2} className={classes.paper}>
-                <Button className={classes.btn}>
-                  <Typography>圃場名</Typography>
-                  <Typography>作物名</Typography>
-                  <Typography>60000℃</Typography>
-                </Button>
-              </Grid>
-              <Grid item xs={2} className={classes.paper}>
-                <Button className={classes.btn}>
-                  <Typography>target1</Typography>
-                  <Typography>600℃</Typography>
-                </Button>
-              </Grid>
-              <Grid item xs={2} className={classes.paper}>
-                <Button className={classes.btn}>
-                  <Typography>target2</Typography>
-                  <Typography>600℃</Typography>
-                </Button>
-              </Grid>
-              <Grid item xs={2} className={classes.paper}>
-                <Button className={classes.btn}>
-                  <Typography>target2</Typography>
-                  <Typography>600℃</Typography>
-                </Button>
-              </Grid>
-              <Grid item xs={2} className={classes.paper}>
-                <Button className={classes.btn}>
-                  <Typography>target2</Typography>
-                  <Typography>600℃</Typography>
-                </Button>
-              </Grid>
-              <Grid item xs={2} className={classes.paper}>
-                <Button className={classes.btn}>
-                  <Typography>target2</Typography>
-                  <Typography>600℃</Typography>
-                </Button>
-              </Grid>
-            </Grid>
-          </Card>
-        </Grid>
-        <Grid container spacing={3} direction="column">
-          <Card className={classes.fieldContainer}>
-            <Grid container>
-              <Grid item xs={2} className={classes.paper}>
-                <Button className={classes.btn}>
-                  <Typography>圃場名</Typography>
-                  <Typography>作物名</Typography>
-                  <Typography>60000℃</Typography>
-                </Button>
-              </Grid>
-              <Grid item xs={2} className={classes.paper}>
-                <Button className={classes.btn}>
-                  <Typography>target1</Typography>
-                  <Typography>600℃</Typography>
-                </Button>
-              </Grid>
-              <Grid item xs={2} className={classes.paper}>
-                <Button className={classes.btn}>
-                  <Typography>target2</Typography>
-                  <Typography>600℃</Typography>
-                </Button>
-              </Grid>
-              <Grid item xs={2} className={classes.paper}>
-                <Button className={classes.btn}>
-                  <Typography>target2</Typography>
-                  <Typography>600℃</Typography>
-                </Button>
-              </Grid>
-              <Grid item xs={2} className={classes.paper}>
-                <Button className={classes.btn}>
-                  <Typography>target2</Typography>
-                  <Typography>600℃</Typography>
-                </Button>
-              </Grid>
-              <Grid item xs={2} className={classes.paper}>
-                <Button className={classes.btn}>
-                  <Typography>target2</Typography>
-                  <Typography>600℃</Typography>
-                </Button>
-              </Grid>
-            </Grid>
-          </Card>
-        </Grid>
-      </div>
+      <FieldsContent />
     </>
   );
 };
