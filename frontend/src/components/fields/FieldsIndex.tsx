@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import FieldCard from "./FieldCard";
+import FieldCard from "./TargetCard";
 import { useHistory } from "react-router-dom";
 import AlertMessage from "components/utils/AlertMessage";
 
@@ -10,6 +10,7 @@ import { Typography } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import { fieldCreate, fieldIndex } from "lib/api/field";
 import { FieldParams } from "interfaces";
+import TargetCard from "./TargetCard";
 
 const useStyles = makeStyles((theme: Theme) => ({
   fieldsWrapper: {
@@ -92,12 +93,7 @@ const FieldsIndex: React.FC = () => {
                   <Typography>{conversionDate(field.startDate!)}</Typography>
                 </Button>
               </Grid>
-              <Grid item xs={2} className={classes.paper}>
-                <Button className={classes.btn}>
-                  <Typography>target1</Typography>
-                  <Typography>600℃</Typography>
-                </Button>
-              </Grid>
+              <TargetCard />
             </Grid>
           </Card>
         ))}
