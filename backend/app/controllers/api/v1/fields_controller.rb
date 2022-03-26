@@ -6,8 +6,9 @@ module Api
     
       def index
         fields = Field.where(user_id: current_api_v1_user.id)
+        user = User.find(current_api_v1_user.id)
         fields = fields.each do |field|
-          result = get_accum(field.start_date, field.prec_no, field.block_no)
+          result = get_accum(field.start_date, user.prec_no, user.block_no)
           field[:accum_temp] = result
           field.save
         end
@@ -47,8 +48,6 @@ module Api
         else
           term_month = diff_month + 13
         end
-    
-        term = (y_date - start_date)  #期間＝取得するデータの数
         
         ave_temps =[] #空の配列を作成して取得データを追加
         term_month.times do |m|
