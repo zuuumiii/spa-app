@@ -17,6 +17,7 @@ import AlertMessage from "components/utils/AlertMessage";
 import { FieldCreateParams } from "interfaces/index";
 import CorrectBox from "components/correct/CorrectBox";
 import { fieldCreate } from "lib/api/field";
+import FieldForm from "components/fields/FieldForm";
 
 const useStyles = makeStyles((theme: Theme) => ({
   textField: {
@@ -102,93 +103,56 @@ const FieldCreate: React.FC = () => {
     }
   };
 
+  const handleChangeFieldName = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFieldName(e.target.value);
+  };
+  const handleChangeProduct = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setProduct(e.target.value);
+  };
+  const handleChangeArea = (e: number) => {
+    setArea(e);
+  };
+  const handleChangeInfo = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInfo(e.target.value);
+  };
+  const handleChangeStartDate = (e: number) => {
+    setStartDate(e);
+  };
+  const handleChangeCorerct = (e: number) => {
+    setCorrect(e);
+  };
+
   return (
     <>
       <form noValidate autoComplete="off">
         <Card className={classes.card}>
-          <CardHeader className={classes.header} title="新規圃場登録" />
-          <CardContent>
-            <TextField
-              className={classes.textField}
-              variant="outlined"
-              required
-              fullWidth
-              label="圃場名"
-              value={fieldName}
-              margin="dense"
-              onChange={(event) => setFieldName(event.target.value)}
-            />
-            <TextField
-              className={classes.textField}
-              variant="outlined"
-              required
-              fullWidth
-              label="作物名"
-              value={product}
-              margin="dense"
-              onChange={(event) => setProduct(event.target.value)}
-            />
-            <TextField
-              className={classes.textField}
-              variant="outlined"
-              fullWidth
-              label="圃場面積"
-              value={area}
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment position="end">単位（a）</InputAdornment>
-                ),
-              }}
-              margin="dense"
-              onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                const value: number = Number(event.target.value);
-                setArea(value);
-              }}
-            />
-            <div className={classes.datePicker}>
-              <MuiPickersUtilsProvider
-                locale={jaLocale}
-                utils={JaLocalizedUtils}
-              >
-                <DatePicker
-                  label="測定開始日"
-                  value={selectedDate}
-                  format="yyyy年M月d日"
-                  inputVariant="outlined"
-                  margin="dense"
-                  onChange={changeDateHandler}
-                />
-              </MuiPickersUtilsProvider>
-            </div>
-            <TextField
-              className={classes.textField}
-              variant="outlined"
-              fullWidth
-              label="情報"
-              value={info}
-              margin="dense"
-              onChange={(event) => setInfo(event.target.value)}
-            />
-            <CorrectBox
-              inputLabel="補正値"
-              value={correct}
-              onChange={(selected) => setCorrect(selected)}
-            />
-
-            <Button
-              type="submit"
-              variant="contained"
-              size="large"
-              fullWidth
-              color="default"
-              disabled={!fieldName || !product ? true : false}
-              className={classes.submitBtn}
-              onClick={handleSubmit}
-            >
-              Submit
-            </Button>
-          </CardContent>
+          <FieldForm
+            title="新規圃場登録"
+            fieldName={fieldName}
+            product={product}
+            area={area!}
+            info={info}
+            correct={correct}
+            onChangeFieldName={handleChangeFieldName}
+            onChangeProduct={handleChangeProduct}
+            onChangeArea={(e) => handleChangeArea(e)}
+            onChangeInfo={handleChangeInfo}
+            onChangeStartDate={(e) => handleChangeStartDate(e)}
+            onChangeCorrect={(e) => handleChangeCorerct(e)}
+          />
         </Card>
+        <Button
+          type="submit"
+          variant="contained"
+          size="large"
+          fullWidth
+          color="default"
+          disabled={!fieldName || !product ? true : false}
+          className={classes.submitBtn}
+          onClick={handleSubmit}
+        >
+          Submit
+        </Button>
       </form>
       <AlertMessage // エラーが発生した場合はアラートを表示
         open={alertMessageOpen}

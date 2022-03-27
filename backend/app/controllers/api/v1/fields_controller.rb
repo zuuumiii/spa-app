@@ -7,7 +7,7 @@ module Api
       def index
         fields = Field.where(user_id: current_api_v1_user.id)
         user = User.find(current_api_v1_user.id)
-        fields = fields.each do |field|
+        fields = fields.each do |field|  #update_atと今日の日付を比較させて、一致すれば処理を停止（１日１回までの更新に制限させるため）
           result = get_accum(field.start_date, user.prec_no, user.block_no, field.correct)
           field[:accum_temp] = result
           field.save
