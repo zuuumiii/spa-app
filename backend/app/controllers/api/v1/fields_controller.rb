@@ -7,10 +7,15 @@ module Api
       def index
         fields = Field.where(user_id: current_api_v1_user.id)
         user = User.find(current_api_v1_user.id)
-        fields = fields.each do |field|  #update_atと今日の日付を比較させて、一致すれば処理を停止（１日１回までの更新に制限させるため）
-          result = get_accum(field.start_date, user.prec_no, user.block_no, field.correct)
-          field[:accum_temp] = result
-          field.save
+
+        fields = fields.each do |field| 
+          today = Time.zone.now
+          updateDay =field.updated_at
+          unless today.year == updateDay.year && today.month == updateDay.month && today.day == updateDay.day #updated_dayと今日が同じであれば温度取得処理を行わない（すなわち、気象庁へのアクセスは1フィールドにつき１日１回のみとなる）
+            result = get_accum(field.start_date, user.prec_no, user.block_no, field.correct)
+            field[:accum_temp] = result
+            field.save
+          end
         end
 
         render json: { status: "SUCCESS", data: fields }
@@ -18,6 +23,9 @@ module Api
 
       def create 
        field = Field.new(field_params)
+       user = User.find(current_api_v1_user.id)
+       result = get_accum(field.start_date, user.prec_no, user.block_no, field.correct)
+       field[:accum_temp] = result
        if field.save
         render json: { status: "SUCCESS", data: field }
        else
@@ -29,7 +37,6 @@ module Api
       def field_params
         params.permit(:field_name, :product, :info, :area, :start_date, :correct).merge(user_id: current_api_v1_user.id)
       end
-    
     
       def get_accum(date, prec_no, block_no, correct)        
         y_date = Date.yesterday
