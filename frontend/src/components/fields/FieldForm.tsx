@@ -1,9 +1,7 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
 
 import { makeStyles, Theme } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
-import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import CardHeader from "@material-ui/core/CardHeader";
 import Button from "@material-ui/core/Button";
@@ -13,11 +11,7 @@ import DateFnsUtils from "@date-io/date-fns";
 import jaLocale from "date-fns/locale/ja";
 import { format } from "date-fns";
 
-import AlertMessage from "components/utils/AlertMessage";
-import { FieldCreateParams } from "interfaces/index";
 import CorrectBox from "components/correct/CorrectBox";
-import { fieldCreate } from "lib/api/field";
-
 const useStyles = makeStyles((theme: Theme) => ({
   textField: {
     marginTop: theme.spacing(3),
@@ -25,21 +19,8 @@ const useStyles = makeStyles((theme: Theme) => ({
   datePicker: {
     marginTop: theme.spacing(3),
   },
-  submitBtn: {
-    marginTop: theme.spacing(2),
-    flexGrow: 1,
-    textTransform: "none",
-    "&:hover": {
-      backgroundColor: "#4db6ac",
-    },
-  },
   header: {
     textAlign: "center",
-  },
-  card: {
-    padding: theme.spacing(2),
-    marginBottom: theme.spacing(10),
-    maxWidth: 400,
   },
 }));
 
