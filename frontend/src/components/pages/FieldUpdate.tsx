@@ -7,7 +7,7 @@ import Button from "@material-ui/core/Button";
 
 import AlertMessage from "components/utils/AlertMessage";
 import { FieldCreateParams } from "interfaces/index";
-import { fieldCreate, fieldUpdate } from "lib/api/field";
+import { fieldCreate } from "lib/api/field";
 import FieldForm from "components/fields/FieldForm";
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -53,12 +53,12 @@ const FieldCreate: React.FC = () => {
     };
 
     try {
-      const res = await fieldUpdate(params);
+      const res = await fieldCreate(params);
       console.log(res);
 
       if (res.status === 200) {
         histroy.push("/");
-        console.log("Update successfully!");
+        console.log("Create successfully!");
       } else {
         setAlertMessageOpen(true);
       }
@@ -92,7 +92,7 @@ const FieldCreate: React.FC = () => {
       <form noValidate autoComplete="off">
         <Card className={classes.card}>
           <FieldForm
-            title="圃場情報編集"
+            title="新規圃場登録"
             fieldName={fieldName}
             product={product}
             area={area!}

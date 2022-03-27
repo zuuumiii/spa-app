@@ -11,7 +11,8 @@ module Api
         fields = fields.each do |field| 
           today = Time.zone.now
           updateDay =field.updated_at
-          unless today.year == updateDay.year && today.month == updateDay.month && today.day == updateDay.day #updated_dayと今日が同じであれば温度取得処理を行わない（すなわち、気象庁へのアクセスは1フィールドにつき１日１回のみとなる）
+          #updated_dayと今日が同じであれば温度取得処理を行わない（すなわち、気象庁へのアクセスは1フィールドにつき１日１回のみとなる）
+          unless today.year == updateDay.year && today.month == updateDay.month && today.day == updateDay.day 
             result = get_accum(field.start_date, user.prec_no, user.block_no, field.correct)
             field[:accum_temp] = result
             field.save

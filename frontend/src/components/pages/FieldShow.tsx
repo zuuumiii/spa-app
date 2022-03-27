@@ -16,12 +16,43 @@ const useStyles = makeStyles((theme: Theme) => ({
       backgroundColor: "#4db6ac",
     },
   },
+  fieldsWrapper: {
+    width: 1280,
+    margin: theme.spacing(4, 0, 0, 8),
+  },
+  fieldContainer: {
+    display: "flex",
+    alignItems: "center",
+    height: 130,
+    marginTop: theme.spacing(3),
+    backgroundColor: "#eceff1",
+  },
+  paper: {
+    textAlign: "center",
+    margin: theme.spacing(0),
+    color: theme.palette.text.primary,
+    height: 100,
+
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+  },
+  btn: {
+    padding: theme.spacing(0.5),
+    textAlign: "center",
+    display: "block",
+    justifyContent: "center",
+    "&:hover": {
+      backgroundColor: "#26a69a",
+    },
+  },
 }));
 
-// とりあえず認証済みユーザーの名前やメールアドレスを表示
-const Home: React.FC = () => {
+const FieldShow: React.FC = (props: any) => {
   const classes = useStyles();
   const { isSignedIn, currentUser } = useContext(AuthContext);
+  console.log(props);
+  const id = props.match.params.id;
 
   return (
     <>
@@ -34,26 +65,10 @@ const Home: React.FC = () => {
         color="default"
         onClick={() => {}}
       >
-        新 規 圃 場 登 録
+        さくじょ{id}
       </Button>
-      <FieldsContent />
     </>
   );
 };
 
-export default Home;
-
-//<Card className={classes.card}>
-//        <CardHeader className={classes.header} title="main contents" />
-//        <CardContent>
-//          {isSignedIn && currentUser ? (
-//            <>
-//              <h1>Signed in successfully!</h1>
-//              <h2>Email: {currentUser?.email}</h2>
-//              <h2>Name: {currentUser?.name}</h2>
-//            </>
-//          ) : (
-//            <h1>Not signed in</h1>
-//          )}
-//        </CardContent>
-//      </Card>
+export default FieldShow;

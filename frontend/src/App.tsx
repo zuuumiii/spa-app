@@ -6,13 +6,13 @@ import Home from "components/pages/Home";
 import SignUp from "components/pages/SignUp";
 import SignIn from "components/pages/SignIn";
 import FieldCreate from "components/pages/FieldCreate";
+import FieldShow from "components/pages/FieldShow";
 
 import { makeStyles } from "@material-ui/styles";
 
 import { getCurrentUser } from "lib/api/auth";
 import { User } from "interfaces/index";
 import UserEdit from "components/pages/UserEdit";
-
 const useStyles = makeStyles(() => ({
   container: {
     display: "flex",
@@ -84,7 +84,7 @@ const App: React.FC = () => {
         return <Redirect to="/signin" />;
       }
     } else {
-      return <></>;
+      return <>now loading...</>;
     }
   };
 
@@ -111,8 +111,10 @@ const App: React.FC = () => {
             <Private>
               <div>
                 <Route exact path="/fieldCreate" component={FieldCreate} />
+
                 <Route exact path="/user" component={UserEdit} />
                 <Route exact path="/" component={Home} />
+                <Route path="/fields/:id" component={FieldShow} />
               </div>
             </Private>
           </>

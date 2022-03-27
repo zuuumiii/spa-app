@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import FieldCard from "./TargetCard";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import AlertMessage from "components/utils/AlertMessage";
 
 import { makeStyles, Theme } from "@material-ui/core/styles";
@@ -86,7 +86,7 @@ const FieldsIndex: React.FC = () => {
           <Card className={classes.fieldContainer} key={field.id}>
             <Grid container>
               <Grid item xs={2} className={classes.paper}>
-                <Button className={classes.btn}>
+                <Button className={classes.btn} component={Link} to="/fields">
                   <Typography>{field.fieldName}</Typography>
                   <Typography>{field.product}</Typography>
                   <Typography>{field.accumTemp}℃</Typography>
