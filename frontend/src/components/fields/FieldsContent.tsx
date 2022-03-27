@@ -86,7 +86,11 @@ const FieldsIndex: React.FC = () => {
           <Card className={classes.fieldContainer} key={field.id}>
             <Grid container>
               <Grid item xs={2} className={classes.paper}>
-                <Button className={classes.btn} component={Link} to="/fields">
+                <Button
+                  className={classes.btn}
+                  component={Link}
+                  to={{ pathname: `/fields/${field.id}`, state: field }}
+                >
                   <Typography>{field.fieldName}</Typography>
                   <Typography>{field.product}</Typography>
                   <Typography>{field.accumTemp}℃</Typography>

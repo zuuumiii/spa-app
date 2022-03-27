@@ -1,5 +1,10 @@
 import React, { useState, useEffect, createContext } from "react";
-import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Redirect,
+  Switch,
+} from "react-router-dom";
 
 import CommonLayout from "components/layouts/CommonLayout";
 import Home from "components/pages/Home";
@@ -84,7 +89,7 @@ const App: React.FC = () => {
         return <Redirect to="/signin" />;
       }
     } else {
-      return <>now loading...</>;
+      return <>now loading</>;
     }
   };
 
@@ -109,13 +114,12 @@ const App: React.FC = () => {
               </div>
             </UnPrivate>
             <Private>
-              <div>
+              <Switch>
                 <Route exact path="/fieldCreate" component={FieldCreate} />
-
                 <Route exact path="/user" component={UserEdit} />
                 <Route exact path="/" component={Home} />
                 <Route path="/fields/:id" component={FieldShow} />
-              </div>
+              </Switch>
             </Private>
           </>
         </CommonLayout>

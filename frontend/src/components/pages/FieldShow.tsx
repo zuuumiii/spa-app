@@ -1,12 +1,15 @@
 import React, { useContext } from "react";
 import { AuthContext } from "App";
-import { Link } from "react-router-dom";
+import { Link, useParams, useLocation } from "react-router-dom";
 
 import { makeStyles, Theme } from "@material-ui/core/styles";
 
 import Button from "@material-ui/core/Button";
 
 import FieldsContent from "components/fields/FieldsContent";
+import { Typography } from "@material-ui/core";
+import { fieldCreate } from "lib/api/field";
+import { FieldParams } from "interfaces";
 
 const useStyles = makeStyles((theme: Theme) => ({
   createBtn: {
@@ -48,12 +51,15 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-const FieldShow: React.FC = (props: any) => {
-  const classes = useStyles();
-  const { isSignedIn, currentUser } = useContext(AuthContext);
-  console.log(props);
-  const id = props.match.params.id;
+type Id = {
+  id: string;
+};
 
+const FieldShow: React.FC = () => {
+  const classes = useStyles();
+  const { id } = useParams<Id>();
+  const { state } = useLocation<FieldParams>();
+  const field = state;
   return (
     <>
       <Button
@@ -67,6 +73,7 @@ const FieldShow: React.FC = (props: any) => {
       >
         さくじょ{id}
       </Button>
+      <Typography>{field.correct}</Typography>
     </>
   );
 };
