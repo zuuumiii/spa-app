@@ -1,13 +1,13 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 
 import { makeStyles, Theme } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import Button from "@material-ui/core/Button";
 
 import AlertMessage from "components/utils/AlertMessage";
-import { FieldCreateParams } from "interfaces/index";
-import { fieldCreate, fieldUpdate } from "lib/api/field";
+import { FieldCreateParams, FieldParams } from "interfaces/index";
+import { fieldUpdate } from "lib/api/field";
 import FieldForm from "components/fields/FieldForm";
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -26,18 +26,17 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-const FieldCreate: React.FC = () => {
+const FieldUpdate: React.FC = () => {
   const classes = useStyles();
   const histroy = useHistory();
+  const { state } = useLocation<FieldParams>();
 
-  const [fieldName, setFieldName] = useState<string>("");
-  const [product, setProduct] = useState<string>("");
-  const [area, setArea] = useState<number | null>(0);
-  const [info, setInfo] = useState<string>("");
-  const [correct, setCorrect] = useState<number>(0);
-  const [startDate, setStartDate] = useState<number | null>(
-    new Date().getTime() / 1000
-  );
+  const [fieldName, setFieldName] = useState<string>(state.fieldName);
+  const [product, setProduct] = useState<string>(state.product);
+  const [area, setArea] = useState<number | null>(state.area);
+  const [info, setInfo] = useState<string>(state.info);
+  const [correct, setCorrect] = useState<number>(state.correct);
+  const [startDate, setStartDate] = useState<number | null>(state.startDate);
   const [alertMessageOpen, setAlertMessageOpen] = useState<boolean>(false);
 
   const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -53,12 +52,12 @@ const FieldCreate: React.FC = () => {
     };
 
     try {
-      const res = await fieldCreate(params);
+      const res = await fieldUpdate(params, state.id);
       console.log(res);
 
       if (res.status === 200) {
         histroy.push("/");
-        console.log("Create successfully!");
+        console.log("Update successfully!");
       } else {
         setAlertMessageOpen(true);
       }
@@ -92,7 +91,7 @@ const FieldCreate: React.FC = () => {
       <form noValidate autoComplete="off">
         <Card className={classes.card}>
           <FieldForm
-            title="新規圃場情報登録"
+            title="圃場情報編集"
             fieldName={fieldName}
             product={product}
             area={area}
@@ -130,4 +129,4 @@ const FieldCreate: React.FC = () => {
   );
 };
 
-export default FieldCreate;
+export default FieldUpdate;

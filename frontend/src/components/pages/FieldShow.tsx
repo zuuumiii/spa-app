@@ -85,7 +85,7 @@ const FieldShow: React.FC = () => {
           variant="contained"
           size="large"
           component={Link}
-          to="/fieldCreate"
+          to={{ pathname: `/fields/${field.id}/update`, state: field }}
           color="default"
           onClick={() => {}}
         >

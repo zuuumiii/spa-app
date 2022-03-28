@@ -39,6 +39,7 @@ type Props = {
   area: number | null;
   info: string;
   correct: number;
+  startDate: number | null;
   onChangeFieldName: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onChangeProduct: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onChangeArea: (event: React.ChangeEvent<HTMLInputElement>) => void;
@@ -55,6 +56,7 @@ const FieldForm: React.FC<Props> = (props) => {
     area,
     info,
     correct,
+    startDate,
     onChangeFieldName,
     onChangeProduct,
     onChangeArea,
@@ -64,7 +66,13 @@ const FieldForm: React.FC<Props> = (props) => {
   } = props;
   const classes = useStyles();
 
-  const [selectedDate, setSelectedDate] = useState<Date | null>(new Date()); //選択した日付を保持
+  const numToDate = (date: number | null) => {
+    return new Date(date! * 1000);
+  }; //
+
+  const [selectedDate, setSelectedDate] = useState<Date | null>(
+    numToDate(startDate)
+  ); //選択した日付を保持
 
   const changeDateHandler = (newDate: Date | null): void => {
     setSelectedDate(newDate);
