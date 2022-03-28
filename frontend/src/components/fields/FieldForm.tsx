@@ -4,7 +4,6 @@ import { makeStyles, Theme } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import CardContent from "@material-ui/core/CardContent";
 import CardHeader from "@material-ui/core/CardHeader";
-import Button from "@material-ui/core/Button";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import { DatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
@@ -37,7 +36,7 @@ type Props = {
   title: string;
   fieldName: string;
   product: string;
-  area: number;
+  area: number | null;
   info: string;
   correct: number;
   onChangeFieldName: (event: React.ChangeEvent<HTMLInputElement>) => void;
@@ -146,8 +145,3 @@ const FieldForm: React.FC<Props> = (props) => {
 };
 
 export default FieldForm;
-
-//onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-//const value: number = Number(event.target.value);
-//onChangeArea(value);
-//}}

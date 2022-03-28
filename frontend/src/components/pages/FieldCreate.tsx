@@ -32,7 +32,7 @@ const FieldCreate: React.FC = () => {
 
   const [fieldName, setFieldName] = useState<string>("");
   const [product, setProduct] = useState<string>("");
-  const [area, setArea] = useState<number | null>(null);
+  const [area, setArea] = useState<number | null>(0);
   const [info, setInfo] = useState<string>("");
   const [correct, setCorrect] = useState<number>(0);
   const [startDate, setStartDate] = useState<number | null>(
@@ -95,7 +95,7 @@ const FieldCreate: React.FC = () => {
             title="圃場情報編集"
             fieldName={fieldName}
             product={product}
-            area={area!}
+            area={area}
             info={info}
             correct={correct}
             onChangeFieldName={handleChangeFieldName}
