@@ -34,6 +34,19 @@ module Api
        end
       end
 
+      def update 
+        field = Field.find(params[:id])
+        field.update(field_params)
+        user = User.find(current_api_v1_user.id)
+        result = get_accum(field.start_date, user.prec_no, user.block_no, field.correct)
+        field[:accum_temp] = result
+        if field.save
+         render json: { status: "SUCCESS", data: field }
+        else
+         render json: { status: "ERROR", data: field.errors }
+        end
+      end
+
       def destroy
         field = Field.find(params[:id])
         if field.destroy
