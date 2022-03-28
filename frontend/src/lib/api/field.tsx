@@ -37,3 +37,14 @@ export const fieldUpdate = (params: FieldCreateParams) => {
     },
   });
 };
+
+//delete
+export const fieldDelete = (id: number) => {
+  return client.delete(`fields/${id}`, {
+    headers: {
+      "access-token": Cookies.get("_access_token")!,
+      client: Cookies.get("_client")!,
+      uid: Cookies.get("_uid")!,
+    },
+  });
+};

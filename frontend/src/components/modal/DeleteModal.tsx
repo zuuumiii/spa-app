@@ -14,7 +14,6 @@ const useStyles = makeStyles((theme) => ({
   },
   deleteBtn: {
     marginTop: theme.spacing(2),
-    flexGrow: 1,
     textTransform: "none",
     "&:hover": {
       backgroundColor: "#ff5722",
@@ -93,7 +92,6 @@ const DeleteModal = ({
       <Button
         variant="contained"
         size="large"
-        fullWidth
         color="default"
         className={classes.deleteBtn}
         onClick={() => {

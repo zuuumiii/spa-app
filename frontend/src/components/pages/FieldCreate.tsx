@@ -53,12 +53,12 @@ const FieldCreate: React.FC = () => {
     };
 
     try {
-      const res = await fieldUpdate(params);
+      const res = await fieldCreate(params);
       console.log(res);
 
       if (res.status === 200) {
         histroy.push("/");
-        console.log("Update successfully!");
+        console.log("Create successfully!");
       } else {
         setAlertMessageOpen(true);
       }

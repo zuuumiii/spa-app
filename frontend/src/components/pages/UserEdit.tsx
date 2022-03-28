@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   card: {
     padding: theme.spacing(2),
     marginBottom: theme.spacing(10),
-    width: 800,
+    width: 400,
   },
 }));
 
