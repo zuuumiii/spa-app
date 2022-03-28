@@ -42,7 +42,7 @@ type Props = {
   correct: number;
   onChangeFieldName: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onChangeProduct: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  onChangeArea: (event: number) => void;
+  onChangeArea: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onChangeStartDate: (date: number) => void;
   onChangeInfo: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onChangeCorrect: (selected: number) => void;
@@ -109,11 +109,8 @@ const FieldForm: React.FC<Props> = (props) => {
               <InputAdornment position="end">単位（a）</InputAdornment>
             ),
           }}
+          onChange={onChangeArea}
           margin="dense"
-          onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-            const value: number = Number(event.target.value);
-            onChangeArea(value);
-          }}
         />
         <div className={classes.datePicker}>
           <MuiPickersUtilsProvider locale={jaLocale} utils={JaLocalizedUtils}>
@@ -149,3 +146,8 @@ const FieldForm: React.FC<Props> = (props) => {
 };
 
 export default FieldForm;
+
+//onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+//const value: number = Number(event.target.value);
+//onChangeArea(value);
+//}}

@@ -74,8 +74,8 @@ const FieldCreate: React.FC = () => {
   const handleChangeProduct = (e: React.ChangeEvent<HTMLInputElement>) => {
     setProduct(e.target.value);
   };
-  const handleChangeArea = (e: number) => {
-    setArea(e);
+  const handleChangeArea = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setArea(parseInt(e.target.value) || 0);
   };
   const handleChangeInfo = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInfo(e.target.value);
@@ -100,8 +100,8 @@ const FieldCreate: React.FC = () => {
             correct={correct}
             onChangeFieldName={handleChangeFieldName}
             onChangeProduct={handleChangeProduct}
-            onChangeArea={(e) => handleChangeArea(e)}
             onChangeInfo={handleChangeInfo}
+            onChangeArea={handleChangeArea}
             onChangeStartDate={(e) => handleChangeStartDate(e)}
             onChangeCorrect={(e) => handleChangeCorerct(e)}
           />
