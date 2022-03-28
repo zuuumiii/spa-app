@@ -33,6 +33,15 @@ module Api
         render json: { status: "ERROR", data: field.errors }
        end
       end
+
+      def destroy
+        field = Field.find(params[:id])
+        if field.destroy
+          render json: { status: "SUCCESS" }
+        else
+          render json: { status: "ERROR", data: field.errors }
+        end
+      end
     
     private
       def field_params
