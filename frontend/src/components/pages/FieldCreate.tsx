@@ -92,7 +92,7 @@ const FieldCreate: React.FC = () => {
       <form noValidate autoComplete="off">
         <Card className={classes.card}>
           <FieldForm
-            title="圃場情報編集"
+            title="新規圃場情報登録"
             fieldName={fieldName}
             product={product}
             area={area}

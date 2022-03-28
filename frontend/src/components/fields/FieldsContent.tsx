@@ -14,7 +14,7 @@ import TargetCard from "./TargetCard";
 
 const useStyles = makeStyles((theme: Theme) => ({
   fieldsWrapper: {
-    width: 1280,
+    width: 1000,
     margin: theme.spacing(4, 0, 0, 8),
   },
   fieldContainer: {
