@@ -19,9 +19,6 @@ const theme = createMuiTheme({
     primary: {
       main: teal[400],
     },
-    secondary: {
-      main: "#00bcd4",
-    },
   },
 });
 
@@ -40,7 +37,7 @@ const CommonLayout = ({ children }: CommonLayoutProps) => {
           <Header />
         </header>
         <main>
-          <Container maxWidth="lg" className={classes.container}>
+          <Container maxWidth="xl" className={classes.container}>
             <Grid container justify="center">
               <Grid item>{children}</Grid>
             </Grid>

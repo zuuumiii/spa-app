@@ -17,9 +17,6 @@ import PrecBlockBox, { PrecBlockItem } from "components/precblock/PrecBlockBox";
 import { PrecBlockList } from "components/precblock/PrefBlockList";
 
 const useStyles = makeStyles((theme: Theme) => ({
-  container: {
-    marginTop: theme.spacing(6),
-  },
   submitBtn: {
     marginTop: theme.spacing(2),
     flexGrow: 1,

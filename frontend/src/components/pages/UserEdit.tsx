@@ -16,11 +16,9 @@ import { UserEditParams } from "interfaces/index";
 import PrecBlockBox, { PrecBlockItem } from "components/precblock/PrecBlockBox";
 import { PrecBlockList } from "components/precblock/PrefBlockList";
 import DeleteModal from "components/modal/DeleteModal";
+import { FullscreenExitTwoTone } from "@material-ui/icons";
 
 const useStyles = makeStyles((theme: Theme) => ({
-  container: {
-    marginTop: theme.spacing(6),
-  },
   submitBtn: {
     marginTop: theme.spacing(2),
     flexGrow: 1,
@@ -35,7 +33,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   card: {
     padding: theme.spacing(2),
     marginBottom: theme.spacing(10),
-    maxWidth: 400,
+    width: 400,
   },
 }));
 

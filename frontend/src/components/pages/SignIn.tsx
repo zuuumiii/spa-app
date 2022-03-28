@@ -17,9 +17,6 @@ import { signIn } from "lib/api/auth";
 import { SignInParams } from "interfaces/index";
 
 const useStyles = makeStyles((theme: Theme) => ({
-  container: {
-    marginTop: theme.spacing(6),
-  },
   submitBtn: {
     marginTop: theme.spacing(2),
     flexGrow: 1,
