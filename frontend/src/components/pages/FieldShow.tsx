@@ -5,7 +5,7 @@ import { Link, useParams, useLocation, useHistory } from "react-router-dom";
 import { makeStyles, Theme } from "@material-ui/core/styles";
 
 import Button from "@material-ui/core/Button";
-import { Card, Typography, Grid } from "@material-ui/core";
+import { Card, Typography, Grid, CardHeader } from "@material-ui/core";
 
 import DeleteModal from "components/modal/DeleteModal";
 import { FieldParams } from "interfaces";
@@ -15,16 +15,15 @@ import { fieldDelete } from "lib/api/field";
 const useStyles = makeStyles((theme: Theme) => ({
   createBtn: {
     width: 220,
-    margin: theme.spacing(2, 0, 0, 8),
+    margin: theme.spacing(2, 0, 0, 0),
     "&:hover": {
       backgroundColor: "#4db6ac",
     },
   },
-  deleteBtn: {
+  targetBtn: {
     width: 220,
-    margin: theme.spacing(2, 0, 0, 8),
     "&:hover": {
-      backgroundColor: "#ff5722",
+      backgroundColor: "#4db6ac",
     },
   },
   btnWrapper: {
@@ -35,7 +34,9 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   fieldsWrapper: {
     width: 800,
-    margin: theme.spacing(4, 0, 0, 8),
+    margin: theme.spacing(4),
+    display: "flex",
+    justifyContent: "space-around",
   },
   fieldContainer: {
     textAlign: "center",
@@ -44,11 +45,22 @@ const useStyles = makeStyles((theme: Theme) => ({
     padding: theme.spacing(1),
     backgroundColor: "#eceff1",
   },
+  targetCard: {
+    backgroundColor: "#eceff1",
+  },
+  header: {
+    textAlign: "center",
+  },
   targetWrapper: {
     display: "flex",
-    justifyContent: "space-around",
+    justifyContent: "space-between",
     width: 800,
-    margin: theme.spacing(4, 0, 0, 8),
+    margin: theme.spacing(4),
+  },
+  target: {
+    marginBottom: theme.spacing(3),
+    display: "flex",
+    justifyContent: "space-around",
   },
 }));
 
@@ -109,34 +121,46 @@ const FieldShow: React.FC = () => {
           </Typography>
         </Card>
       </div>
-      <div className={classes.btnWrapper}>
-        <Button
-          className={classes.createBtn}
-          variant="contained"
-          size="large"
-          component={Link}
-          to="/fieldCreate"
-          color="default"
-          onClick={() => {}}
-        >
-          目標新規作成
-        </Button>
-      </div>
-      <Grid container className={classes.targetWrapper}>
-        <TargetCard />
-        <TargetCard />
-        <TargetCard />
-        <TargetCard />
-        <TargetCard />
-        <TargetCard />
-        <TargetCard />
-        <TargetCard />
-        <TargetCard />
-        <TargetCard />
-        <TargetCard />
-        <TargetCard />
-        <TargetCard />
-      </Grid>
+
+      <Card className={classes.targetCard}>
+        <CardHeader className={classes.header} title="目標一覧" />
+        <div className={classes.btnWrapper}>
+          <Button
+            className={classes.targetBtn}
+            variant="contained"
+            size="large"
+            component={Link}
+            to="/fieldCreate"
+            color="default"
+            onClick={() => {}}
+          >
+            目標新規作成
+          </Button>
+        </div>
+        <Grid container className={classes.targetWrapper}>
+          <Grid item xs={3} className={classes.target}>
+            <TargetCard />
+          </Grid>
+          <Grid item xs={3} className={classes.target}>
+            <TargetCard />
+          </Grid>
+          <Grid item xs={3} className={classes.target}>
+            <TargetCard />
+          </Grid>
+          <Grid item xs={3} className={classes.target}>
+            <TargetCard />
+          </Grid>
+          <Grid item xs={3} className={classes.target}>
+            <TargetCard />
+          </Grid>
+          <Grid item xs={3} className={classes.target}>
+            <TargetCard />
+          </Grid>
+          <Grid item xs={3} className={classes.target}>
+            <TargetCard />
+          </Grid>
+        </Grid>
+      </Card>
     </>
   );
 };

@@ -97,7 +97,10 @@ const FieldsIndex: React.FC = () => {
                   <Typography>{conversionDate(field.startDate!)}</Typography>
                 </Button>
               </Grid>
-              <TargetCard />
+
+              <Grid item xs={2} className={classes.paper}>
+                <TargetCard />
+              </Grid>
             </Grid>
           </Card>
         ))}

@@ -19,9 +19,6 @@ const theme = createMuiTheme({
     primary: {
       main: teal[400],
     },
-    secondary: {
-      main: "#00bcd4",
-    },
   },
 });
 

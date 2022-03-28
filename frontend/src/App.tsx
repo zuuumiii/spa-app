@@ -15,6 +15,7 @@ import FieldShow from "components/pages/FieldShow";
 import FieldUpdate from "components/pages/FieldUpdate";
 
 import { makeStyles } from "@material-ui/styles";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 import { getCurrentUser } from "lib/api/auth";
 import { User } from "interfaces/index";
@@ -24,6 +25,9 @@ const useStyles = makeStyles(() => ({
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
+  },
+  center: {
+    paddingTop: 300,
   },
 }));
 
@@ -90,7 +94,11 @@ const App: React.FC = () => {
         return <Redirect to="/signin" />;
       }
     } else {
-      return <>now loading</>;
+      return (
+        <div className={classes.center}>
+          <CircularProgress />
+        </div>
+      );
     }
   };
 
