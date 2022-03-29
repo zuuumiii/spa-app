@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_25_025500) do
+ActiveRecord::Schema.define(version: 2022_03_29_030910) do
 
   create_table "fields", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "field_name", null: false
@@ -24,6 +24,16 @@ ActiveRecord::Schema.define(version: 2022_03_25_025500) do
     t.datetime "updated_at", precision: 6, null: false
     t.float "accum_temp", default: 0.0, null: false
     t.index ["user_id"], name: "index_fields_on_user_id"
+  end
+
+  create_table "targets", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "target_name", null: false
+    t.float "target_temp", null: false
+    t.text "memo"
+    t.bigint "field_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["field_id"], name: "index_targets_on_field_id"
   end
 
   create_table "users", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -54,4 +64,5 @@ ActiveRecord::Schema.define(version: 2022_03_25_025500) do
   end
 
   add_foreign_key "fields", "users"
+  add_foreign_key "targets", "fields"
 end
