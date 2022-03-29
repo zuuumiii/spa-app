@@ -18,8 +18,8 @@ module Api
             field.save
           end
         end
-
-        render json: { status: "SUCCESS", data: fields }
+        string = fields.map.as_json(include: :targets)
+        render json: { status: "SUCCESS", data: string }
       end
 
       def create 

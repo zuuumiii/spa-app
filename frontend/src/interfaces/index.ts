@@ -59,6 +59,14 @@ export interface FieldParams {
   correct: number;
   accumTemp: number;
   userId: number;
+  targets: {
+    id: number;
+    targetName: string;
+    targetTemp: number;
+    memo: string;
+    userId: number;
+    fieldId: number;
+  };
 }
 
 //目標新規作成、編集

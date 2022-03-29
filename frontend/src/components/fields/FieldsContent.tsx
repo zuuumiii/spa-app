@@ -57,6 +57,7 @@ const FieldsIndex: React.FC = () => {
         histroy.push("/");
         console.log(res.data.data);
         setFields(res.data.data);
+
         console.log("FieldIndex successfully!");
       } else {
         setAlertMessageOpen(true);
