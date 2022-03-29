@@ -83,8 +83,9 @@ const FieldsIndex: React.FC = () => {
     <div className={classes.fieldsWrapper}>
       <Grid container spacing={3} direction="column">
         {fields.map((field) => {
-          const targets: TargetParams[] =
-            field.targets as unknown as TargetParams[];
+          const targets: TargetParams[] = (
+            field.targets as unknown as TargetParams[]
+          ).slice(0, 5);
           return (
             <Card className={classes.fieldContainer} key={field.id}>
               <Grid container>
@@ -103,7 +104,12 @@ const FieldsIndex: React.FC = () => {
                 {targets.map((target) => {
                   return (
                     <Grid item xs={2} className={classes.paper} key={target.id}>
-                      <TargetCard />
+                      <TargetCard
+                        targetName={target.targetName}
+                        targetTemp={target.targetTemp}
+                        accumTemp={field.accumTemp}
+                        id={target.id}
+                      />
                     </Grid>
                   );
                 })}
