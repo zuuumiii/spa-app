@@ -38,7 +38,7 @@ export interface User {
   updated_at: Date;
 }
 
-//圃場編集
+//圃場新規作成、編集
 export interface FieldCreateParams {
   fieldName: string;
   product: string;
@@ -58,5 +58,20 @@ export interface FieldParams {
   info: string;
   correct: number;
   accumTemp: number;
-  userID: number;
+  userId: number;
+}
+
+//目標新規作成、編集
+export interface TargetCreateParams {
+  targetName: string;
+  targetTemp: number;
+  memo: string;
+}
+//目標取得
+export interface TargetParams {
+  targetName: string;
+  targetTemp: number;
+  memo: string;
+  userId: number;
+  fieldId: number;
 }
