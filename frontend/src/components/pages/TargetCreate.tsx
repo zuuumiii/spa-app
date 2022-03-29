@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 
 import { makeStyles, Theme } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
@@ -7,6 +7,7 @@ import Button from "@material-ui/core/Button";
 
 import AlertMessage from "components/utils/AlertMessage";
 import { TargetCreateParams } from "interfaces/index";
+import { FieldParams } from "interfaces/index";
 import { targetCreate } from "lib/api/target";
 import TargetForm from "components/targets/TargetForm";
 
@@ -29,6 +30,8 @@ const useStyles = makeStyles((theme: Theme) => ({
 const TargetCreate: React.FC = () => {
   const classes = useStyles();
   const histroy = useHistory();
+  const { state } = useLocation<FieldParams>();
+  const field = state;
 
   const [targetName, setTargetName] = useState<string>("");
   const [targetTemp, setTargetTemp] = useState<number>(0);
@@ -46,12 +49,12 @@ const TargetCreate: React.FC = () => {
     };
 
     try {
-      const res = await targetCreate(params);
+      const res = await targetCreate(params, field.id);
       console.log(res);
 
       if (res.status === 200) {
         histroy.push("/");
-        console.log("Create successfully!");
+        console.log("Create Target successfully!");
       } else {
         setAlertMessageOpen(true);
       }
@@ -102,7 +105,7 @@ const TargetCreate: React.FC = () => {
         open={alertMessageOpen}
         setOpen={setAlertMessageOpen}
         severity="error"
-        message="Invalid Field Data"
+        message="Invalid Target Data"
       />
     </>
   );

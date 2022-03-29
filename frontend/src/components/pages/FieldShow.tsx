@@ -63,10 +63,6 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-type Id = {
-  id: string;
-};
-
 const FieldShow: React.FC = () => {
   const classes = useStyles();
   const histroy = useHistory();
@@ -129,7 +125,7 @@ const FieldShow: React.FC = () => {
             variant="contained"
             size="large"
             component={Link}
-            to={{ pathname: `/fields/${field.id}/targetCreate` }}
+            to={{ pathname: `/fields/${field.id}/targetCreate`, state: field }}
             color="default"
             onClick={() => {}}
           >

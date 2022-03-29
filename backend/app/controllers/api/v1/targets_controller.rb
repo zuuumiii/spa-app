@@ -13,7 +13,7 @@ module Api
 
       private
       def target_params
-        params.permit(:target_name, :target_temp, :memo).merge(user_id: current_api_v1_user.id, target_id: params[:field_id])
+        params.permit(:target_name, :target_temp, :memo).merge(user_id: current_api_v1_user.id, field_id: params[:field_id])
       end
     end
   end
