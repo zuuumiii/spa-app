@@ -70,7 +70,7 @@ const FieldsIndex: React.FC = () => {
 
   useEffect(() => {
     handleFieldIndex();
-  }, []);
+  }, []); //第2引数にfieldsを渡すと無限ループに陥る
 
   //UNIX時間からYYYY/MM/DDに変換
   const conversionDate = (num: number) => {
