@@ -1,6 +1,5 @@
-import React, { useContext } from "react";
-import { AuthContext } from "App";
-import { Link, useParams, useLocation, useHistory } from "react-router-dom";
+import React from "react";
+import { Link, useLocation, useHistory } from "react-router-dom";
 
 import { makeStyles, Theme } from "@material-ui/core/styles";
 

@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import FieldCard from "./TargetCard";
 import { useHistory, Link } from "react-router-dom";
 import AlertMessage from "components/utils/AlertMessage";
 
@@ -8,7 +7,7 @@ import { Card } from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 import { Typography } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
-import { fieldCreate, fieldIndex } from "lib/api/field";
+import { fieldIndex } from "lib/api/field";
 import { FieldParams } from "interfaces";
 import TargetCard from "./TargetCard";
 

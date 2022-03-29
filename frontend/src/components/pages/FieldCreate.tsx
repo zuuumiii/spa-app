@@ -7,7 +7,7 @@ import Button from "@material-ui/core/Button";
 
 import AlertMessage from "components/utils/AlertMessage";
 import { FieldCreateParams } from "interfaces/index";
-import { fieldCreate, fieldUpdate } from "lib/api/field";
+import { fieldCreate } from "lib/api/field";
 import FieldForm from "components/fields/FieldForm";
 
 const useStyles = makeStyles((theme: Theme) => ({

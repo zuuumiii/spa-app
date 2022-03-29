@@ -16,7 +16,6 @@ import { UserEditParams } from "interfaces/index";
 import PrecBlockBox, { PrecBlockItem } from "components/precblock/PrecBlockBox";
 import { PrecBlockList } from "components/precblock/PrefBlockList";
 import DeleteModal from "components/modal/DeleteModal";
-import { FullscreenExitTwoTone } from "@material-ui/icons";
 
 const useStyles = makeStyles((theme: Theme) => ({
   submitBtn: {
