@@ -6,9 +6,9 @@ import Card from "@material-ui/core/Card";
 import Button from "@material-ui/core/Button";
 
 import AlertMessage from "components/utils/AlertMessage";
-import { FieldCreateParams } from "interfaces/index";
-import { fieldCreate } from "lib/api/field";
-import FieldForm from "components/fields/FieldForm";
+import { TargetCreateParams } from "interfaces/index";
+import { targetCreate } from "lib/api/target";
+import TargetForm from "components/targets/TargetForm";
 
 const useStyles = makeStyles((theme: Theme) => ({
   submitBtn: {
@@ -26,34 +26,27 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-const FieldCreate: React.FC = () => {
+const TargetCreate: React.FC = () => {
   const classes = useStyles();
   const histroy = useHistory();
 
-  const [fieldName, setFieldName] = useState<string>("");
-  const [product, setProduct] = useState<string>("");
-  const [area, setArea] = useState<number | null>(0);
-  const [info, setInfo] = useState<string>("");
-  const [correct, setCorrect] = useState<number>(0);
-  const [startDate, setStartDate] = useState<number | null>(
-    new Date().getTime() / 1000
-  );
+  const [targetName, setTargetName] = useState<string>("");
+  const [targetTemp, setTargetTemp] = useState<number>(0);
+  const [memo, setMemo] = useState<string>("");
+
   const [alertMessageOpen, setAlertMessageOpen] = useState<boolean>(false);
 
   const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
-    const params: FieldCreateParams = {
-      fieldName: fieldName,
-      product: product,
-      area: area,
-      startDate: startDate,
-      info: info,
-      correct: correct,
+    const params: TargetCreateParams = {
+      targetName: targetName,
+      targetTemp: targetTemp,
+      memo: memo,
     };
 
     try {
-      const res = await fieldCreate(params);
+      const res = await targetCreate(params);
       console.log(res);
 
       if (res.status === 200) {
@@ -68,43 +61,28 @@ const FieldCreate: React.FC = () => {
     }
   };
 
-  const handleChangeFieldName = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFieldName(e.target.value);
+  const handleChangeTargetName = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setTargetName(e.target.value);
   };
-  const handleChangeProduct = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setProduct(e.target.value);
+  const handleChangeTargetTemp = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setTargetTemp(parseInt(e.target.value) || 0);
   };
-  const handleChangeArea = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setArea(parseInt(e.target.value) || 0);
-  };
-  const handleChangeInfo = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInfo(e.target.value);
-  };
-  const handleChangeStartDate = (e: number) => {
-    setStartDate(e);
-  };
-  const handleChangeCorerct = (e: number) => {
-    setCorrect(e);
+  const handleChangeMemo = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setMemo(e.target.value);
   };
 
   return (
     <>
       <form noValidate autoComplete="off">
         <Card className={classes.card}>
-          <FieldForm
-            title="新規圃場情報登録"
-            fieldName={fieldName}
-            product={product}
-            area={area}
-            info={info}
-            correct={correct}
-            startDate={startDate}
-            onChangeFieldName={handleChangeFieldName}
-            onChangeProduct={handleChangeProduct}
-            onChangeInfo={handleChangeInfo}
-            onChangeArea={handleChangeArea}
-            onChangeStartDate={(e) => handleChangeStartDate(e)}
-            onChangeCorrect={(e) => handleChangeCorerct(e)}
+          <TargetForm
+            title="新規目標登録"
+            targetTemp={targetTemp}
+            targetName={targetName}
+            memo={memo}
+            onChangeTargetName={handleChangeTargetName}
+            onChangeMemo={handleChangeMemo}
+            onChangeTargetTemp={handleChangeTargetTemp}
           />
         </Card>
         <Button
@@ -113,7 +91,7 @@ const FieldCreate: React.FC = () => {
           size="large"
           fullWidth
           color="default"
-          disabled={!fieldName || !product ? true : false}
+          disabled={!targetName || !targetTemp ? true : false}
           className={classes.submitBtn}
           onClick={handleSubmit}
         >
@@ -130,4 +108,4 @@ const FieldCreate: React.FC = () => {
   );
 };
 
-export default FieldCreate;
+export default TargetCreate;

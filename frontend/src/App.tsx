@@ -13,6 +13,7 @@ import SignIn from "components/pages/SignIn";
 import FieldCreate from "components/pages/FieldCreate";
 import FieldShow from "components/pages/FieldShow";
 import FieldUpdate from "components/pages/FieldUpdate";
+import TargetCreate from "components/pages/TargetCreate";
 
 import { makeStyles } from "@material-ui/styles";
 import CircularProgress from "@material-ui/core/CircularProgress";
@@ -124,6 +125,11 @@ const App: React.FC = () => {
             </UnPrivate>
             <Private>
               <Switch>
+                <Route
+                  exact
+                  path="/fields/:id/targetCreate"
+                  component={TargetCreate}
+                />
                 <Route exact path="/fieldCreate" component={FieldCreate} />
                 <Route
                   exact
