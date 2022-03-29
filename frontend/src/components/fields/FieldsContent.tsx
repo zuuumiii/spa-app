@@ -8,7 +8,7 @@ import Grid from "@material-ui/core/Grid";
 import { Typography } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import { fieldIndex } from "lib/api/field";
-import { FieldParams } from "interfaces";
+import { FieldParams, TargetParams } from "interfaces";
 import TargetCard from "./TargetCard";
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -48,7 +48,6 @@ const FieldsIndex: React.FC = () => {
   const histroy = useHistory();
   const [fields, setFields] = useState<FieldParams[]>([]);
   const [alertMessageOpen, setAlertMessageOpen] = useState<boolean>(false);
-
   const handleFieldIndex = async () => {
     try {
       const res = await fieldIndex();
@@ -56,6 +55,7 @@ const FieldsIndex: React.FC = () => {
       if (res.status === 200) {
         histroy.push("/");
         console.log(res.data.data);
+        console.log(res.data.data[0].targets[0]);
         setFields(res.data.data);
 
         console.log("FieldIndex successfully!");
@@ -82,28 +82,35 @@ const FieldsIndex: React.FC = () => {
   return (
     <div className={classes.fieldsWrapper}>
       <Grid container spacing={3} direction="column">
-        {fields.map((field) => (
-          <Card className={classes.fieldContainer} key={field.id}>
-            <Grid container>
-              <Grid item xs={2} className={classes.paper}>
-                <Button
-                  className={classes.btn}
-                  component={Link}
-                  to={{ pathname: `/fields/${field.id}`, state: field }}
-                >
-                  <Typography>{field.fieldName}</Typography>
-                  <Typography>{field.product}</Typography>
-                  <Typography>{field.accumTemp}℃</Typography>
-                  <Typography>{conversionDate(field.startDate!)}</Typography>
-                </Button>
+        {fields.map((field) => {
+          const targets: TargetParams[] =
+            field.targets as unknown as TargetParams[];
+          return (
+            <Card className={classes.fieldContainer} key={field.id}>
+              <Grid container>
+                <Grid item xs={2} className={classes.paper}>
+                  <Button
+                    className={classes.btn}
+                    component={Link}
+                    to={{ pathname: `/fields/${field.id}`, state: field }}
+                  >
+                    <Typography>{field.fieldName}</Typography>
+                    <Typography>{field.product}</Typography>
+                    <Typography>{field.accumTemp}℃</Typography>
+                    <Typography>{conversionDate(field.startDate!)}</Typography>
+                  </Button>
+                </Grid>
+                {targets.map((target) => {
+                  return (
+                    <Grid item xs={2} className={classes.paper} key={target.id}>
+                      <TargetCard />
+                    </Grid>
+                  );
+                })}
               </Grid>
-
-              <Grid item xs={2} className={classes.paper}>
-                <TargetCard />
-              </Grid>
-            </Grid>
-          </Card>
-        ))}
+            </Card>
+          );
+        })}
       </Grid>
       <AlertMessage // エラーが発生した場合はアラートを表示
         open={alertMessageOpen}

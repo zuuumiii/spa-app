@@ -77,6 +77,7 @@ export interface TargetCreateParams {
 }
 //目標取得
 export interface TargetParams {
+  id: number;
   targetName: string;
   targetTemp: number;
   memo: string;
