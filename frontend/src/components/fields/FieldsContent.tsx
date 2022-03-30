@@ -120,12 +120,7 @@ const FieldsIndex: React.FC = () => {
                 {targets.map((target) => {
                   return (
                     <Grid item xs={2} className={classes.paper} key={target.id}>
-                      <TargetCard
-                        targetName={target.targetName}
-                        targetTemp={target.targetTemp}
-                        accumTemp={field.accumTemp}
-                        id={target.id}
-                      />
+                      <TargetCard target={target} field={field} />
                     </Grid>
                   );
                 })}

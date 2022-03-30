@@ -10,6 +10,7 @@ import DeleteModal from "components/modal/DeleteModal";
 import { FieldParams, TargetParams } from "interfaces";
 import TargetCard from "components/fields/TargetCard";
 import { fieldDelete } from "lib/api/field";
+import { targetCreate } from "lib/api/target";
 
 const useStyles = makeStyles((theme: Theme) => ({
   createBtn: {
@@ -124,7 +125,6 @@ const FieldShow: React.FC = () => {
             component={Link}
             to={{ pathname: `/fields/${field.id}/targetCreate`, state: field }}
             color="default"
-            onClick={() => {}}
           >
             目標新規作成
           </Button>
@@ -133,12 +133,7 @@ const FieldShow: React.FC = () => {
           {targets.map((target) => {
             return (
               <Grid item xs={3} className={classes.target} key={target.id}>
-                <TargetCard
-                  targetName={target.targetName}
-                  targetTemp={target.targetTemp}
-                  accumTemp={field.accumTemp}
-                  id={target.id}
-                />
+                <TargetCard target={target} field={field} />
               </Grid>
             );
           })}

@@ -1,6 +1,8 @@
 import { Button, Typography, Modal } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import React, { useState } from "react";
+import TargetForm from "components/targets/TargetForm";
+import { FieldParams, TargetParams } from "interfaces";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -17,6 +19,13 @@ const useStyles = makeStyles((theme) => ({
     textTransform: "none",
     "&:hover": {
       backgroundColor: "#ff5722",
+    },
+  },
+  openBtn: {
+    marginTop: theme.spacing(2),
+    textTransform: "none",
+    "&:hover": {
+      backgroundColor: "#b2dfdb",
     },
   },
   cancelBtn: {
@@ -36,19 +45,31 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-interface DeleteModalProps {
-  text: string;
-  onClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
-  modalTitle: string;
-  modalText: string;
+interface TargetModalProps {
+  children: React.ReactElement;
+  title: string;
+  field: FieldParams;
+  targetName: string;
+  targetTemp: number;
+  memo: string;
+  onChangeTargetName: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onChangeTargetTemp: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onChangeMemo: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onClickSubmit: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
-const DeleteModal: React.FC<DeleteModalProps> = ({
-  text,
-  onClick,
-  modalTitle,
-  modalText,
-}: DeleteModalProps) => {
+const TargetModal: React.FC<TargetModalProps> = ({
+  children,
+  title,
+  field,
+  targetName,
+  targetTemp,
+  memo,
+  onChangeTargetName,
+  onChangeTargetTemp,
+  onChangeMemo,
+  onClickSubmit,
+}: TargetModalProps) => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
 
@@ -60,31 +81,19 @@ const DeleteModal: React.FC<DeleteModalProps> = ({
     setOpen(false);
   };
 
-  const handleOK = (e: React.MouseEvent<HTMLButtonElement>) => {
-    handleClose();
-    return onClick(e);
-  };
-
   const body = (
     <div className={classes.paper}>
-      <h2>{modalTitle}</h2>
-      <Typography>{modalText}</Typography>
-      <Button
-        variant="contained"
-        className={classes.deleteBtn}
-        color="default"
-        onClick={(e) => handleOK(e)}
-      >
-        OK
-      </Button>
-      <Button
-        variant="contained"
-        className={classes.cancelBtn}
-        color="default"
-        onClick={() => handleClose()}
-      >
-        キャンセル
-      </Button>
+      <TargetForm
+        title={title}
+        field={field}
+        targetName={targetName}
+        targetTemp={targetTemp}
+        memo={memo}
+        onChangeTargetName={onChangeTargetName}
+        onChangeTargetTemp={onChangeTargetTemp}
+        onChangeMemo={onChangeMemo}
+        onClickSubmit={onClickSubmit}
+      />
     </div>
   );
   return (
@@ -93,12 +102,12 @@ const DeleteModal: React.FC<DeleteModalProps> = ({
         variant="contained"
         size="large"
         color="default"
-        className={classes.deleteBtn}
+        className={classes.openBtn}
         onClick={() => {
           handleOpen();
         }}
       >
-        {text}
+        {children}
       </Button>
       <Modal
         open={open}
@@ -113,4 +122,4 @@ const DeleteModal: React.FC<DeleteModalProps> = ({
   );
 };
 
-export default DeleteModal;
+export default TargetModal;

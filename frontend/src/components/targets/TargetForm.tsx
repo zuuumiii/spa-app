@@ -5,6 +5,8 @@ import TextField from "@material-ui/core/TextField";
 import CardContent from "@material-ui/core/CardContent";
 import CardHeader from "@material-ui/core/CardHeader";
 import InputAdornment from "@material-ui/core/InputAdornment";
+import { FieldParams } from "interfaces";
+import { Button } from "@material-ui/core";
 
 const useStyles = makeStyles((theme: Theme) => ({
   textField: {
@@ -16,17 +18,27 @@ const useStyles = makeStyles((theme: Theme) => ({
   header: {
     textAlign: "center",
   },
+  submitBtn: {
+    marginTop: theme.spacing(2),
+    flexGrow: 1,
+    textTransform: "none",
+    "&:hover": {
+      backgroundColor: "#4db6ac",
+    },
+  },
 }));
 
-type Props = {
+interface Props {
   title: string;
+  field: FieldParams;
   targetName: string;
-  targetTemp: number | null;
+  targetTemp: number;
   memo: string;
   onChangeTargetName: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onChangeTargetTemp: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onChangeMemo: (event: React.ChangeEvent<HTMLInputElement>) => void;
-};
+  onClickSubmit: (event: React.MouseEvent<HTMLButtonElement>) => void;
+}
 
 const TargetForm: React.FC<Props> = (props) => {
   const {
@@ -37,6 +49,7 @@ const TargetForm: React.FC<Props> = (props) => {
     onChangeTargetName,
     onChangeTargetTemp,
     onChangeMemo,
+    onClickSubmit,
   } = props;
   const classes = useStyles();
 
@@ -76,6 +89,18 @@ const TargetForm: React.FC<Props> = (props) => {
           margin="dense"
           onChange={onChangeMemo}
         />
+        <Button
+          type="submit"
+          variant="contained"
+          size="large"
+          fullWidth
+          color="default"
+          disabled={!targetName || !targetTemp ? true : false}
+          className={classes.submitBtn}
+          onClick={onClickSubmit}
+        >
+          Submit
+        </Button>
       </CardContent>
     </>
   );
