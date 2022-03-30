@@ -1,8 +1,11 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 import { makeStyles, Theme } from "@material-ui/core/styles";
 import { Box, CircularProgress, Grid, Typography } from "@material-ui/core";
+import { FieldParams, TargetParams, TargetCreateParams } from "interfaces";
+import { targetUpdate } from "lib/api/target";
 import TargetModal from "components/modal/TargetModal";
-import { FieldParams, TargetParams } from "interfaces";
+import AlertMessage from "components/utils/AlertMessage";
 
 const useStyles = makeStyles((theme: Theme) => ({
   paper: {
@@ -46,6 +49,7 @@ interface Props {
 }
 
 const TargetCard: React.FC<Props> = (props) => {
+  const history = useHistory();
   const classes = useStyles();
   const { target, field } = props;
 
@@ -57,6 +61,7 @@ const TargetCard: React.FC<Props> = (props) => {
     color = "#ffeb3b";
   }
 
+  const [alertMessageOpen, setAlertMessageOpen] = useState<boolean>(false);
   const [targetName, setTargetName] = useState<string>(target.targetName);
   const [targetTemp, setTargetTemp] = useState<number>(target.targetTemp);
   const [memo, setMemo] = useState<string>(target.memo);
@@ -71,57 +76,85 @@ const TargetCard: React.FC<Props> = (props) => {
     setMemo(e.target.value);
   };
 
-  const handleClickUpdate = () => {
-    console.log("めんそーれ");
+  const handleClickUpdate = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    const params: TargetCreateParams = {
+      targetName: targetName,
+      targetTemp: targetTemp,
+      memo: memo,
+    };
+
+    try {
+      const res = await targetUpdate(params, target.fieldId, target.id);
+      console.log(res);
+
+      if (res.status === 200) {
+        history.push("/");
+        console.log("Update successfully!");
+      } else {
+        setAlertMessageOpen(true);
+      }
+    } catch (err) {
+      console.log("err");
+      setAlertMessageOpen(true);
+    }
   };
 
   return (
-    <TargetModal
-      title="目標編集"
-      targetName={targetName}
-      targetTemp={targetTemp}
-      memo={memo}
-      onChangeTargetName={handleChangeTargetName}
-      onChangeTargetTemp={handleChangeTargetTemp}
-      onChangeMemo={handleChangeMemo}
-      onClickSubmit={handleClickUpdate}
-    >
-      <div className={classes.btn}>
-        <Typography>{target.targetName}</Typography>
+    <>
+      <TargetModal
+        title="目標編集"
+        targetName={targetName}
+        targetTemp={targetTemp}
+        memo={memo}
+        onChangeTargetName={handleChangeTargetName}
+        onChangeTargetTemp={handleChangeTargetTemp}
+        onChangeMemo={handleChangeMemo}
+        onClickSubmit={(e) => handleClickUpdate(e)}
+      >
+        <div className={classes.btn}>
+          <Typography>{target.targetName}</Typography>
 
-        <Box position="relative" display="inline-flex">
-          {/* 背景用のCircularProgress */}
-          <CircularProgress
-            className={classes.circularBackground}
-            variant="determinate"
-            size={96}
-            value={100}
-          />
-          {/* バロメーター用のCircularProgress */}
-          <CircularProgress
-            className={classes.circularBar}
-            variant="determinate"
-            size={96}
-            value={value}
-            style={{ color: color }}
-          />
-          <div className={classes.circularInternalContent}>
-            <Grid container justify="center">
-              <Typography>{target.targetTemp}</Typography>
-              <Typography className={classes.temperature} variant="caption">
-                ℃
-              </Typography>
-              <Grid container justify="center" alignItems="flex-end">
-                <Typography variant="h5">{value}</Typography>
-                <Typography className={classes.percent} variant="caption">
-                  %
+          <Box position="relative" display="inline-flex">
+            {/* 背景用のCircularProgress */}
+            <CircularProgress
+              className={classes.circularBackground}
+              variant="determinate"
+              size={96}
+              value={100}
+            />
+            {/* バロメーター用のCircularProgress */}
+            <CircularProgress
+              className={classes.circularBar}
+              variant="determinate"
+              size={96}
+              value={value}
+              style={{ color: color }}
+            />
+            <div className={classes.circularInternalContent}>
+              <Grid container justify="center">
+                <Typography>{target.targetTemp}</Typography>
+                <Typography className={classes.temperature} variant="caption">
+                  ℃
                 </Typography>
+                <Grid container justify="center" alignItems="flex-end">
+                  <Typography variant="h5">{value}</Typography>
+                  <Typography className={classes.percent} variant="caption">
+                    %
+                  </Typography>
+                </Grid>
               </Grid>
-            </Grid>
-          </div>
-        </Box>
-      </div>
-    </TargetModal>
+            </div>
+          </Box>
+        </div>
+      </TargetModal>
+      <AlertMessage // エラーが発生した場合はアラートを表示
+        open={alertMessageOpen}
+        setOpen={setAlertMessageOpen}
+        severity="error"
+        message="Invalid Target Data"
+      />
+    </>
   );
 };
 

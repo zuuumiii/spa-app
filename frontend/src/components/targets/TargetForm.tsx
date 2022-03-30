@@ -5,7 +5,6 @@ import TextField from "@material-ui/core/TextField";
 import CardContent from "@material-ui/core/CardContent";
 import CardHeader from "@material-ui/core/CardHeader";
 import InputAdornment from "@material-ui/core/InputAdornment";
-import { FieldParams } from "interfaces";
 import { Button } from "@material-ui/core";
 
 const useStyles = makeStyles((theme: Theme) => ({
