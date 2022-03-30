@@ -10,7 +10,6 @@ import Button from "@material-ui/core/Button";
 import { fieldIndex } from "lib/api/field";
 import { FieldParams, TargetParams } from "interfaces";
 import TargetCard from "./TargetCard";
-import { AnyRecord } from "dns";
 
 const useStyles = makeStyles((theme: Theme) => ({
   fieldsWrapper: {
