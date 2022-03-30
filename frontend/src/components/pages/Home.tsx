@@ -18,7 +18,6 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-// とりあえず認証済みユーザーの名前やメールアドレスを表示
 const Home: React.FC = () => {
   const classes = useStyles();
   const { isSignedIn, currentUser } = useContext(AuthContext);
@@ -42,18 +41,3 @@ const Home: React.FC = () => {
 };
 
 export default Home;
-
-//<Card className={classes.card}>
-//        <CardHeader className={classes.header} title="main contents" />
-//        <CardContent>
-//          {isSignedIn && currentUser ? (
-//            <>
-//              <h1>Signed in successfully!</h1>
-//              <h2>Email: {currentUser?.email}</h2>
-//              <h2>Name: {currentUser?.name}</h2>
-//            </>
-//          ) : (
-//            <h1>Not signed in</h1>
-//          )}
-//        </CardContent>
-//      </Card>

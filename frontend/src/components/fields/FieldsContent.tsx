@@ -10,6 +10,7 @@ import Button from "@material-ui/core/Button";
 import { fieldIndex } from "lib/api/field";
 import { FieldParams, TargetParams } from "interfaces";
 import TargetCard from "./TargetCard";
+import { AnyRecord } from "dns";
 
 const useStyles = makeStyles((theme: Theme) => ({
   fieldsWrapper: {
@@ -48,6 +49,22 @@ const FieldsIndex: React.FC = () => {
   const histroy = useHistory();
   const [fields, setFields] = useState<FieldParams[]>([]);
   const [alertMessageOpen, setAlertMessageOpen] = useState<boolean>(false);
+
+  const sortFieldsTargets = (fields: FieldParams[]) => {
+    //設定温度の低い順にfiled内でtargetの並べ替え
+    fields.map((field: FieldParams) => {
+      (field.targets as unknown as TargetParams[]).sort((a, b) => {
+        return a.targetTemp < b.targetTemp ? -1 : 1;
+      });
+    });
+    //そして積算温度と設定温度の比率が高い順にfieldを並べ替え
+    fields.sort((a: any, b: any) => {
+      const aP = a.accumTemp / a.targets[0]?.targetTemp;
+      const bP = b.accumTemp / b.targets[0]?.targetTemp;
+      return aP > bP ? -1 : 1;
+    });
+  };
+
   const handleFieldIndex = async () => {
     try {
       const res = await fieldIndex();
@@ -55,7 +72,7 @@ const FieldsIndex: React.FC = () => {
       if (res.status === 200) {
         histroy.push("/");
         console.log(res.data.data);
-        console.log(res.data.data[0].targets[0]);
+        sortFieldsTargets(res.data.data);
         setFields(res.data.data);
 
         console.log("FieldIndex successfully!");
