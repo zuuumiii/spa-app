@@ -71,7 +71,7 @@ const FieldShow: React.FC = () => {
   const field = state;
   const targets: TargetParams[] = field.targets as unknown as TargetParams[];
 
-  const handleFieldDelete = async (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleFieldDelete = async () => {
     try {
       const res = await fieldDelete(field.id);
       console.log(res);
@@ -102,7 +102,7 @@ const FieldShow: React.FC = () => {
         </Button>
         <DeleteModal
           text={"圃場情報削除"}
-          onClick={(e) => handleFieldDelete(e)}
+          onClick={handleFieldDelete}
           modalTitle={"圃場情報削除"}
           modalText={"本当に削除してもよろしいですか？"}
         />

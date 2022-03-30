@@ -30,7 +30,6 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 interface Props {
   title: string;
-  field: FieldParams;
   targetName: string;
   targetTemp: number;
   memo: string;

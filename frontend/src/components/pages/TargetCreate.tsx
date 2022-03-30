@@ -72,7 +72,6 @@ const TargetCreate: React.FC = () => {
         <Card className={classes.card}>
           <TargetForm
             title="新規目標登録"
-            field={field}
             targetName={targetName}
             targetTemp={targetTemp}
             memo={memo}

@@ -2,7 +2,6 @@ import { Button, Typography, Modal } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import React, { useState } from "react";
 import TargetForm from "components/targets/TargetForm";
-import { FieldParams, TargetParams } from "interfaces";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -48,7 +47,6 @@ const useStyles = makeStyles((theme) => ({
 interface TargetModalProps {
   children: React.ReactElement;
   title: string;
-  field: FieldParams;
   targetName: string;
   targetTemp: number;
   memo: string;
@@ -61,7 +59,6 @@ interface TargetModalProps {
 const TargetModal: React.FC<TargetModalProps> = ({
   children,
   title,
-  field,
   targetName,
   targetTemp,
   memo,
@@ -85,7 +82,6 @@ const TargetModal: React.FC<TargetModalProps> = ({
     <div className={classes.paper}>
       <TargetForm
         title={title}
-        field={field}
         targetName={targetName}
         targetTemp={targetTemp}
         memo={memo}

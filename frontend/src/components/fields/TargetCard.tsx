@@ -78,7 +78,6 @@ const TargetCard: React.FC<Props> = (props) => {
   return (
     <TargetModal
       title="目標編集"
-      field={field}
       targetName={targetName}
       targetTemp={targetTemp}
       memo={memo}
