@@ -46,12 +46,14 @@ const useStyles = makeStyles((theme: Theme) => ({
 interface Props {
   target: TargetParams;
   field: FieldParams;
+  handleSort: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 const TargetCard: React.FC<Props> = (props) => {
   const history = useHistory();
   const classes = useStyles();
-  const { target, field } = props;
+  const [target, setTarget] = useState<TargetParams>(props.target);
+  const [field, setField] = useState<FieldParams>(props.field);
 
   const value = Math.floor((field.accumTemp / target.targetTemp) * 100);
   let color = "";
@@ -86,10 +88,11 @@ const TargetCard: React.FC<Props> = (props) => {
 
     try {
       const res = await targetUpdate(params, target.fieldId, target.id);
-      console.log(res);
+      console.log(res.data.data);
 
       if (res.status === 200) {
-        history.push("/");
+        setTarget(res.data.data);
+        props.handleSort(e);
         console.log("Update successfully!");
       } else {
         setAlertMessageOpen(true);

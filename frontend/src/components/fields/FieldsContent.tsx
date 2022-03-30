@@ -84,6 +84,11 @@ const FieldsIndex: React.FC = () => {
     }
   };
 
+  const handleSort = () => {
+    setFields(fields);
+    sortFieldsTargets(fields);
+  };
+
   useEffect(() => {
     handleFieldIndex();
   }, []); //第2引数にfieldsを渡すと無限ループに陥る
@@ -120,7 +125,11 @@ const FieldsIndex: React.FC = () => {
                 {targets.map((target) => {
                   return (
                     <Grid item xs={2} className={classes.paper} key={target.id}>
-                      <TargetCard target={target} field={field} />
+                      <TargetCard
+                        handleSort={handleSort}
+                        target={target}
+                        field={field}
+                      />
                     </Grid>
                   );
                 })}

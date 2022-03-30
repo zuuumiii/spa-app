@@ -86,6 +86,10 @@ const FieldShow: React.FC = () => {
       console.log(err);
     }
   };
+
+  const handleSort = () => {
+    console.log("SORT!!!");
+  };
   return (
     <>
       <div className={classes.btnWrapper}>
@@ -133,7 +137,11 @@ const FieldShow: React.FC = () => {
           {targets.map((target) => {
             return (
               <Grid item xs={3} className={classes.target} key={target.id}>
-                <TargetCard target={target} field={field} />
+                <TargetCard
+                  handleSort={handleSort}
+                  target={target}
+                  field={field}
+                />
               </Grid>
             );
           })}

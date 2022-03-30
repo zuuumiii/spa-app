@@ -88,7 +88,10 @@ const TargetModal: React.FC<TargetModalProps> = ({
         onChangeTargetName={onChangeTargetName}
         onChangeTargetTemp={onChangeTargetTemp}
         onChangeMemo={onChangeMemo}
-        onClickSubmit={onClickSubmit}
+        onClickSubmit={(e) => {
+          onClickSubmit(e);
+          handleClose();
+        }}
       />
     </div>
   );
