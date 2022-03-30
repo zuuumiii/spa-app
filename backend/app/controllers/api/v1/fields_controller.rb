@@ -5,7 +5,7 @@ module Api
     class FieldsController < ApplicationController
     
       def index
-        fields = Field.where(user_id: current_api_v1_user.id)
+        fields = Field.where(user_id: current_api_v1_user.id).order(:start_date)
         user = User.find(current_api_v1_user.id)
 
         fields = fields.each do |field| 
@@ -18,8 +18,8 @@ module Api
             field.save
           end
         end
-
-        render json: { status: "SUCCESS", data: fields }
+        string = fields.map.as_json(include: :targets)
+        render json: { status: "SUCCESS", data: string }
       end
 
       def create 

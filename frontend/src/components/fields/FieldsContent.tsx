@@ -8,7 +8,7 @@ import Grid from "@material-ui/core/Grid";
 import { Typography } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import { fieldIndex } from "lib/api/field";
-import { FieldParams } from "interfaces";
+import { FieldParams, TargetParams } from "interfaces";
 import TargetCard from "./TargetCard";
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -49,6 +49,21 @@ const FieldsIndex: React.FC = () => {
   const [fields, setFields] = useState<FieldParams[]>([]);
   const [alertMessageOpen, setAlertMessageOpen] = useState<boolean>(false);
 
+  const sortFieldsTargets = (fields: FieldParams[]) => {
+    //設定温度の低い順にfiled内でtargetの並べ替え
+    fields.map((field: FieldParams) => {
+      (field.targets as unknown as TargetParams[]).sort((a, b) => {
+        return a.targetTemp < b.targetTemp ? -1 : 1;
+      });
+    });
+    //そして積算温度と設定温度の比率が高い順にfieldを並べ替え
+    fields.sort((a: any, b: any) => {
+      const aP = a.accumTemp / a.targets[0]?.targetTemp;
+      const bP = b.accumTemp / b.targets[0]?.targetTemp;
+      return aP > bP ? -1 : 1;
+    });
+  };
+
   const handleFieldIndex = async () => {
     try {
       const res = await fieldIndex();
@@ -56,7 +71,9 @@ const FieldsIndex: React.FC = () => {
       if (res.status === 200) {
         histroy.push("/");
         console.log(res.data.data);
+        sortFieldsTargets(res.data.data);
         setFields(res.data.data);
+
         console.log("FieldIndex successfully!");
       } else {
         setAlertMessageOpen(true);
@@ -81,28 +98,41 @@ const FieldsIndex: React.FC = () => {
   return (
     <div className={classes.fieldsWrapper}>
       <Grid container spacing={3} direction="column">
-        {fields.map((field) => (
-          <Card className={classes.fieldContainer} key={field.id}>
-            <Grid container>
-              <Grid item xs={2} className={classes.paper}>
-                <Button
-                  className={classes.btn}
-                  component={Link}
-                  to={{ pathname: `/fields/${field.id}`, state: field }}
-                >
-                  <Typography>{field.fieldName}</Typography>
-                  <Typography>{field.product}</Typography>
-                  <Typography>{field.accumTemp}℃</Typography>
-                  <Typography>{conversionDate(field.startDate!)}</Typography>
-                </Button>
+        {fields.map((field) => {
+          const targets: TargetParams[] = (
+            field.targets as unknown as TargetParams[]
+          ).slice(0, 5);
+          return (
+            <Card className={classes.fieldContainer} key={field.id}>
+              <Grid container>
+                <Grid item xs={2} className={classes.paper}>
+                  <Button
+                    className={classes.btn}
+                    component={Link}
+                    to={{ pathname: `/fields/${field.id}`, state: field }}
+                  >
+                    <Typography>{field.fieldName}</Typography>
+                    <Typography>{field.product}</Typography>
+                    <Typography>{field.accumTemp}℃</Typography>
+                    <Typography>{conversionDate(field.startDate!)}</Typography>
+                  </Button>
+                </Grid>
+                {targets.map((target) => {
+                  return (
+                    <Grid item xs={2} className={classes.paper} key={target.id}>
+                      <TargetCard
+                        targetName={target.targetName}
+                        targetTemp={target.targetTemp}
+                        accumTemp={field.accumTemp}
+                        id={target.id}
+                      />
+                    </Grid>
+                  );
+                })}
               </Grid>
-
-              <Grid item xs={2} className={classes.paper}>
-                <TargetCard />
-              </Grid>
-            </Grid>
-          </Card>
-        ))}
+            </Card>
+          );
+        })}
       </Grid>
       <AlertMessage // エラーが発生した場合はアラートを表示
         open={alertMessageOpen}

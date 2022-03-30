@@ -7,7 +7,7 @@ import Button from "@material-ui/core/Button";
 import { Card, Typography, Grid, CardHeader } from "@material-ui/core";
 
 import DeleteModal from "components/modal/DeleteModal";
-import { FieldParams } from "interfaces";
+import { FieldParams, TargetParams } from "interfaces";
 import TargetCard from "components/fields/TargetCard";
 import { fieldDelete } from "lib/api/field";
 
@@ -32,12 +32,12 @@ const useStyles = makeStyles((theme: Theme) => ({
     justifyContent: "space-around",
   },
   fieldsWrapper: {
-    width: 800,
     margin: theme.spacing(4),
     display: "flex",
     justifyContent: "space-around",
   },
   fieldContainer: {
+    width: 800,
     textAlign: "center",
     height: 130,
     marginTop: theme.spacing(3),
@@ -52,7 +52,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   targetWrapper: {
     display: "flex",
-    justifyContent: "space-between",
+    justifyContent: "space-around",
     width: 800,
     margin: theme.spacing(4),
   },
@@ -63,15 +63,12 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-type Id = {
-  id: string;
-};
-
 const FieldShow: React.FC = () => {
   const classes = useStyles();
   const histroy = useHistory();
   const { state } = useLocation<FieldParams>();
   const field = state;
+  const targets: TargetParams[] = field.targets as unknown as TargetParams[];
 
   const handleFieldDelete = async (e: React.MouseEvent<HTMLButtonElement>) => {
     try {
@@ -113,11 +110,7 @@ const FieldShow: React.FC = () => {
         <Card className={classes.fieldContainer}>
           <Typography variant="h5">{field.fieldName}</Typography>
           <Typography variant="h6">作物名：{field.product}</Typography>
-          <Typography>
-            {field.id}
-            {field.info}
-            インフォインフォインフォインフォインフォインフォインフォインフォインフォインフォイン
-          </Typography>
+          <Typography>info:{field.info} </Typography>
         </Card>
       </div>
 
@@ -129,7 +122,7 @@ const FieldShow: React.FC = () => {
             variant="contained"
             size="large"
             component={Link}
-            to="/fieldCreate"
+            to={{ pathname: `/fields/${field.id}/targetCreate`, state: field }}
             color="default"
             onClick={() => {}}
           >
@@ -137,27 +130,18 @@ const FieldShow: React.FC = () => {
           </Button>
         </div>
         <Grid container className={classes.targetWrapper}>
-          <Grid item xs={3} className={classes.target}>
-            <TargetCard />
-          </Grid>
-          <Grid item xs={3} className={classes.target}>
-            <TargetCard />
-          </Grid>
-          <Grid item xs={3} className={classes.target}>
-            <TargetCard />
-          </Grid>
-          <Grid item xs={3} className={classes.target}>
-            <TargetCard />
-          </Grid>
-          <Grid item xs={3} className={classes.target}>
-            <TargetCard />
-          </Grid>
-          <Grid item xs={3} className={classes.target}>
-            <TargetCard />
-          </Grid>
-          <Grid item xs={3} className={classes.target}>
-            <TargetCard />
-          </Grid>
+          {targets.map((target) => {
+            return (
+              <Grid item xs={3} className={classes.target} key={target.id}>
+                <TargetCard
+                  targetName={target.targetName}
+                  targetTemp={target.targetTemp}
+                  accumTemp={field.accumTemp}
+                  id={target.id}
+                />
+              </Grid>
+            );
+          })}
         </Grid>
       </Card>
     </>

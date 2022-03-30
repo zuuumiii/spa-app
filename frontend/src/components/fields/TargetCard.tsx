@@ -7,6 +7,7 @@ import {
   Typography,
   Button,
 } from "@material-ui/core";
+import { targetCreate } from "lib/api/target";
 
 const useStyles = makeStyles((theme: Theme) => ({
   paper: {
@@ -33,7 +34,10 @@ const useStyles = makeStyles((theme: Theme) => ({
     right: 0,
     position: "absolute",
   },
-  probabilitySuffix: {
+  temperature: {
+    marginTop: 4.2,
+  },
+  percent: {
     marginBottom: 4,
   },
   circularBackground: {
@@ -44,9 +48,17 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-const TargetCard: React.FC = () => {
+type Props = {
+  targetName: string;
+  targetTemp: number;
+  accumTemp: number;
+  id: number;
+};
+
+const TargetCard: React.FC<Props> = (props) => {
   const classes = useStyles();
-  const value = 90;
+
+  const value = Math.floor((props.accumTemp / props.targetTemp) * 100);
   let color = "";
   if (value >= 90) {
     color = "#e53935";
@@ -55,7 +67,7 @@ const TargetCard: React.FC = () => {
   }
   return (
     <Button className={classes.btn}>
-      <Typography>t1</Typography>
+      <Typography>{props.targetName}</Typography>
 
       <Box position="relative" display="inline-flex">
         {/* 背景用のCircularProgress */}
@@ -75,13 +87,13 @@ const TargetCard: React.FC = () => {
         />
         <div className={classes.circularInternalContent}>
           <Grid container justify="center">
-            <Typography>600℃</Typography>
+            <Typography>{props.targetTemp}</Typography>
+            <Typography className={classes.temperature} variant="caption">
+              ℃
+            </Typography>
             <Grid container justify="center" alignItems="flex-end">
               <Typography variant="h5">{value}</Typography>
-              <Typography
-                className={classes.probabilitySuffix}
-                variant="caption"
-              >
+              <Typography className={classes.percent} variant="caption">
                 %
               </Typography>
             </Grid>
