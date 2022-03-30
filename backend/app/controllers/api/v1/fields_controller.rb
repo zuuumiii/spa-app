@@ -5,7 +5,7 @@ module Api
     class FieldsController < ApplicationController
     
       def index
-        fields = Field.where(user_id: current_api_v1_user.id)
+        fields = Field.where(user_id: current_api_v1_user.id).order(:start_date)
         user = User.find(current_api_v1_user.id)
 
         fields = fields.each do |field| 
