@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   paper: {
     textAlign: "center",
     color: theme.palette.text.primary,
-    height: 130,
+    height: 150,
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",

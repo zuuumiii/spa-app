@@ -8,8 +8,7 @@ import Grid from "@material-ui/core/Grid";
 import { Typography } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import { fieldIndex } from "lib/api/field";
-import { targetUpdate } from "lib/api/target";
-import { FieldParams, TargetParams, TargetCreateParams } from "interfaces";
+import { FieldParams, TargetParams } from "interfaces";
 import TargetCard from "./TargetCard";
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -33,13 +32,14 @@ const useStyles = makeStyles((theme: Theme) => ({
     flexDirection: "column",
     justifyContent: "center",
   },
-  btn: {
+  fieldBtn: {
+    height: 150,
     padding: theme.spacing(0.5),
     textAlign: "center",
     display: "block",
     justifyContent: "center",
     "&:hover": {
-      backgroundColor: "#26a69a",
+      backgroundColor: "#b2dfdb",
     },
   },
 }));
@@ -107,11 +107,11 @@ const FieldsIndex: React.FC = () => {
               <Grid container>
                 <Grid item xs={2} className={classes.paper}>
                   <Button
-                    className={classes.btn}
+                    className={classes.fieldBtn}
                     component={Link}
                     to={{ pathname: `/fields/${field.id}`, state: field }}
                   >
-                    <Typography>{field.fieldName}</Typography>
+                    <Typography variant="h6">{field.fieldName}</Typography>
                     <Typography>{field.product}</Typography>
                     <Typography>{field.accumTemp}℃</Typography>
                     <Typography>{conversionDate(field.startDate!)}</Typography>

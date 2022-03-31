@@ -22,12 +22,6 @@ const useStyles = makeStyles((theme: Theme) => ({
       backgroundColor: "#4db6ac",
     },
   },
-  targetBtn: {
-    width: 220,
-    "&:hover": {
-      backgroundColor: "#4db6ac",
-    },
-  },
   btnWrapper: {
     width: 800,
     margin: theme.spacing(4),
