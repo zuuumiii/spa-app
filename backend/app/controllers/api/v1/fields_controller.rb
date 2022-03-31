@@ -22,6 +22,12 @@ module Api
         render json: { status: "SUCCESS", data: string }
       end
 
+      def show
+        field = Field.find(params[:id])
+        string = field.as_json(include: :targets)
+        render json: { status: "SUCCESS", data: string }
+      end
+
       def create 
        field = Field.new(field_params)
        user = User.find(current_api_v1_user.id)

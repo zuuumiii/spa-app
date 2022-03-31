@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useLocation, useHistory } from "react-router-dom";
 
 import { makeStyles, Theme } from "@material-ui/core/styles";
@@ -9,7 +9,7 @@ import { Card, Typography, Grid, CardHeader } from "@material-ui/core";
 import DeleteModal from "components/modal/DeleteModal";
 import { FieldParams, TargetParams, TargetCreateParams } from "interfaces";
 import TargetCard from "components/fields/TargetCard";
-import { fieldDelete } from "lib/api/field";
+import { fieldDelete, fieldShow } from "lib/api/field";
 import { targetCreate } from "lib/api/target";
 import TargetModal from "components/modal/TargetModal";
 import AlertMessage from "components/utils/AlertMessage";
@@ -70,7 +70,7 @@ const FieldShow: React.FC = () => {
   const classes = useStyles();
   const histroy = useHistory();
   const { state } = useLocation<FieldParams>();
-  const field = state;
+  const [field, setField] = useState<FieldParams>(state);
   const targets: TargetParams[] = field.targets as unknown as TargetParams[];
   const [targetName, setTargetName] = useState<string>("");
   const [targetTemp, setTargetTemp] = useState<number>(0);
@@ -93,6 +93,28 @@ const FieldShow: React.FC = () => {
     }
   };
 
+  const handleFieldShow = async () => {
+    try {
+      const res = await fieldShow(field.id);
+
+      if (res.status === 200) {
+        console.log(res.data.data);
+        setField(res.data.data);
+
+        console.log("Field Show successfully!");
+      } else {
+        setAlertMessageOpen(true);
+      }
+    } catch (err) {
+      console.log("err");
+      setAlertMessageOpen(true);
+    }
+  };
+
+  useEffect(() => {
+    handleFieldShow();
+  }, []);
+
   const handleTargetCreate = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
@@ -107,7 +129,8 @@ const FieldShow: React.FC = () => {
       console.log(res);
 
       if (res.status === 200) {
-        histroy.push("/");
+        (field.targets as unknown as TargetParams[]).push(res.data.data);
+        setField(field);
         console.log("Create Target successfully!");
       } else {
         setAlertMessageOpen(true);
@@ -117,6 +140,7 @@ const FieldShow: React.FC = () => {
       setAlertMessageOpen(true);
     }
   };
+
   const handleChangeTargetName = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTargetName(e.target.value);
   };

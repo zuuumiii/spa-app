@@ -26,6 +26,17 @@ export const fieldIndex = () => {
   });
 };
 
+//show
+export const fieldShow = (id: number) => {
+  return client.get(`fields/${id}`, {
+    headers: {
+      "access-token": Cookies.get("_access_token")!,
+      client: Cookies.get("_client")!,
+      uid: Cookies.get("_uid")!,
+    },
+  });
+};
+
 //update
 export const fieldUpdate = (params: FieldCreateParams, id: number) => {
   console.log(params);
