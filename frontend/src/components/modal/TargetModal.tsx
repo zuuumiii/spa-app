@@ -95,15 +95,21 @@ const TargetModal: React.FC<TargetModalProps> = ({
           handleClose();
         }}
       />
-      <DeleteModal
-        text={"目標削除"}
-        onClick={(e) => {
-          onClickDelete(e);
-          handleClose();
-        }}
-        modalTitle={"目標削除"}
-        modalText={"本当に削除してもよろしいですか？"}
-      />
+      <>
+        {title != "目標新規作成" ? (
+          <DeleteModal
+            text={"目標削除"}
+            onClick={(e) => {
+              onClickDelete(e);
+              handleClose();
+            }}
+            modalTitle={"目標削除"}
+            modalText={"本当に削除してもよろしいですか？"}
+          />
+        ) : (
+          <></>
+        )}
+      </>
     </div>
   );
   return (
