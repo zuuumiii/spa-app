@@ -2,7 +2,7 @@ import { Button, Typography, Modal } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import React, { useState } from "react";
 import TargetForm from "components/targets/TargetForm";
-
+import DeleteModal from "./DeleteModal";
 const useStyles = makeStyles((theme) => ({
   paper: {
     position: "absolute",
@@ -95,10 +95,15 @@ const TargetModal: React.FC<TargetModalProps> = ({
           onClickSubmit(e);
           handleClose();
         }}
-        onClickDelete={(e) => {
+      />
+      <DeleteModal
+        text={"圃場情報削除"}
+        onClick={(e) => {
           onClickDelete(e);
           handleClose();
         }}
+        modalTitle={"圃場情報削除"}
+        modalText={"本当に削除してもよろしいですか？"}
       />
     </div>
   );

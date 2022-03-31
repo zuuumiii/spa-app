@@ -55,7 +55,6 @@ const TargetCreate: React.FC = () => {
       setAlertMessageOpen(true);
     }
   };
-  const onClickDelete = () => {};
   const handleChangeTargetName = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTargetName(e.target.value);
   };
@@ -79,7 +78,6 @@ const TargetCreate: React.FC = () => {
             onChangeMemo={handleChangeMemo}
             onChangeTargetTemp={handleChangeTargetTemp}
             onClickSubmit={(e) => handleSubmit(e)}
-            onClickDelete={onClickDelete}
           />
         </Card>
       </form>
