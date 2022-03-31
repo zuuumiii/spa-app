@@ -25,6 +25,13 @@ const useStyles = makeStyles((theme: Theme) => ({
       backgroundColor: "#4db6ac",
     },
   },
+  deleteBtn: {
+    marginTop: theme.spacing(2),
+    textTransform: "none",
+    "&:hover": {
+      backgroundColor: "#ff5722",
+    },
+  },
 }));
 
 interface Props {
@@ -36,6 +43,7 @@ interface Props {
   onChangeTargetTemp: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onChangeMemo: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onClickSubmit: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  onClickDelete: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 const TargetForm: React.FC<Props> = (props) => {
@@ -48,6 +56,7 @@ const TargetForm: React.FC<Props> = (props) => {
     onChangeTargetTemp,
     onChangeMemo,
     onClickSubmit,
+    onClickDelete,
   } = props;
   const classes = useStyles();
 
@@ -98,6 +107,17 @@ const TargetForm: React.FC<Props> = (props) => {
           onClick={onClickSubmit}
         >
           Submit
+        </Button>
+        <Button
+          type="submit"
+          variant="contained"
+          size="large"
+          fullWidth
+          color="default"
+          className={classes.deleteBtn}
+          onClick={onClickDelete}
+        >
+          目標削除
         </Button>
       </CardContent>
     </>

@@ -8,7 +8,8 @@ import Grid from "@material-ui/core/Grid";
 import { Typography } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import { fieldIndex } from "lib/api/field";
-import { FieldParams, TargetParams } from "interfaces";
+import { targetUpdate } from "lib/api/target";
+import { FieldParams, TargetParams, TargetCreateParams } from "interfaces";
 import TargetCard from "./TargetCard";
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -69,7 +70,6 @@ const FieldsIndex: React.FC = () => {
       const res = await fieldIndex();
 
       if (res.status === 200) {
-        histroy.push("/");
         console.log(res.data.data);
         sortFieldsTargets(res.data.data);
         setFields(res.data.data);
@@ -82,11 +82,6 @@ const FieldsIndex: React.FC = () => {
       console.log("err");
       setAlertMessageOpen(true);
     }
-  };
-
-  const handleSort = () => {
-    setFields(fields);
-    sortFieldsTargets(fields);
   };
 
   useEffect(() => {
@@ -126,9 +121,10 @@ const FieldsIndex: React.FC = () => {
                   return (
                     <Grid item xs={2} className={classes.paper} key={target.id}>
                       <TargetCard
-                        handleSort={handleSort}
                         target={target}
                         field={field}
+                        onClickSubmit={handleFieldIndex}
+                        onClickDelete={(e) => console.log("削除後の並べ替え")}
                       />
                     </Grid>
                   );

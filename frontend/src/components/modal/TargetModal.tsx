@@ -54,6 +54,8 @@ interface TargetModalProps {
   onChangeTargetTemp: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onChangeMemo: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onClickSubmit: (e: React.MouseEvent<HTMLButtonElement>) => void;
+
+  onClickDelete: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 const TargetModal: React.FC<TargetModalProps> = ({
@@ -66,6 +68,7 @@ const TargetModal: React.FC<TargetModalProps> = ({
   onChangeTargetTemp,
   onChangeMemo,
   onClickSubmit,
+  onClickDelete,
 }: TargetModalProps) => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
@@ -90,6 +93,10 @@ const TargetModal: React.FC<TargetModalProps> = ({
         onChangeMemo={onChangeMemo}
         onClickSubmit={(e) => {
           onClickSubmit(e);
+          handleClose();
+        }}
+        onClickDelete={(e) => {
+          onClickDelete(e);
           handleClose();
         }}
       />

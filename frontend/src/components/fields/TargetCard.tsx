@@ -46,10 +46,12 @@ const useStyles = makeStyles((theme: Theme) => ({
 interface Props {
   target: TargetParams;
   field: FieldParams;
-  handleSort: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  onClickSubmit: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  onClickDelete: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 const TargetCard: React.FC<Props> = (props) => {
+  const { onClickSubmit, onClickDelete }: Props = props;
   const history = useHistory();
   const classes = useStyles();
   const [target, setTarget] = useState<TargetParams>(props.target);
@@ -78,7 +80,7 @@ const TargetCard: React.FC<Props> = (props) => {
     setMemo(e.target.value);
   };
 
-  const handleClickUpdate = async (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleTargetUpdate = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     const params: TargetCreateParams = {
       targetName: targetName,
@@ -92,7 +94,6 @@ const TargetCard: React.FC<Props> = (props) => {
 
       if (res.status === 200) {
         setTarget(res.data.data);
-        props.handleSort(e);
         console.log("Update successfully!");
       } else {
         setAlertMessageOpen(true);
@@ -101,6 +102,10 @@ const TargetCard: React.FC<Props> = (props) => {
       console.log("err");
       setAlertMessageOpen(true);
     }
+  };
+
+  const handleTargetDelete = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
   };
 
   return (
@@ -113,7 +118,14 @@ const TargetCard: React.FC<Props> = (props) => {
         onChangeTargetName={handleChangeTargetName}
         onChangeTargetTemp={handleChangeTargetTemp}
         onChangeMemo={handleChangeMemo}
-        onClickSubmit={(e) => handleClickUpdate(e)}
+        onClickSubmit={(e) => {
+          handleTargetUpdate(e);
+          onClickSubmit(e);
+        }}
+        onClickDelete={(e) => {
+          handleTargetDelete(e);
+          onClickDelete(e);
+        }}
       >
         <div className={classes.btn}>
           <Typography>{target.targetName}</Typography>

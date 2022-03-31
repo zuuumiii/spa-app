@@ -87,9 +87,6 @@ const FieldShow: React.FC = () => {
     }
   };
 
-  const handleSort = () => {
-    console.log("SORT!!!");
-  };
   return (
     <>
       <div className={classes.btnWrapper}>
@@ -138,9 +135,10 @@ const FieldShow: React.FC = () => {
             return (
               <Grid item xs={3} className={classes.target} key={target.id}>
                 <TargetCard
-                  handleSort={handleSort}
                   target={target}
                   field={field}
+                  onClickSubmit={() => {}}
+                  onClickDelete={() => {}}
                 />
               </Grid>
             );
