@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useLocation, useHistory } from "react-router-dom";
 
 import { makeStyles, Theme } from "@material-ui/core/styles";
@@ -7,20 +7,17 @@ import Button from "@material-ui/core/Button";
 import { Card, Typography, Grid, CardHeader } from "@material-ui/core";
 
 import DeleteModal from "components/modal/DeleteModal";
-import { FieldParams, TargetParams } from "interfaces";
+import { FieldParams, TargetParams, TargetCreateParams } from "interfaces";
 import TargetCard from "components/fields/TargetCard";
-import { fieldDelete } from "lib/api/field";
+import { fieldDelete, fieldShow } from "lib/api/field";
+import { targetCreate } from "lib/api/target";
+import TargetModal from "components/modal/TargetModal";
+import AlertMessage from "components/utils/AlertMessage";
 
 const useStyles = makeStyles((theme: Theme) => ({
   createBtn: {
     width: 220,
     margin: theme.spacing(2, 0, 0, 0),
-    "&:hover": {
-      backgroundColor: "#4db6ac",
-    },
-  },
-  targetBtn: {
-    width: 220,
     "&:hover": {
       backgroundColor: "#4db6ac",
     },
@@ -67,10 +64,20 @@ const FieldShow: React.FC = () => {
   const classes = useStyles();
   const histroy = useHistory();
   const { state } = useLocation<FieldParams>();
-  const field = state;
+  const [field, setField] = useState<FieldParams>(state);
   const targets: TargetParams[] = field.targets as unknown as TargetParams[];
+  const [targetName, setTargetName] = useState<string>("");
+  const [targetTemp, setTargetTemp] = useState<number>(0);
+  const [memo, setMemo] = useState<string>("");
+  const [alertMessageOpen, setAlertMessageOpen] = useState<boolean>(false);
 
-  const handleFieldDelete = async (e: React.MouseEvent<HTMLButtonElement>) => {
+  const targetSort = (field: FieldParams) => {
+    (field.targets as unknown as TargetParams[]).sort((a, b) => {
+      return a.targetTemp < b.targetTemp ? -1 : 1;
+    });
+  };
+
+  const handleFieldDelete = async () => {
     try {
       const res = await fieldDelete(field.id);
       console.log(res);
@@ -85,6 +92,70 @@ const FieldShow: React.FC = () => {
       console.log(err);
     }
   };
+
+  const handleFieldShow = async () => {
+    try {
+      const res = await fieldShow(field.id);
+
+      if (res.status === 200) {
+        console.log(res.data.data);
+        targetSort(res.data.data);
+        console.log(res.data.data);
+        setField(res.data.data);
+
+        console.log(field);
+        console.log("Field Show successfully!");
+      } else {
+        setAlertMessageOpen(true);
+      }
+    } catch (err) {
+      console.log("err");
+      setAlertMessageOpen(true);
+    }
+  };
+
+  useEffect(() => {
+    handleFieldShow();
+    console.log("useeffect");
+  }, []);
+
+  const handleTargetCreate = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+
+    const params: TargetCreateParams = {
+      targetName: targetName,
+      targetTemp: targetTemp,
+      memo: memo,
+    };
+
+    try {
+      const res = await targetCreate(params, field.id);
+      console.log(res);
+
+      if (res.status === 200) {
+        (field.targets as unknown as TargetParams[]).push(res.data.data);
+        setField(field);
+        handleFieldShow();
+        console.log("Create Target successfully!");
+      } else {
+        setAlertMessageOpen(true);
+      }
+    } catch (err) {
+      console.log("err");
+      setAlertMessageOpen(true);
+    }
+  };
+
+  const handleChangeTargetName = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setTargetName(e.target.value);
+  };
+  const handleChangeTargetTemp = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setTargetTemp(parseInt(e.target.value) || 0);
+  };
+  const handleChangeMemo = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setMemo(e.target.value);
+  };
+
   return (
     <>
       <div className={classes.btnWrapper}>
@@ -101,7 +172,7 @@ const FieldShow: React.FC = () => {
         </Button>
         <DeleteModal
           text={"圃場情報削除"}
-          onClick={(e) => handleFieldDelete(e)}
+          onClick={handleFieldDelete}
           modalTitle={"圃場情報削除"}
           modalText={"本当に削除してもよろしいですか？"}
         />
@@ -117,33 +188,43 @@ const FieldShow: React.FC = () => {
       <Card className={classes.targetCard}>
         <CardHeader className={classes.header} title="目標一覧" />
         <div className={classes.btnWrapper}>
-          <Button
-            className={classes.targetBtn}
-            variant="contained"
-            size="large"
-            component={Link}
-            to={{ pathname: `/fields/${field.id}/targetCreate`, state: field }}
-            color="default"
-            onClick={() => {}}
+          <TargetModal
+            title="目標新規作成"
+            targetName={targetName}
+            targetTemp={targetTemp}
+            memo={memo}
+            onChangeTargetName={handleChangeTargetName}
+            onChangeTargetTemp={handleChangeTargetTemp}
+            onChangeMemo={handleChangeMemo}
+            onClickSubmit={(e) => {
+              handleTargetCreate(e);
+            }}
+            onClickDelete={() => {}}
           >
-            目標新規作成
-          </Button>
+            <Typography>目標新規作成</Typography>
+          </TargetModal>
         </div>
         <Grid container className={classes.targetWrapper}>
           {targets.map((target) => {
             return (
               <Grid item xs={3} className={classes.target} key={target.id}>
                 <TargetCard
-                  targetName={target.targetName}
-                  targetTemp={target.targetTemp}
-                  accumTemp={field.accumTemp}
-                  id={target.id}
+                  target={target}
+                  field={field}
+                  onClickSubmit={handleFieldShow}
+                  onClickDelete={handleFieldShow}
                 />
               </Grid>
             );
           })}
         </Grid>
       </Card>
+      <AlertMessage // エラーが発生した場合はアラートを表示
+        open={alertMessageOpen}
+        setOpen={setAlertMessageOpen}
+        severity="error"
+        message="Invalid Target Data"
+      />
     </>
   );
 };

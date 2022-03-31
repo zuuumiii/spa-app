@@ -27,9 +27,13 @@ export const targetIndex = () => {
 };
 
 //update
-export const targetUpdate = (params: TargetCreateParams, id: number) => {
+export const targetUpdate = (
+  params: TargetCreateParams,
+  fieldId: number,
+  targetId: number
+) => {
   console.log(params);
-  return client.put(`targets/${id}`, params, {
+  return client.put(`fields/${fieldId}/targets/${targetId}`, params, {
     headers: {
       "access-token": Cookies.get("_access_token")!,
       client: Cookies.get("_client")!,
@@ -39,8 +43,8 @@ export const targetUpdate = (params: TargetCreateParams, id: number) => {
 };
 
 //delete
-export const targetDelete = (id: number) => {
-  return client.delete(`targets/${id}`, {
+export const targetDelete = (fieldId: number, targetId: number) => {
+  return client.delete(`fields/${fieldId}/targets/${targetId}`, {
     headers: {
       "access-token": Cookies.get("_access_token")!,
       client: Cookies.get("_client")!,

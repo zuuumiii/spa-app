@@ -43,7 +43,7 @@ interface DeleteModalProps {
   modalText: string;
 }
 
-const DeleteModal = ({
+const DeleteModal: React.FC<DeleteModalProps> = ({
   text,
   onClick,
   modalTitle,

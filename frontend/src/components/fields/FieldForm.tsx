@@ -32,7 +32,7 @@ class JaLocalizedUtils extends DateFnsUtils {
   }
 }
 
-type Props = {
+interface Props {
   title: string;
   fieldName: string;
   product: string;
@@ -46,7 +46,7 @@ type Props = {
   onChangeStartDate: (date: number) => void;
   onChangeInfo: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onChangeCorrect: (selected: number) => void;
-};
+}
 
 const FieldForm: React.FC<Props> = (props) => {
   const {

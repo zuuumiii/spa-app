@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   fieldContainer: {
     display: "flex",
     alignItems: "center",
-    height: 130,
+    height: 150,
     marginTop: theme.spacing(3),
     backgroundColor: "#eceff1",
   },
@@ -32,13 +32,14 @@ const useStyles = makeStyles((theme: Theme) => ({
     flexDirection: "column",
     justifyContent: "center",
   },
-  btn: {
+  fieldBtn: {
+    height: 150,
     padding: theme.spacing(0.5),
     textAlign: "center",
     display: "block",
     justifyContent: "center",
     "&:hover": {
-      backgroundColor: "#26a69a",
+      backgroundColor: "#b2dfdb",
     },
   },
 }));
@@ -69,7 +70,6 @@ const FieldsIndex: React.FC = () => {
       const res = await fieldIndex();
 
       if (res.status === 200) {
-        histroy.push("/");
         console.log(res.data.data);
         sortFieldsTargets(res.data.data);
         setFields(res.data.data);
@@ -107,11 +107,11 @@ const FieldsIndex: React.FC = () => {
               <Grid container>
                 <Grid item xs={2} className={classes.paper}>
                   <Button
-                    className={classes.btn}
+                    className={classes.fieldBtn}
                     component={Link}
                     to={{ pathname: `/fields/${field.id}`, state: field }}
                   >
-                    <Typography>{field.fieldName}</Typography>
+                    <Typography variant="h6">{field.fieldName}</Typography>
                     <Typography>{field.product}</Typography>
                     <Typography>{field.accumTemp}℃</Typography>
                     <Typography>{conversionDate(field.startDate!)}</Typography>
@@ -121,10 +121,10 @@ const FieldsIndex: React.FC = () => {
                   return (
                     <Grid item xs={2} className={classes.paper} key={target.id}>
                       <TargetCard
-                        targetName={target.targetName}
-                        targetTemp={target.targetTemp}
-                        accumTemp={field.accumTemp}
-                        id={target.id}
+                        target={target}
+                        field={field}
+                        onClickSubmit={handleFieldIndex}
+                        onClickDelete={handleFieldIndex}
                       />
                     </Grid>
                   );

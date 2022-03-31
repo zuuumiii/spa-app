@@ -12,14 +12,6 @@ import { targetCreate } from "lib/api/target";
 import TargetForm from "components/targets/TargetForm";
 
 const useStyles = makeStyles((theme: Theme) => ({
-  submitBtn: {
-    marginTop: theme.spacing(2),
-    flexGrow: 1,
-    textTransform: "none",
-    "&:hover": {
-      backgroundColor: "#4db6ac",
-    },
-  },
   card: {
     padding: theme.spacing(2),
     marginBottom: theme.spacing(10),
@@ -63,7 +55,6 @@ const TargetCreate: React.FC = () => {
       setAlertMessageOpen(true);
     }
   };
-
   const handleChangeTargetName = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTargetName(e.target.value);
   };
@@ -80,26 +71,15 @@ const TargetCreate: React.FC = () => {
         <Card className={classes.card}>
           <TargetForm
             title="新規目標登録"
-            targetTemp={targetTemp}
             targetName={targetName}
+            targetTemp={targetTemp}
             memo={memo}
             onChangeTargetName={handleChangeTargetName}
             onChangeMemo={handleChangeMemo}
             onChangeTargetTemp={handleChangeTargetTemp}
+            onClickSubmit={(e) => handleSubmit(e)}
           />
         </Card>
-        <Button
-          type="submit"
-          variant="contained"
-          size="large"
-          fullWidth
-          color="default"
-          disabled={!targetName || !targetTemp ? true : false}
-          className={classes.submitBtn}
-          onClick={handleSubmit}
-        >
-          Submit
-        </Button>
       </form>
       <AlertMessage // エラーが発生した場合はアラートを表示
         open={alertMessageOpen}
