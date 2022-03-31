@@ -43,8 +43,8 @@ export const targetUpdate = (
 };
 
 //delete
-export const targetDelete = (id: number) => {
-  return client.delete(`targets/${id}`, {
+export const targetDelete = (fieldId: number, targetId: number) => {
+  return client.delete(`fields/${fieldId}/targets/${targetId}`, {
     headers: {
       "access-token": Cookies.get("_access_token")!,
       client: Cookies.get("_client")!,

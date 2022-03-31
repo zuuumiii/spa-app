@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom";
 import { makeStyles, Theme } from "@material-ui/core/styles";
 import { Box, CircularProgress, Grid, Typography } from "@material-ui/core";
 import { FieldParams, TargetParams, TargetCreateParams } from "interfaces";
-import { targetUpdate } from "lib/api/target";
+import { targetUpdate, targetDelete } from "lib/api/target";
 import TargetModal from "components/modal/TargetModal";
 import AlertMessage from "components/utils/AlertMessage";
 
@@ -104,8 +104,22 @@ const TargetCard: React.FC<Props> = (props) => {
     }
   };
 
-  const handleTargetDelete = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleTargetDelete = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
+    try {
+      const res = await targetDelete(target.fieldId, target.id);
+      console.log(res.data.data);
+
+      if (res.status === 200) {
+        setTarget(res.data.data);
+        console.log("Update successfully!");
+      } else {
+        setAlertMessageOpen(true);
+      }
+    } catch (err) {
+      console.log("err");
+      setAlertMessageOpen(true);
+    }
   };
 
   return (
