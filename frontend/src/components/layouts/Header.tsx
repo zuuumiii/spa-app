@@ -125,7 +125,7 @@ const Header: React.FC = () => {
             variant="h6"
             className={classes.title}
           >
-            Sample
+            積算温度記録アプリ
           </Typography>
           <AuthButtons />
         </Toolbar>

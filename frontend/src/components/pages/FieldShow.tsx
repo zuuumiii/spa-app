@@ -131,6 +131,7 @@ const FieldShow: React.FC = () => {
       if (res.status === 200) {
         (field.targets as unknown as TargetParams[]).push(res.data.data);
         setField(field);
+        handleFieldShow();
         console.log("Create Target successfully!");
       } else {
         setAlertMessageOpen(true);
@@ -207,7 +208,7 @@ const FieldShow: React.FC = () => {
                   target={target}
                   field={field}
                   onClickSubmit={() => {}}
-                  onClickDelete={() => {}}
+                  onClickDelete={handleFieldShow}
                 />
               </Grid>
             );
