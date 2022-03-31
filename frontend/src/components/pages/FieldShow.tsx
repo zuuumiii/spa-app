@@ -77,6 +77,12 @@ const FieldShow: React.FC = () => {
   const [memo, setMemo] = useState<string>("");
   const [alertMessageOpen, setAlertMessageOpen] = useState<boolean>(false);
 
+  const targetSort = (field: FieldParams) => {
+    (field.targets as unknown as TargetParams[]).sort((a, b) => {
+      return a.targetTemp < b.targetTemp ? -1 : 1;
+    });
+  };
+
   const handleFieldDelete = async () => {
     try {
       const res = await fieldDelete(field.id);
@@ -99,8 +105,11 @@ const FieldShow: React.FC = () => {
 
       if (res.status === 200) {
         console.log(res.data.data);
+        targetSort(res.data.data);
+        console.log(res.data.data);
         setField(res.data.data);
 
+        console.log(field);
         console.log("Field Show successfully!");
       } else {
         setAlertMessageOpen(true);
@@ -113,6 +122,7 @@ const FieldShow: React.FC = () => {
 
   useEffect(() => {
     handleFieldShow();
+    console.log("useeffect");
   }, []);
 
   const handleTargetCreate = async (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -207,7 +217,7 @@ const FieldShow: React.FC = () => {
                 <TargetCard
                   target={target}
                   field={field}
-                  onClickSubmit={() => {}}
+                  onClickSubmit={handleFieldShow}
                   onClickDelete={handleFieldShow}
                 />
               </Grid>
