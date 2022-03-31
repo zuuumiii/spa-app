@@ -21,7 +21,6 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   openBtn: {
-    marginTop: theme.spacing(2),
     textTransform: "none",
     "&:hover": {
       backgroundColor: "#b2dfdb",

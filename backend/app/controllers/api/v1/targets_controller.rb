@@ -18,7 +18,15 @@ module Api
         else
           render json: { status: "ERROR", data: target.errors }
         end
+      end
 
+      def destroy
+        target = Target.find(params[:id])
+        if target.destroy
+          render json: { status: "SUCCESS"}
+        else
+          render json: { status: "ERROR", data: target.errors }
+        end
       end
 
       private

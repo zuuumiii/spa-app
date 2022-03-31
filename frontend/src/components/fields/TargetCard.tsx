@@ -11,13 +11,13 @@ const useStyles = makeStyles((theme: Theme) => ({
   paper: {
     textAlign: "center",
     color: theme.palette.text.primary,
-    height: 110,
+    height: 130,
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",
   },
   btn: {
-    paddingBottom: theme.spacing(1),
+    paddingTop: theme.spacing(2),
     textAlign: "center",
     display: "block",
     justifyContent: "center",
@@ -95,6 +95,7 @@ const TargetCard: React.FC<Props> = (props) => {
       if (res.status === 200) {
         setTarget(res.data.data);
         console.log("Update successfully!");
+        onClickSubmit(e);
       } else {
         setAlertMessageOpen(true);
       }
@@ -108,11 +109,10 @@ const TargetCard: React.FC<Props> = (props) => {
     e.preventDefault();
     try {
       const res = await targetDelete(target.fieldId, target.id);
-      console.log(res.data.data);
 
       if (res.status === 200) {
-        setTarget(res.data.data);
-        console.log("Update successfully!");
+        console.log("Delete successfully!");
+        onClickDelete(e);
       } else {
         setAlertMessageOpen(true);
       }
@@ -134,11 +134,9 @@ const TargetCard: React.FC<Props> = (props) => {
         onChangeMemo={handleChangeMemo}
         onClickSubmit={(e) => {
           handleTargetUpdate(e);
-          onClickSubmit(e);
         }}
         onClickDelete={(e) => {
           handleTargetDelete(e);
-          onClickDelete(e);
         }}
       >
         <div className={classes.btn}>

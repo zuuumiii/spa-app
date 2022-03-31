@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   fieldContainer: {
     display: "flex",
     alignItems: "center",
-    height: 130,
+    height: 150,
     marginTop: theme.spacing(3),
     backgroundColor: "#eceff1",
   },
@@ -124,7 +124,7 @@ const FieldsIndex: React.FC = () => {
                         target={target}
                         field={field}
                         onClickSubmit={handleFieldIndex}
-                        onClickDelete={(e) => console.log("削除後の並べ替え")}
+                        onClickDelete={handleFieldIndex}
                       />
                     </Grid>
                   );
