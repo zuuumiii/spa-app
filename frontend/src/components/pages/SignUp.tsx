@@ -136,13 +136,13 @@ const SignUp: React.FC = () => {
     <>
       <form noValidate autoComplete="off">
         <Card className={classes.card}>
-          <CardHeader className={classes.header} title="Sign Up" />
+          <CardHeader className={classes.header} title="新規登録" />
           <CardContent>
             <TextField
               variant="outlined"
               required
               fullWidth
-              label="Name"
+              label="名前"
               value={name}
               margin="dense"
               onChange={(event) => setName(event.target.value)}
@@ -173,7 +173,7 @@ const SignUp: React.FC = () => {
               variant="outlined"
               required
               fullWidth
-              label="Password"
+              label="パスワード"
               type="password"
               value={password}
               margin="dense"
@@ -184,7 +184,7 @@ const SignUp: React.FC = () => {
               variant="outlined"
               required
               fullWidth
-              label="Password Confirmation"
+              label="確認用パスワード"
               type="password"
               value={passwordConfirmation}
               margin="dense"
@@ -205,7 +205,7 @@ const SignUp: React.FC = () => {
               className={classes.submitBtn}
               onClick={handleSubmit}
             >
-              Submit
+              登録
             </Button>
           </CardContent>
         </Card>

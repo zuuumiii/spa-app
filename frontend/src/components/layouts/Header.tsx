@@ -77,7 +77,7 @@ const Header: React.FC = () => {
               className={classes.linkBtn}
               onClick={handleSignOut}
             >
-              Sign out
+              ログアウト
             </Button>
           </>
         );
@@ -90,7 +90,7 @@ const Header: React.FC = () => {
               color="inherit"
               className={classes.linkBtn}
             >
-              Sign in
+              ログイン
             </Button>
             <Button
               component={Link}
@@ -98,7 +98,7 @@ const Header: React.FC = () => {
               color="inherit"
               className={classes.linkBtn}
             >
-              Sign Up
+              新規登録
             </Button>
           </>
         );

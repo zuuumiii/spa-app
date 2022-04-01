@@ -45,7 +45,7 @@ const Home: React.FC = () => {
           color="default"
           onClick={() => {}}
         >
-          新 規 圃 場 登 録
+          新規圃場登録
         </Button>
         <div className={classes.blockName}>
           <Typography>地方：{getPrecName[0].precName}</Typography>
