@@ -12,6 +12,11 @@ const useStyles = makeStyles(() => ({
   container: {
     marginTop: "5rem",
   },
+  itemCenter: {
+    display: "grid",
+    justifyItems: "center",
+    alignItems: "center",
+  },
 }));
 
 const theme = createMuiTheme({
@@ -38,7 +43,7 @@ const CommonLayout = ({ children }: CommonLayoutProps) => {
         </header>
         <main>
           <Container maxWidth="xl" className={classes.container}>
-            <Grid container justify="center">
+            <Grid container className={classes.itemCenter}>
               <Grid item>{children}</Grid>
             </Grid>
           </Container>

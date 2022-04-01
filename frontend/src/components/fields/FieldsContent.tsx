@@ -13,31 +13,32 @@ import TargetCard from "./TargetCard";
 
 const useStyles = makeStyles((theme: Theme) => ({
   fieldsWrapper: {
-    width: 1000,
+    width: 1020,
     margin: theme.spacing(4, 0, 0, 8),
   },
-  fieldContainer: {
-    display: "flex",
-    alignItems: "center",
+  fieldCard: {
     height: 150,
     marginTop: theme.spacing(3),
     backgroundColor: "#eceff1",
   },
+  fieldContainer: {
+    display: "flex",
+    alignItems: "center",
+  },
   paper: {
     textAlign: "center",
-    margin: theme.spacing(0),
     color: theme.palette.text.primary,
-    height: 100,
+    height: 150,
     display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
+    alignItems: "center",
   },
   fieldBtn: {
     height: 150,
-    padding: theme.spacing(0.5),
+    width: 173,
     textAlign: "center",
     display: "block",
-    justifyContent: "center",
+    justifyItems: "center",
+    alignItems: "center",
     "&:hover": {
       backgroundColor: "#b2dfdb",
     },
@@ -103,8 +104,8 @@ const FieldsIndex: React.FC = () => {
             field.targets as unknown as TargetParams[]
           ).slice(0, 5);
           return (
-            <Card className={classes.fieldContainer} key={field.id}>
-              <Grid container>
+            <Card className={classes.fieldCard} key={field.id}>
+              <Grid container className={classes.fieldContainer}>
                 <Grid item xs={2} className={classes.paper}>
                   <Button
                     className={classes.fieldBtn}

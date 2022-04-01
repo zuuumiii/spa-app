@@ -20,6 +20,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     textAlign: "center",
     display: "block",
     justifyContent: "center",
+    width: 170,
   },
   circularInternalContent: {
     left: 0,

@@ -24,6 +24,12 @@ const useStyles = makeStyles((theme: Theme) => ({
     marginBottom: theme.spacing(10),
     maxWidth: 400,
   },
+  c: {
+    display: "flex",
+
+    flexDirection: "column",
+    justifyContent: "center",
+  },
 }));
 
 const FieldCreate: React.FC = () => {

@@ -34,6 +34,9 @@ const useStyles = makeStyles((theme: Theme) => ({
     marginBottom: theme.spacing(10),
     width: 400,
   },
+  deleteCard: {
+    textAlign: "center",
+  },
 }));
 
 // ユーザー編集ページ
@@ -205,7 +208,7 @@ const UserEdit: React.FC = () => {
         </Card>
         <Card className={classes.card}>
           <CardHeader className={classes.header} title="User Delete" />
-          <CardContent>
+          <CardContent className={classes.deleteCard}>
             <DeleteModal
               text={"アカウント削除"}
               onClick={(e) => handleUserDelete(e)}
