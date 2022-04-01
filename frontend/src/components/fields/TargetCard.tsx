@@ -139,7 +139,7 @@ const TargetCard: React.FC<Props> = (props) => {
         }}
       >
         <div className={classes.btn}>
-          <Typography>{target.targetName}</Typography>
+          <Typography variant="h5">{target.targetName}</Typography>
 
           <Box position="relative" display="inline-flex">
             {/* 背景用のCircularProgress */}
@@ -164,7 +164,7 @@ const TargetCard: React.FC<Props> = (props) => {
                   ℃
                 </Typography>
                 <Grid container justify="center" alignItems="flex-end">
-                  <Typography variant="h5">{value}</Typography>
+                  <Typography variant="h3">{value}</Typography>
                   <Typography className={classes.percent} variant="caption">
                     %
                   </Typography>

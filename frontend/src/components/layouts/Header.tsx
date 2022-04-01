@@ -122,7 +122,7 @@ const Header: React.FC = () => {
           <Typography
             component={Link}
             to="/"
-            variant="h6"
+            variant="h4"
             className={classes.title}
           >
             積算温度記録アプリ

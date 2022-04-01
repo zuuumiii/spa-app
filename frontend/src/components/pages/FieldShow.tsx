@@ -36,12 +36,15 @@ const useStyles = makeStyles((theme: Theme) => ({
   fieldContainer: {
     width: 800,
     textAlign: "center",
-    height: 130,
+    height: 120,
     marginTop: theme.spacing(3),
     padding: theme.spacing(1),
     backgroundColor: "#eceff1",
   },
   targetCard: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
     backgroundColor: "#eceff1",
   },
   header: {
@@ -58,6 +61,13 @@ const useStyles = makeStyles((theme: Theme) => ({
     display: "flex",
     justifyContent: "space-around",
   },
+  fieldIndex: { marginTop: 3 },
+  fieldDetail: {
+    margin: theme.spacing(1.5),
+    display: "flex",
+    justifyContent: "space-around",
+  },
+  fieldInfo: { display: "flex", flexDirection: "column" },
 }));
 
 const FieldShow: React.FC = () => {
@@ -98,9 +108,7 @@ const FieldShow: React.FC = () => {
       const res = await fieldShow(field.id);
 
       if (res.status === 200) {
-        console.log(res.data.data);
         targetSort(res.data.data);
-        console.log(res.data.data);
         setField(res.data.data);
 
         console.log(field);
@@ -135,6 +143,9 @@ const FieldShow: React.FC = () => {
       if (res.status === 200) {
         (field.targets as unknown as TargetParams[]).push(res.data.data);
         setField(field);
+        setTargetName("");
+        setTargetTemp(0);
+        setMemo("");
         handleFieldShow();
         console.log("Create Target successfully!");
       } else {
@@ -154,6 +165,12 @@ const FieldShow: React.FC = () => {
   };
   const handleChangeMemo = (e: React.ChangeEvent<HTMLInputElement>) => {
     setMemo(e.target.value);
+  };
+
+  const conversionDate = (num: number) => {
+    const d = new Date(num * 1000);
+    const date = d.toLocaleDateString();
+    return date;
   };
 
   return (
@@ -179,9 +196,36 @@ const FieldShow: React.FC = () => {
       </div>
       <div className={classes.fieldsWrapper}>
         <Card className={classes.fieldContainer}>
-          <Typography variant="h5">{field.fieldName}</Typography>
-          <Typography variant="h6">作物名：{field.product}</Typography>
-          <Typography>info:{field.info} </Typography>
+          <div className={classes.fieldDetail}>
+            <div>
+              <Typography variant="h6">圃場名</Typography>
+              <Typography>{field.fieldName}</Typography>
+            </div>
+            <div>
+              <Typography variant="h6" className={classes.fieldIndex}>
+                作物名
+              </Typography>
+              <Typography>{field.product}</Typography>
+            </div>
+            <div>
+              <Typography variant="h6" className={classes.fieldIndex}>
+                積算温度
+              </Typography>
+              <Typography>{field.accumTemp}℃</Typography>
+            </div>
+            <div>
+              <Typography variant="h6" className={classes.fieldIndex}>
+                測定開始日
+              </Typography>
+              <Typography>{conversionDate(field.startDate!)}</Typography>
+            </div>
+          </div>
+          <div className={classes.fieldInfo}>
+            <Typography variant="h6" className={classes.fieldIndex}>
+              圃場詳細
+            </Typography>
+            <Typography>{field.info}</Typography>
+          </div>
         </Card>
       </div>
 

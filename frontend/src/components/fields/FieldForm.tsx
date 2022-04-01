@@ -138,6 +138,8 @@ const FieldForm: React.FC<Props> = (props) => {
           label="情報"
           value={info}
           margin="dense"
+          multiline
+          rows={3}
           onChange={onChangeInfo}
         />
         <CorrectBox

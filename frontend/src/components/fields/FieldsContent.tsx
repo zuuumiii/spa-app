@@ -33,16 +33,16 @@ const useStyles = makeStyles((theme: Theme) => ({
     alignItems: "center",
   },
   fieldBtn: {
-    height: 150,
+    marginTop: theme.spacing(1),
+    height: 160,
     width: 173,
     textAlign: "center",
     display: "block",
-    justifyItems: "center",
-    alignItems: "center",
     "&:hover": {
       backgroundColor: "#b2dfdb",
     },
   },
+  fieldIndex: { marginTop: 3 },
 }));
 
 const FieldsIndex: React.FC = () => {
@@ -53,7 +53,7 @@ const FieldsIndex: React.FC = () => {
   const sortFieldsTargets = (fields: FieldParams[]) => {
     //設定温度の低い順にfiled内でtargetの並べ替え
     fields.map((field: FieldParams) => {
-      return (field.targets as unknown as TargetParams[]).sort((a, b) => {
+      (field.targets as unknown as TargetParams[]).sort((a, b) => {
         return a.targetTemp < b.targetTemp ? -1 : 1;
       });
     });
@@ -72,6 +72,7 @@ const FieldsIndex: React.FC = () => {
       if (res.status === 200) {
         console.log(res.data.data);
         sortFieldsTargets(res.data.data);
+        console.log("sort");
         setFields(res.data.data);
 
         console.log("FieldIndex successfully!");
@@ -112,9 +113,19 @@ const FieldsIndex: React.FC = () => {
                     component={Link}
                     to={{ pathname: `/fields/${field.id}`, state: field }}
                   >
-                    <Typography variant="h6">{field.fieldName}</Typography>
+                    <Typography variant="h6">圃場名</Typography>
+                    <Typography>{field.fieldName}</Typography>
+                    <Typography variant="h6" className={classes.fieldIndex}>
+                      作物名
+                    </Typography>
                     <Typography>{field.product}</Typography>
+                    <Typography variant="h6" className={classes.fieldIndex}>
+                      積算温度
+                    </Typography>
                     <Typography>{field.accumTemp}℃</Typography>
+                    <Typography variant="h6" className={classes.fieldIndex}>
+                      測定開始日
+                    </Typography>
                     <Typography>{conversionDate(field.startDate!)}</Typography>
                   </Button>
                 </Grid>
