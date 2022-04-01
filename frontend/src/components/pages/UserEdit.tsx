@@ -34,6 +34,9 @@ const useStyles = makeStyles((theme: Theme) => ({
     marginBottom: theme.spacing(10),
     width: 400,
   },
+  deleteCard: {
+    textAlign: "center",
+  },
 }));
 
 // ユーザー編集ページ
@@ -157,13 +160,13 @@ const UserEdit: React.FC = () => {
     <>
       <form noValidate autoComplete="off">
         <Card className={classes.card}>
-          <CardHeader className={classes.header} title="User Edit" />
+          <CardHeader className={classes.header} title="ユーザー情報編集" />
           <CardContent>
             <TextField
               variant="outlined"
               required
               fullWidth
-              label="Name"
+              label="名前"
               value={name}
               margin="dense"
               onChange={(event) => setName(event.target.value)}
@@ -199,13 +202,13 @@ const UserEdit: React.FC = () => {
               className={classes.submitBtn}
               onClick={handleSubmit}
             >
-              Submit
+              登録
             </Button>
           </CardContent>
         </Card>
         <Card className={classes.card}>
           <CardHeader className={classes.header} title="User Delete" />
-          <CardContent>
+          <CardContent className={classes.deleteCard}>
             <DeleteModal
               text={"アカウント削除"}
               onClick={(e) => handleUserDelete(e)}

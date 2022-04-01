@@ -12,12 +12,57 @@ const useStyles = makeStyles(() => ({
   container: {
     marginTop: "5rem",
   },
+  itemCenter: {
+    display: "grid",
+    justifyItems: "center",
+    alignItems: "center",
+  },
 }));
 
 const theme = createMuiTheme({
   palette: {
     primary: {
       main: teal[400],
+    },
+  },
+  typography: {
+    fontFamily: ["Noto Sans", "sans-serif"].join(","),
+    button: {
+      textTransform: "none",
+    },
+    h1: {
+      fontSize: "2rem",
+      fontWeight: 500,
+      lineHeight: 1.75,
+      letterSpacing: "-0.035em",
+    },
+    h2: {
+      fontSize: "1.65rem",
+      fontWeight: 500,
+      lineHeight: 1.6,
+      letterSpacing: "-0.03em",
+    },
+    h3: {
+      fontSize: "1.5rem",
+      fontWeight: 500,
+      lineHeight: 1.5,
+      letterSpacing: "-0.025em",
+    },
+    h4: {
+      fontSize: "1.25rem",
+      lineHeight: 1.5,
+      letterSpacing: "-0.06em",
+    },
+    h5: {
+      fontSize: "1rem",
+      lineHeight: 1.5,
+      letterSpacing: "-0.06em",
+    },
+    h6: {
+      fontSize: "0.2rem",
+      lineHeight: 0.9,
+      letterSpacing: "-0.06em",
+      color: "#455a64",
     },
   },
 });
@@ -38,7 +83,7 @@ const CommonLayout = ({ children }: CommonLayoutProps) => {
         </header>
         <main>
           <Container maxWidth="xl" className={classes.container}>
-            <Grid container justify="center">
+            <Grid container className={classes.itemCenter}>
               <Grid item>{children}</Grid>
             </Grid>
           </Container>

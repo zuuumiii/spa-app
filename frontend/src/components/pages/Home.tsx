@@ -28,10 +28,10 @@ const Home: React.FC = () => {
   const { currentUser } = useContext(AuthContext);
 
   const getPrecName = PrecBlockList.filter((prec) => {
-    return prec.precNo == currentUser?.precNo;
+    return prec.precNo === currentUser?.precNo;
   });
   const getBlockName = getPrecName[0].blocks.filter((block) => {
-    return block.blockNo == currentUser?.blockNo;
+    return block.blockNo === currentUser?.blockNo;
   });
   return (
     <>
@@ -45,7 +45,7 @@ const Home: React.FC = () => {
           color="default"
           onClick={() => {}}
         >
-          新 規 圃 場 登 録
+          新規圃場登録
         </Button>
         <div className={classes.blockName}>
           <Typography>地方：{getPrecName[0].precName}</Typography>

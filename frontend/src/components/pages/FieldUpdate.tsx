@@ -116,7 +116,7 @@ const FieldUpdate: React.FC = () => {
           className={classes.submitBtn}
           onClick={handleSubmit}
         >
-          Submit
+          登録
         </Button>
       </form>
       <AlertMessage // エラーが発生した場合はアラートを表示

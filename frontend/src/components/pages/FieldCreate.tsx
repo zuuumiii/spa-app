@@ -24,6 +24,12 @@ const useStyles = makeStyles((theme: Theme) => ({
     marginBottom: theme.spacing(10),
     maxWidth: 400,
   },
+  c: {
+    display: "flex",
+
+    flexDirection: "column",
+    justifyContent: "center",
+  },
 }));
 
 const FieldCreate: React.FC = () => {
@@ -117,7 +123,7 @@ const FieldCreate: React.FC = () => {
           className={classes.submitBtn}
           onClick={handleSubmit}
         >
-          Submit
+          登録
         </Button>
       </form>
       <AlertMessage // エラーが発生した場合はアラートを表示

@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
 import { makeStyles, Theme } from "@material-ui/core/styles";
 import { Box, CircularProgress, Grid, Typography } from "@material-ui/core";
 import { FieldParams, TargetParams, TargetCreateParams } from "interfaces";
@@ -21,6 +20,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     textAlign: "center",
     display: "block",
     justifyContent: "center",
+    width: 170,
   },
   circularInternalContent: {
     left: 0,
@@ -52,7 +52,6 @@ interface Props {
 
 const TargetCard: React.FC<Props> = (props) => {
   const { onClickSubmit, onClickDelete }: Props = props;
-  const history = useHistory();
   const classes = useStyles();
   const [target, setTarget] = useState<TargetParams>(props.target);
   const [field, setField] = useState<FieldParams>(props.field);
@@ -140,7 +139,7 @@ const TargetCard: React.FC<Props> = (props) => {
         }}
       >
         <div className={classes.btn}>
-          <Typography>{target.targetName}</Typography>
+          <Typography variant="h5">{target.targetName}</Typography>
 
           <Box position="relative" display="inline-flex">
             {/* 背景用のCircularProgress */}
@@ -165,7 +164,7 @@ const TargetCard: React.FC<Props> = (props) => {
                   ℃
                 </Typography>
                 <Grid container justify="center" alignItems="flex-end">
-                  <Typography variant="h5">{value}</Typography>
+                  <Typography variant="h3">{value}</Typography>
                   <Typography className={classes.percent} variant="caption">
                     %
                   </Typography>

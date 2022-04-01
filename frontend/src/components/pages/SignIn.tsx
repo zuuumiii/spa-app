@@ -88,7 +88,7 @@ const SignIn: React.FC = () => {
     <>
       <form noValidate autoComplete="off">
         <Card className={classes.card}>
-          <CardHeader className={classes.header} title="Sign In" />
+          <CardHeader className={classes.header} title="ログイン" />
           <CardContent>
             <TextField
               variant="filled"
@@ -103,7 +103,7 @@ const SignIn: React.FC = () => {
               variant="outlined"
               required
               fullWidth
-              label="Password"
+              label="パスワード"
               type="password"
               placeholder="At least 6 characters"
               value={password}
@@ -121,13 +121,13 @@ const SignIn: React.FC = () => {
               className={classes.submitBtn}
               onClick={handleSubmit}
             >
-              Submit
+              ログイン
             </Button>
             <Box textAlign="center" className={classes.box}>
               <Typography variant="body2">
-                Don't have an account? &nbsp;
+                アカウントをお持ちでない方はこちら &nbsp;
                 <Link to="/signup" className={classes.link}>
-                  Sign Up now!
+                  新規登録
                 </Link>
               </Typography>
             </Box>
