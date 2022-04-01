@@ -10,7 +10,7 @@ import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
-
+import logo from "images/logo.png";
 import { signOut } from "lib/api/auth";
 
 import { AuthContext } from "App";
@@ -112,21 +112,10 @@ const Header: React.FC = () => {
     <>
       <AppBar position="fixed">
         <Toolbar>
-          <IconButton
-            edge="start"
-            className={classes.iconButton}
-            color="inherit"
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography
-            component={Link}
-            to="/"
-            variant="h4"
-            className={classes.title}
-          >
-            積算温度記録アプリ
-          </Typography>
+          <Link to="/" className={classes.title}>
+            <img src={logo} alt="Image" width="190" height="55" />
+          </Link>
+
           <AuthButtons />
         </Toolbar>
       </AppBar>
