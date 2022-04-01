@@ -116,7 +116,7 @@ const FieldShow: React.FC = () => {
 
   useEffect(() => {
     handleFieldShow();
-    console.log("useeffect");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleTargetCreate = async (e: React.MouseEvent<HTMLButtonElement>) => {

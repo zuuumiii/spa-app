@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useHistory, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import AlertMessage from "components/utils/AlertMessage";
 
 import { makeStyles, Theme } from "@material-ui/core/styles";
@@ -46,14 +46,13 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 const FieldsIndex: React.FC = () => {
   const classes = useStyles();
-  const histroy = useHistory();
   const [fields, setFields] = useState<FieldParams[]>([]);
   const [alertMessageOpen, setAlertMessageOpen] = useState<boolean>(false);
 
   const sortFieldsTargets = (fields: FieldParams[]) => {
     //設定温度の低い順にfiled内でtargetの並べ替え
     fields.map((field: FieldParams) => {
-      (field.targets as unknown as TargetParams[]).sort((a, b) => {
+      return (field.targets as unknown as TargetParams[]).sort((a, b) => {
         return a.targetTemp < b.targetTemp ? -1 : 1;
       });
     });
@@ -86,6 +85,7 @@ const FieldsIndex: React.FC = () => {
 
   useEffect(() => {
     handleFieldIndex();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []); //第2引数にfieldsを渡すと無限ループに陥る
 
   //UNIX時間からYYYY/MM/DDに変換

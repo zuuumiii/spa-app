@@ -3,7 +3,6 @@ import { useHistory, useLocation } from "react-router-dom";
 
 import { makeStyles, Theme } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
-import Button from "@material-ui/core/Button";
 
 import AlertMessage from "components/utils/AlertMessage";
 import { TargetCreateParams } from "interfaces/index";

@@ -28,10 +28,10 @@ const Home: React.FC = () => {
   const { currentUser } = useContext(AuthContext);
 
   const getPrecName = PrecBlockList.filter((prec) => {
-    return prec.precNo == currentUser?.precNo;
+    return prec.precNo === currentUser?.precNo;
   });
   const getBlockName = getPrecName[0].blocks.filter((block) => {
-    return block.blockNo == currentUser?.blockNo;
+    return block.blockNo === currentUser?.blockNo;
   });
   return (
     <>

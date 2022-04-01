@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
 import { makeStyles, Theme } from "@material-ui/core/styles";
 import { Box, CircularProgress, Grid, Typography } from "@material-ui/core";
 import { FieldParams, TargetParams, TargetCreateParams } from "interfaces";
@@ -52,7 +51,6 @@ interface Props {
 
 const TargetCard: React.FC<Props> = (props) => {
   const { onClickSubmit, onClickDelete }: Props = props;
-  const history = useHistory();
   const classes = useStyles();
   const [target, setTarget] = useState<TargetParams>(props.target);
   const [field, setField] = useState<FieldParams>(props.field);

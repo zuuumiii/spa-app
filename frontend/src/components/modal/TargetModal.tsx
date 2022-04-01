@@ -1,4 +1,4 @@
-import { Button, Typography, Modal } from "@material-ui/core";
+import { Button, Modal } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import React, { useState } from "react";
 import TargetForm from "components/targets/TargetForm";
@@ -96,7 +96,7 @@ const TargetModal: React.FC<TargetModalProps> = ({
         }}
       />
       <>
-        {title != "目標新規作成" ? (
+        {title !== "目標新規作成" ? (
           <DeleteModal
             text={"目標削除"}
             onClick={(e) => {
