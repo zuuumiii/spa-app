@@ -53,7 +53,7 @@ const FieldsIndex: React.FC = () => {
   const sortFieldsTargets = (fields: FieldParams[]) => {
     //設定温度の低い順にfiled内でtargetの並べ替え
     fields.map((field: FieldParams) => {
-      (field.targets as unknown as TargetParams[]).sort((a, b) => {
+      return (field.targets as unknown as TargetParams[]).sort((a, b) => {
         return a.targetTemp < b.targetTemp ? -1 : 1;
       });
     });
@@ -68,7 +68,6 @@ const FieldsIndex: React.FC = () => {
   const handleFieldIndex = async () => {
     try {
       const res = await fieldIndex();
-
       if (res.status === 200) {
         console.log(res.data.data);
         sortFieldsTargets(res.data.data);

@@ -77,13 +77,20 @@ const App: React.FC = () => {
   //認証済みユーザーは「/signin」 「/signup」ページに入れない
   // 認証済みだった場合は「/」ページに促す
   const UnPrivate = ({ children }: { children: React.ReactElement }) => {
-    if (!isSignedIn) {
-      return children;
+    if (!loading) {
+      if (!isSignedIn) {
+        return children;
+      } else {
+        return <Redirect to="/" />;
+      }
     } else {
-      return <Redirect to="/" />;
+      return (
+        <div className={classes.center}>
+          <CircularProgress />
+        </div>
+      );
     }
   };
-
   // ユーザーが認証済みかどうかでルーティングを決定
   // 未認証だった場合は「/signin」ページに促す
   const Private = ({ children }: { children: React.ReactElement }) => {

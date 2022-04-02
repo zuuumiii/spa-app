@@ -69,9 +69,8 @@ const SignIn: React.FC = () => {
         Cookies.set("_client", res.headers["client"]);
         Cookies.set("_uid", res.headers["uid"]);
 
-        setIsSignedIn(true);
         setCurrentUser(res.data.data);
-
+        setIsSignedIn(true);
         history.push("/");
 
         console.log("Signed in successfully!");

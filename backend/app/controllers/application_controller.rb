@@ -7,6 +7,6 @@ class ApplicationController < ActionController::Base
   before_action :fake_load
 
 def fake_load
-  sleep(0.7)
+  sleep(0)
 end
 end
