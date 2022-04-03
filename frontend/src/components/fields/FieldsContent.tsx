@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import AlertMessage from "components/utils/AlertMessage";
 
 import { makeStyles, Theme } from "@material-ui/core/styles";
-import { Card } from "@material-ui/core";
+import { Card, CircularProgress } from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 import { Typography } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
@@ -43,10 +43,21 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
   },
   fieldIndex: { marginTop: 3 },
+  loadingCard: {
+    height: 150,
+    marginTop: theme.spacing(3),
+    backgroundColor: "#fafafa",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    flexDirection: "column",
+  },
+  loadingStatus: { marginTop: theme.spacing(3) },
 }));
 
 const FieldsIndex: React.FC = () => {
   const classes = useStyles();
+  const [loading, setLoading] = useState<boolean>(true);
   const [fields, setFields] = useState<FieldParams[]>([]);
   const [alertMessageOpen, setAlertMessageOpen] = useState<boolean>(false);
 
@@ -82,6 +93,7 @@ const FieldsIndex: React.FC = () => {
       console.log("err");
       setAlertMessageOpen(true);
     }
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -96,55 +108,87 @@ const FieldsIndex: React.FC = () => {
     return date;
   };
 
+  const Loading = ({ children }: { children: React.ReactElement }) => {
+    if (!loading) {
+      return children;
+    } else {
+      return (
+        <>
+          {[...Array(3)].map((_, i) => {
+            return (
+              <Grid container spacing={3} direction="column" key={i}>
+                <Card className={classes.loadingCard}>
+                  <CircularProgress size={50} />
+                  <Typography variant="h6" className={classes.loadingStatus}>
+                    温度計算中...
+                  </Typography>
+                </Card>
+              </Grid>
+            );
+          })}
+        </>
+      );
+    }
+  };
+
   return (
     <div className={classes.fieldsWrapper}>
-      <Grid container spacing={3} direction="column">
-        {fields.map((field) => {
-          const targets: TargetParams[] = (
-            field.targets as unknown as TargetParams[]
-          ).slice(0, 5);
-          return (
-            <Card className={classes.fieldCard} key={field.id}>
-              <Grid container className={classes.fieldContainer}>
-                <Grid item xs={2} className={classes.paper}>
-                  <Button
-                    className={classes.fieldBtn}
-                    component={Link}
-                    to={{ pathname: `/fields/${field.id}`, state: field }}
-                  >
-                    <Typography variant="h6">圃場名</Typography>
-                    <Typography>{field.fieldName}</Typography>
-                    <Typography variant="h6" className={classes.fieldIndex}>
-                      作物名
-                    </Typography>
-                    <Typography>{field.product}</Typography>
-                    <Typography variant="h6" className={classes.fieldIndex}>
-                      積算温度
-                    </Typography>
-                    <Typography>{field.accumTemp}℃</Typography>
-                    <Typography variant="h6" className={classes.fieldIndex}>
-                      測定開始日
-                    </Typography>
-                    <Typography>{conversionDate(field.startDate!)}</Typography>
-                  </Button>
+      <Loading>
+        <Grid container spacing={3} direction="column">
+          {fields.map((field) => {
+            const targets: TargetParams[] = (
+              field.targets as unknown as TargetParams[]
+            ).slice(0, 5); //最初の5個のみコピーして並べる
+            return (
+              <Card className={classes.fieldCard} key={field.id}>
+                <Grid container className={classes.fieldContainer}>
+                  <Grid item xs={2} className={classes.paper}>
+                    <Button
+                      className={classes.fieldBtn}
+                      component={Link}
+                      to={{ pathname: `/fields/${field.id}`, state: field }}
+                    >
+                      <Typography variant="h6">圃場名</Typography>
+                      <Typography>{field.fieldName}</Typography>
+                      <Typography variant="h6" className={classes.fieldIndex}>
+                        作物名
+                      </Typography>
+                      <Typography>{field.product}</Typography>
+                      <Typography variant="h6" className={classes.fieldIndex}>
+                        積算温度
+                      </Typography>
+                      <Typography>{field.accumTemp}℃</Typography>
+                      <Typography variant="h6" className={classes.fieldIndex}>
+                        測定開始日
+                      </Typography>
+                      <Typography>
+                        {conversionDate(field.startDate!)}
+                      </Typography>
+                    </Button>
+                  </Grid>
+                  {targets.map((target) => {
+                    return (
+                      <Grid
+                        item
+                        xs={2}
+                        className={classes.paper}
+                        key={target.id}
+                      >
+                        <TargetCard
+                          target={target}
+                          field={field}
+                          onClickSubmit={handleFieldIndex}
+                          onClickDelete={handleFieldIndex}
+                        />
+                      </Grid>
+                    );
+                  })}
                 </Grid>
-                {targets.map((target) => {
-                  return (
-                    <Grid item xs={2} className={classes.paper} key={target.id}>
-                      <TargetCard
-                        target={target}
-                        field={field}
-                        onClickSubmit={handleFieldIndex}
-                        onClickDelete={handleFieldIndex}
-                      />
-                    </Grid>
-                  );
-                })}
-              </Grid>
-            </Card>
-          );
-        })}
-      </Grid>
+              </Card>
+            );
+          })}
+        </Grid>
+      </Loading>
       <AlertMessage // エラーが発生した場合はアラートを表示
         open={alertMessageOpen}
         setOpen={setAlertMessageOpen}
