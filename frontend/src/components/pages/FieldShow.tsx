@@ -12,7 +12,7 @@ import TargetCard from "components/fields/TargetCard";
 import { fieldDelete, fieldShow } from "lib/api/field";
 import { targetCreate } from "lib/api/target";
 import TargetModal from "components/modal/TargetModal";
-import AlertMessage from "components/utils/AlertMessage";
+import AlertMessage, { AlertMessageProps } from "components/utils/AlertMessage";
 
 const useStyles = makeStyles((theme: Theme) => ({
   createBtn: {
@@ -80,7 +80,6 @@ const FieldShow: React.FC = () => {
   const [targetTemp, setTargetTemp] = useState<number>(0);
   const [memo, setMemo] = useState<string>("");
   const [alertMessageOpen, setAlertMessageOpen] = useState<boolean>(false);
-  const [successMessageOpen, setSuccessMessageOpen] = useState<boolean>(false);
   const targetSort = (field: FieldParams) => {
     (field.targets as unknown as TargetParams[]).sort((a, b) => {
       return a.targetTemp < b.targetTemp ? -1 : 1;
@@ -147,7 +146,6 @@ const FieldShow: React.FC = () => {
         setTargetTemp(0);
         setMemo("");
         handleFieldShow();
-        setSuccessMessageOpen(true);
         console.log("Create Target successfully!");
       } else {
         setAlertMessageOpen(true);
@@ -268,13 +266,7 @@ const FieldShow: React.FC = () => {
         open={alertMessageOpen}
         setOpen={setAlertMessageOpen}
         severity="error"
-        message="目標の作成に失敗しました"
-      />
-      <AlertMessage // エラーが発生した場合はアラートを表示
-        open={successMessageOpen}
-        setOpen={setSuccessMessageOpen}
-        severity="success"
-        message="目標を作成しました"
+        message="error"
       />
     </>
   );
