@@ -55,6 +55,10 @@ const TargetCard: React.FC<Props> = (props) => {
   const classes = useStyles();
   const [target, setTarget] = useState<TargetParams>(props.target);
   const [field, setField] = useState<FieldParams>(props.field);
+  const [successMessageOpen, setSuccessMessageOpen] = useState<boolean>(false);
+  const [successDeleteMessageOpen, setSuccessDeleteMessageOpen] =
+    useState<boolean>(false);
+  const [alertMessageOpen, setAlertMessageOpen] = useState<boolean>(false);
 
   const value = Math.floor((field.accumTemp / target.targetTemp) * 100);
   let color = "";
@@ -64,7 +68,6 @@ const TargetCard: React.FC<Props> = (props) => {
     color = "#ffeb3b";
   }
 
-  const [alertMessageOpen, setAlertMessageOpen] = useState<boolean>(false);
   const [targetName, setTargetName] = useState<string>(target.targetName);
   const [targetTemp, setTargetTemp] = useState<number>(target.targetTemp);
   const [memo, setMemo] = useState<string>(target.memo);
@@ -93,6 +96,7 @@ const TargetCard: React.FC<Props> = (props) => {
 
       if (res.status === 200) {
         setTarget(res.data.data);
+        setSuccessMessageOpen(true);
         console.log("Update successfully!");
         onClickSubmit(e);
       } else {
@@ -110,6 +114,7 @@ const TargetCard: React.FC<Props> = (props) => {
       const res = await targetDelete(target.fieldId, target.id);
 
       if (res.status === 200) {
+        setSuccessDeleteMessageOpen(true);
         console.log("Delete successfully!");
         onClickDelete(e);
       } else {
@@ -174,11 +179,23 @@ const TargetCard: React.FC<Props> = (props) => {
           </Box>
         </div>
       </TargetModal>
-      <AlertMessage // エラーが発生した場合はアラートを表示
+      <AlertMessage
         open={alertMessageOpen}
         setOpen={setAlertMessageOpen}
         severity="error"
         message="Invalid Target Data"
+      />
+      <AlertMessage
+        open={successMessageOpen}
+        setOpen={setSuccessMessageOpen}
+        severity="success"
+        message="目標を編集しました"
+      />
+      <AlertMessage
+        open={successDeleteMessageOpen}
+        setOpen={setSuccessDeleteMessageOpen}
+        severity="error"
+        message="目標を削除しました"
       />
     </>
   );

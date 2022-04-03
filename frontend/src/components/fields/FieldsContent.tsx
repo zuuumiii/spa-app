@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import AlertMessage from "components/utils/AlertMessage";
+import AlertMessage, { AlertMessageProps } from "components/utils/AlertMessage";
 
 import { makeStyles, Theme } from "@material-ui/core/styles";
 import { Card, CircularProgress } from "@material-ui/core";
@@ -59,7 +59,12 @@ const FieldsIndex: React.FC = () => {
   const classes = useStyles();
   const [loading, setLoading] = useState<boolean>(true);
   const [fields, setFields] = useState<FieldParams[]>([]);
-  const [alertMessageOpen, setAlertMessageOpen] = useState<boolean>(false);
+  const [alertMessageOpen, setAlertMessageOpen] = useState<AlertMessageProps>({
+    open: false,
+    setOpen: () => {},
+    severity: "error",
+    message: "",
+  });
 
   const sortFieldsTargets = (fields: FieldParams[]) => {
     //設定温度の低い順にfiled内でtargetの並べ替え
@@ -72,7 +77,16 @@ const FieldsIndex: React.FC = () => {
     fields.sort((a: any, b: any) => {
       const aP = a.accumTemp / a.targets[0]?.targetTemp;
       const bP = b.accumTemp / b.targets[0]?.targetTemp;
-      return aP > bP ? -1 : 1;
+      if (isNaN(aP)) {
+        //target登録されてない場合は比較せずに後方へ
+        return 1;
+      } else {
+        if (isNaN(bP)) {
+          return -1;
+        } else {
+          return aP > bP ? -1 : 1;
+        }
+      }
     });
   };
 
@@ -87,11 +101,21 @@ const FieldsIndex: React.FC = () => {
 
         console.log("FieldIndex successfully!");
       } else {
-        setAlertMessageOpen(true);
+        setAlertMessageOpen({
+          open: true,
+          setOpen: setAlertMessageOpen,
+          severity: "error",
+          message: "Invalid Field Data",
+        });
       }
     } catch (err) {
       console.log("err");
-      setAlertMessageOpen(true);
+      setAlertMessageOpen({
+        open: true,
+        setOpen: setAlertMessageOpen,
+        severity: "error",
+        message: "Invalid Field Data",
+      });
     }
     setLoading(false);
   };
@@ -177,8 +201,24 @@ const FieldsIndex: React.FC = () => {
                         <TargetCard
                           target={target}
                           field={field}
-                          onClickSubmit={handleFieldIndex}
-                          onClickDelete={handleFieldIndex}
+                          onClickSubmit={() => {
+                            handleFieldIndex();
+                            setAlertMessageOpen({
+                              open: true,
+                              setOpen: setAlertMessageOpen,
+                              severity: "success",
+                              message: "目標を更新しました",
+                            });
+                          }}
+                          onClickDelete={() => {
+                            handleFieldIndex();
+                            setAlertMessageOpen({
+                              open: true,
+                              setOpen: setAlertMessageOpen,
+                              severity: "info",
+                              message: "目標を削除しました",
+                            });
+                          }}
                         />
                       </Grid>
                     );
@@ -190,10 +230,10 @@ const FieldsIndex: React.FC = () => {
         </Grid>
       </Loading>
       <AlertMessage // エラーが発生した場合はアラートを表示
-        open={alertMessageOpen}
+        open={alertMessageOpen.open}
         setOpen={setAlertMessageOpen}
-        severity="error"
-        message="Invalid Field Data"
+        severity={alertMessageOpen.severity}
+        message={alertMessageOpen.message}
       />
     </div>
   );
