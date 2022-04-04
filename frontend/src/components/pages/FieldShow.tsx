@@ -79,7 +79,12 @@ const FieldShow: React.FC = () => {
   const [targetName, setTargetName] = useState<string>("");
   const [targetTemp, setTargetTemp] = useState<number>(0);
   const [memo, setMemo] = useState<string>("");
-  const [alertMessageOpen, setAlertMessageOpen] = useState<boolean>(false);
+  const [alertMessageOpen, setAlertMessageOpen] = useState<AlertMessageProps>({
+    open: false,
+    setOpen: () => {},
+    severity: "error",
+    message: "",
+  });
   const targetSort = (field: FieldParams) => {
     (field.targets as unknown as TargetParams[]).sort((a, b) => {
       return a.targetTemp < b.targetTemp ? -1 : 1;
@@ -113,11 +118,21 @@ const FieldShow: React.FC = () => {
         console.log(field);
         console.log("Field Show successfully!");
       } else {
-        setAlertMessageOpen(true);
+        setAlertMessageOpen({
+          open: true,
+          setOpen: setAlertMessageOpen,
+          severity: "error",
+          message: "読み込みに失敗しました。",
+        });
       }
     } catch (err) {
       console.log("err");
-      setAlertMessageOpen(true);
+      setAlertMessageOpen({
+        open: true,
+        setOpen: setAlertMessageOpen,
+        severity: "error",
+        message: "読み込みに失敗しました。",
+      });
     }
   };
 
@@ -146,13 +161,29 @@ const FieldShow: React.FC = () => {
         setTargetTemp(0);
         setMemo("");
         handleFieldShow();
+        setAlertMessageOpen({
+          open: true,
+          setOpen: setAlertMessageOpen,
+          severity: "success",
+          message: "目標を作成しました。",
+        });
         console.log("Create Target successfully!");
       } else {
-        setAlertMessageOpen(true);
+        setAlertMessageOpen({
+          open: true,
+          setOpen: setAlertMessageOpen,
+          severity: "error",
+          message: "目標の作成に失敗しました。",
+        });
       }
     } catch (err) {
       console.log("err");
-      setAlertMessageOpen(true);
+      setAlertMessageOpen({
+        open: true,
+        setOpen: setAlertMessageOpen,
+        severity: "error",
+        message: "目標の作成に失敗しました。",
+      });
     }
   };
 
@@ -254,19 +285,35 @@ const FieldShow: React.FC = () => {
                 <TargetCard
                   target={target}
                   field={field}
-                  onClickSubmit={handleFieldShow}
-                  onClickDelete={handleFieldShow}
+                  onClickSubmit={() => {
+                    handleFieldShow();
+                    setAlertMessageOpen({
+                      open: true,
+                      setOpen: setAlertMessageOpen,
+                      severity: "success",
+                      message: "目標を更新しました",
+                    });
+                  }}
+                  onClickDelete={() => {
+                    handleFieldShow();
+                    setAlertMessageOpen({
+                      open: true,
+                      setOpen: setAlertMessageOpen,
+                      severity: "warning",
+                      message: "目標を削除しました",
+                    });
+                  }}
                 />
               </Grid>
             );
           })}
         </Grid>
       </Card>
-      <AlertMessage // エラーが発生した場合はアラートを表示
-        open={alertMessageOpen}
+      <AlertMessage
+        open={alertMessageOpen.open}
         setOpen={setAlertMessageOpen}
-        severity="error"
-        message="error"
+        severity={alertMessageOpen.severity}
+        message={alertMessageOpen.message}
       />
     </>
   );

@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { AuthContext } from "App";
 import { Link } from "react-router-dom";
 
@@ -8,6 +8,7 @@ import { Typography } from "@material-ui/core";
 
 import FieldsContent from "components/fields/FieldsContent";
 import { PrecBlockList } from "components/precblock/PrefBlockList";
+import AlertMessage, { AlertMessageProps } from "components/utils/AlertMessage";
 const useStyles = makeStyles((theme: Theme) => ({
   topWrapper: {
     display: "flex",
@@ -26,6 +27,12 @@ const useStyles = makeStyles((theme: Theme) => ({
 const Home: React.FC = () => {
   const classes = useStyles();
   const { currentUser } = useContext(AuthContext);
+  const [alertMessageOpen, setAlertMessageOpen] = useState<AlertMessageProps>({
+    open: false,
+    setOpen: () => {},
+    severity: "error",
+    message: "",
+  });
 
   const getPrecName = PrecBlockList.filter((prec) => {
     return prec.precNo === currentUser?.precNo;
@@ -53,6 +60,12 @@ const Home: React.FC = () => {
         </div>
       </div>
       <FieldsContent />
+      <AlertMessage
+        open={alertMessageOpen.open}
+        setOpen={setAlertMessageOpen}
+        severity={alertMessageOpen.severity}
+        message={alertMessageOpen.message}
+      />
     </>
   );
 };

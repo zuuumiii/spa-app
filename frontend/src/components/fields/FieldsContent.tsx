@@ -69,7 +69,7 @@ const FieldsIndex: React.FC = () => {
   const sortFieldsTargets = (fields: FieldParams[]) => {
     //設定温度の低い順にfiled内でtargetの並べ替え
     fields.map((field: FieldParams) => {
-      return (field.targets as unknown as TargetParams[]).sort((a, b) => {
+      (field.targets as unknown as TargetParams[]).sort((a, b) => {
         return a.targetTemp < b.targetTemp ? -1 : 1;
       });
     });
@@ -105,7 +105,7 @@ const FieldsIndex: React.FC = () => {
           open: true,
           setOpen: setAlertMessageOpen,
           severity: "error",
-          message: "Invalid Field Data",
+          message: "読み込みに失敗しました。",
         });
       }
     } catch (err) {
@@ -114,7 +114,7 @@ const FieldsIndex: React.FC = () => {
         open: true,
         setOpen: setAlertMessageOpen,
         severity: "error",
-        message: "Invalid Field Data",
+        message: "読み込みに失敗しました。",
       });
     }
     setLoading(false);
@@ -215,7 +215,7 @@ const FieldsIndex: React.FC = () => {
                             setAlertMessageOpen({
                               open: true,
                               setOpen: setAlertMessageOpen,
-                              severity: "info",
+                              severity: "warning",
                               message: "目標を削除しました",
                             });
                           }}
@@ -229,7 +229,7 @@ const FieldsIndex: React.FC = () => {
           })}
         </Grid>
       </Loading>
-      <AlertMessage // エラーが発生した場合はアラートを表示
+      <AlertMessage
         open={alertMessageOpen.open}
         setOpen={setAlertMessageOpen}
         severity={alertMessageOpen.severity}

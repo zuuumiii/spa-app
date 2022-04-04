@@ -71,7 +71,15 @@ const SignIn: React.FC = () => {
 
         setCurrentUser(res.data.data);
         setIsSignedIn(true);
-        history.push("/");
+        history.push({
+          pathname: "/",
+          state: {
+            open: true,
+            setOpen: setAlertMessageOpen,
+            severity: "success",
+            message: "ログインしました。",
+          },
+        });
 
         console.log("Signed in successfully!");
       } else {

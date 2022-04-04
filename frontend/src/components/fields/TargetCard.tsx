@@ -55,9 +55,6 @@ const TargetCard: React.FC<Props> = (props) => {
   const classes = useStyles();
   const [target, setTarget] = useState<TargetParams>(props.target);
   const [field, setField] = useState<FieldParams>(props.field);
-  const [successMessageOpen, setSuccessMessageOpen] = useState<boolean>(false);
-  const [successDeleteMessageOpen, setSuccessDeleteMessageOpen] =
-    useState<boolean>(false);
   const [alertMessageOpen, setAlertMessageOpen] = useState<boolean>(false);
 
   const value = Math.floor((field.accumTemp / target.targetTemp) * 100);
@@ -96,7 +93,6 @@ const TargetCard: React.FC<Props> = (props) => {
 
       if (res.status === 200) {
         setTarget(res.data.data);
-        setSuccessMessageOpen(true);
         console.log("Update successfully!");
         onClickSubmit(e);
       } else {
@@ -114,7 +110,6 @@ const TargetCard: React.FC<Props> = (props) => {
       const res = await targetDelete(target.fieldId, target.id);
 
       if (res.status === 200) {
-        setSuccessDeleteMessageOpen(true);
         console.log("Delete successfully!");
         onClickDelete(e);
       } else {
@@ -184,18 +179,6 @@ const TargetCard: React.FC<Props> = (props) => {
         setOpen={setAlertMessageOpen}
         severity="error"
         message="Invalid Target Data"
-      />
-      <AlertMessage
-        open={successMessageOpen}
-        setOpen={setSuccessMessageOpen}
-        severity="success"
-        message="目標を編集しました"
-      />
-      <AlertMessage
-        open={successDeleteMessageOpen}
-        setOpen={setSuccessDeleteMessageOpen}
-        severity="error"
-        message="目標を削除しました"
       />
     </>
   );
