@@ -31,7 +31,7 @@ services:
       dockerfile: Dockerfile
     command: sh -c "yarn start"
     ports:
-      - '3000:3000'
+      - '80:80'
     stdin_open: true
     volumes:
       - ./frontend:/myapp

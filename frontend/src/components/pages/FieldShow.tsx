@@ -249,6 +249,12 @@ const FieldShow: React.FC = () => {
               </Typography>
               <Typography>{conversionDate(field.startDate!)}</Typography>
             </div>
+            <div>
+              <Typography variant="h6" className={classes.fieldIndex}>
+                補正値
+              </Typography>
+              <Typography>{field.correct}℃</Typography>
+            </div>
           </div>
           <div className={classes.fieldInfo}>
             <Typography variant="h6" className={classes.fieldIndex}>
@@ -256,6 +262,7 @@ const FieldShow: React.FC = () => {
             </Typography>
             <Typography>{field.info}</Typography>
           </div>
+          <div className={classes.fieldInfo}></div>
         </Card>
       </div>
 

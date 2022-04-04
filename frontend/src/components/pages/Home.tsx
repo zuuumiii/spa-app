@@ -16,6 +16,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   createBtn: {
     width: 220,
+    height: 50,
     "&:hover": {
       backgroundColor: "#b2dfdb",
     },
@@ -48,8 +49,14 @@ const Home: React.FC = () => {
           新規圃場登録
         </Button>
         <div className={classes.blockName}>
-          <Typography>地方：{getPrecName[0].precName}</Typography>
-          <Typography>観測所：{getBlockName[0].blockName}</Typography>
+          <Typography variant="h6" style={{ marginTop: 3 }}>
+            観測地域
+          </Typography>
+          <Typography>{getPrecName[0].precName}</Typography>
+          <Typography variant="h6" style={{ marginTop: 3 }}>
+            観測所
+          </Typography>
+          <Typography>{getBlockName[0].blockName}</Typography>
         </div>
       </div>
       <FieldsContent />

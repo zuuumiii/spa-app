@@ -172,7 +172,9 @@ const FieldsIndex: React.FC = () => {
                       component={Link}
                       to={{ pathname: `/fields/${field.id}`, state: field }}
                     >
-                      <Typography variant="h6">圃場名</Typography>
+                      <Typography variant="h6" className={classes.fieldIndex}>
+                        圃場名
+                      </Typography>
                       <Typography>{field.fieldName}</Typography>
                       <Typography variant="h6" className={classes.fieldIndex}>
                         作物名
