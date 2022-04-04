@@ -54,7 +54,8 @@ const TargetCard: React.FC<Props> = (props) => {
   const { onClickSubmit, onClickDelete }: Props = props;
   const classes = useStyles();
   const [target, setTarget] = useState<TargetParams>(props.target);
-  const [field, setField] = useState<FieldParams>(props.field);
+  const field: FieldParams = props.field;
+  const [alertMessageOpen, setAlertMessageOpen] = useState<boolean>(false);
 
   const value = Math.floor((field.accumTemp / target.targetTemp) * 100);
   let color = "";
@@ -64,7 +65,6 @@ const TargetCard: React.FC<Props> = (props) => {
     color = "#ffeb3b";
   }
 
-  const [alertMessageOpen, setAlertMessageOpen] = useState<boolean>(false);
   const [targetName, setTargetName] = useState<string>(target.targetName);
   const [targetTemp, setTargetTemp] = useState<number>(target.targetTemp);
   const [memo, setMemo] = useState<string>(target.memo);
@@ -174,7 +174,7 @@ const TargetCard: React.FC<Props> = (props) => {
           </Box>
         </div>
       </TargetModal>
-      <AlertMessage // エラーが発生した場合はアラートを表示
+      <AlertMessage
         open={alertMessageOpen}
         setOpen={setAlertMessageOpen}
         severity="error"

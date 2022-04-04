@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   createBtn: {
     width: 220,
     "&:hover": {
-      backgroundColor: "#4db6ac",
+      backgroundColor: "#b2dfdb",
     },
   },
   blockName: {},

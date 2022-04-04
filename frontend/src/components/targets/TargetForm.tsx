@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     flexGrow: 1,
     textTransform: "none",
     "&:hover": {
-      backgroundColor: "#4db6ac",
+      backgroundColor: "#b2dfdb",
     },
   },
   deleteBtn: {
@@ -104,7 +104,7 @@ const TargetForm: React.FC<Props> = (props) => {
           className={classes.submitBtn}
           onClick={onClickSubmit}
         >
-          Submit
+          登録
         </Button>
       </CardContent>
     </>
