@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     flexGrow: 1,
     textTransform: "none",
     "&:hover": {
-      backgroundColor: "#4db6ac",
+      backgroundColor: "#b2dfdb",
     },
   },
   card: {

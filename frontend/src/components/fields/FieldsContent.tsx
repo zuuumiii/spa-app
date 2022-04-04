@@ -69,7 +69,7 @@ const FieldsIndex: React.FC = () => {
   const sortFieldsTargets = (fields: FieldParams[]) => {
     //設定温度の低い順にfiled内でtargetの並べ替え
     fields.map((field: FieldParams) => {
-      (field.targets as unknown as TargetParams[]).sort((a, b) => {
+      return (field.targets as unknown as TargetParams[]).sort((a, b) => {
         return a.targetTemp < b.targetTemp ? -1 : 1;
       });
     });
@@ -207,7 +207,8 @@ const FieldsIndex: React.FC = () => {
                               open: true,
                               setOpen: setAlertMessageOpen,
                               severity: "success",
-                              message: "目標を更新しました",
+                              message:
+                                "目標を更新しました。並べ替えを自動で行います。",
                             });
                           }}
                           onClickDelete={() => {
@@ -216,7 +217,7 @@ const FieldsIndex: React.FC = () => {
                               open: true,
                               setOpen: setAlertMessageOpen,
                               severity: "warning",
-                              message: "目標を削除しました",
+                              message: "目標を削除しました。",
                             });
                           }}
                         />

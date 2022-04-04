@@ -54,7 +54,7 @@ const TargetCard: React.FC<Props> = (props) => {
   const { onClickSubmit, onClickDelete }: Props = props;
   const classes = useStyles();
   const [target, setTarget] = useState<TargetParams>(props.target);
-  const [field, setField] = useState<FieldParams>(props.field);
+  const field: FieldParams = props.field;
   const [alertMessageOpen, setAlertMessageOpen] = useState<boolean>(false);
 
   const value = Math.floor((field.accumTemp / target.targetTemp) * 100);

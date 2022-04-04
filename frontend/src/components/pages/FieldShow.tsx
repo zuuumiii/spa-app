@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     width: 220,
     margin: theme.spacing(2, 0, 0, 0),
     "&:hover": {
-      backgroundColor: "#4db6ac",
+      backgroundColor: "#b2dfdb",
     },
   },
   btnWrapper: {
@@ -291,7 +291,7 @@ const FieldShow: React.FC = () => {
                       open: true,
                       setOpen: setAlertMessageOpen,
                       severity: "success",
-                      message: "目標を更新しました",
+                      message: "目標を更新しました。",
                     });
                   }}
                   onClickDelete={() => {

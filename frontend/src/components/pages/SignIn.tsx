@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     flexGrow: 1,
     textTransform: "none",
     "&:hover": {
-      backgroundColor: "#4db6ac",
+      backgroundColor: "#b2dfdb",
     },
   },
   header: {
@@ -71,15 +71,7 @@ const SignIn: React.FC = () => {
 
         setCurrentUser(res.data.data);
         setIsSignedIn(true);
-        history.push({
-          pathname: "/",
-          state: {
-            open: true,
-            setOpen: setAlertMessageOpen,
-            severity: "success",
-            message: "ログインしました。",
-          },
-        });
+        history.push("/");
 
         console.log("Signed in successfully!");
       } else {
