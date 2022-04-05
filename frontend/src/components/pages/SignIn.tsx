@@ -10,6 +10,7 @@ import CardContent from "@material-ui/core/CardContent";
 import CardHeader from "@material-ui/core/CardHeader";
 import Button from "@material-ui/core/Button";
 import Box from "@material-ui/core/Box";
+import BackgroundImage from "images/background.jpeg";
 
 import { AuthContext } from "App";
 import AlertMessage from "components/utils/AlertMessage";
@@ -37,6 +38,17 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   link: {
     textDecoration: "none",
+  },
+  background: {
+    float: "none",
+    height: "100vh",
+    width: "100vw",
+    backgroundImage: `url(${BackgroundImage})`,
+    backgroundPosition: "center center",
+    backgroundSize: "cover",
+    backgroundRepeat: "no-repeat",
+    display: "grid",
+    justifyContent: "center",
   },
 }));
 
@@ -84,7 +96,7 @@ const SignIn: React.FC = () => {
   };
 
   return (
-    <>
+    <div className={classes.background}>
       <form noValidate autoComplete="off">
         <Card className={classes.card}>
           <CardHeader className={classes.header} title="ログイン" />
@@ -139,7 +151,7 @@ const SignIn: React.FC = () => {
         severity="error"
         message="Invalid emai or password"
       />
-    </>
+    </div>
   );
 };
 
