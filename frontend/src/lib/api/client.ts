@@ -10,10 +10,10 @@ const options = {
 
 const client = applyCaseMiddleware(
   axios.create({
-    baseURL: "http://54.249.116.120:3001/api/v1",
+    baseURL: "http://localhost:3001/api/v1",
   }),
   options
 );
 //http://54.249.116.120:3001/api/v1
-//http://trag.online/api/v1
+//http://localhost:3001/api/v1
 export default client;
