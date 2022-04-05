@@ -9,12 +9,10 @@ import { ThemeProvider } from "@material-ui/styles";
 import Header from "components/layouts/Header";
 
 const useStyles = makeStyles(() => ({
-  container: {
-    marginTop: "5rem",
-  },
+  container: { marginTop: 64 },
   itemCenter: {
     display: "grid",
-    justifyItems: "center",
+    justifyContent: "center",
     alignItems: "center",
   },
 }));
@@ -82,7 +80,7 @@ const CommonLayout = ({ children }: CommonLayoutProps) => {
           <Header />
         </header>
         <main>
-          <Container maxWidth="xl" className={classes.container}>
+          <Container className={classes.container}>
             <Grid container className={classes.itemCenter}>
               <Grid item>{children}</Grid>
             </Grid>
