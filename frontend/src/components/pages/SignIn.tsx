@@ -10,7 +10,7 @@ import CardContent from "@material-ui/core/CardContent";
 import CardHeader from "@material-ui/core/CardHeader";
 import Button from "@material-ui/core/Button";
 import Box from "@material-ui/core/Box";
-import BackgroundImage from "images/background.jpeg";
+import BackgroundImage from "images/background.jpg";
 
 import { AuthContext } from "App";
 import AlertMessage from "components/utils/AlertMessage";
@@ -30,6 +30,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     textAlign: "center",
   },
   card: {
+    marginTop: theme.spacing(5),
     padding: theme.spacing(2),
     maxWidth: 400,
   },
@@ -49,6 +50,12 @@ const useStyles = makeStyles((theme: Theme) => ({
     backgroundRepeat: "no-repeat",
     display: "grid",
     justifyContent: "center",
+    flexDirection: "column",
+    backgroundColor: "rgba(173, 200, 200, 0.6)",
+    backgroundBlendMode: "lighten",
+  },
+  desc: {
+    textAlign: "center",
   },
 }));
 
@@ -145,6 +152,24 @@ const SignIn: React.FC = () => {
           </CardContent>
         </Card>
       </form>
+      <div className={classes.desc}>
+        <Typography variant="h1">アプリ説明文</Typography>
+        <Typography variant="h5">
+          All in the golden afternoon Full leisurely we glide; For both our
+          oars, with little skill, By little arms are plied, While little hands
+          make vain pretence Our wanderings to guide.
+        </Typography>
+        <Typography variant="h5">
+          Ah, cruel Three! In such an hour. Beneath such dreamy weather. To beg
+          a tale of breath too weak To stir the tiniest feather! Yet what can
+          one poor voice avail Against three tongues together?
+        </Typography>
+        <Typography variant="h5">
+          Imperious Prima flashes forth Her edict "to begin it"— In gentler tone
+          Secunda hopes "There will he nonsense in it!"— While Tertia interrupts
+          the tale Not more than once a minute.
+        </Typography>
+      </div>
       <AlertMessage // エラーが発生した場合はアラートを表示
         open={alertMessageOpen}
         setOpen={setAlertMessageOpen}

@@ -29,6 +29,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     textAlign: "center",
   },
   card: {
+    marginTop: theme.spacing(5),
     padding: theme.spacing(2),
     maxWidth: 400,
   },
