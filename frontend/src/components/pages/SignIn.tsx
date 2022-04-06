@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   background: {
     height: "100vh",
-    width: "100vw",
+    width: "100%",
     backgroundImage: `url(${BackgroundImage})`,
     backgroundPosition: "center center",
     backgroundSize: "cover",
@@ -51,12 +51,14 @@ const useStyles = makeStyles((theme: Theme) => ({
     display: "flex",
     alignItems: "center",
     flexDirection: "column",
-    backgroundColor: "rgba(173, 200, 200, 0.6)",
+    backgroundColor: "rgba(170, 200, 200, 0.7)",
     backgroundBlendMode: "lighten",
   },
   desc: {
     textAlign: "center",
+    background: "rgba(200, 255, 255, 0.4)",
     marginTop: 30,
+    padding: "40px",
   },
 }));
 
@@ -154,23 +156,26 @@ const SignIn: React.FC = () => {
         </Card>
       </form>
       <div className={classes.desc}>
-        <Typography variant="h1" style={{ color: "#263238" }}>
-          アプリ説明文
+        <Typography variant="h6" style={{ color: "#263238" }}>
+          積算温度管理アプリ
+        </Typography>
+        <Typography variant="h1" style={{ color: "#263238", marginTop: -10 }}>
+          TRAGについて
         </Typography>
         <Typography variant="h5" style={{ color: "#263238" }}>
-          All in the golden afternoon Full leisurely we glide; For both our
-          oars, with little skill, By little arms are plied, While little hands
-          make vain pretence Our wanderings to guide.
+          農業者様、ご家庭で栽培を行なっている方に向けた積算温度※を基準にして作業予定を可視化できるサービスです。
         </Typography>
         <Typography variant="h5" style={{ color: "#263238" }}>
-          Ah, cruel Three! In such an hour. Beneath such dreamy weather. To beg
-          a tale of breath too weak To stir the tiniest feather! Yet what can
-          one poor voice avail Against three tongues together?
+          ユーザー登録時に選択した地域で観測ポイントを決定します。
         </Typography>
         <Typography variant="h5" style={{ color: "#263238" }}>
-          Imperious Prima flashes forth Her edict "to begin it"— In gentler tone
-          Secunda hopes "There will he nonsense in it!"— While Tertia interrupts
-          the tale Not more than once a minute.
+          圃場登録では20件まで登録可能で、計測開始日（一般的には播種日や定植日）を設定することで、開始日から前日までの積算温度を気象庁のデータをもとに自動で計算を行います。
+        </Typography>
+        <Typography variant="h5" style={{ color: "#263238" }}>
+          圃場には目標値が設定でき、目標とする積算温度を設定すれば、グラフ表示と色で目標値が近いことを可視化でき、一番作業予定が近いものから順に自動的に並べ替えが行われます。
+        </Typography>
+        <Typography variant="h6" style={{ color: "#263238", marginTop: 6 }}>
+          ※積算温度とは、ある期間の毎日の日平均気温を合計した値のことです。植物の成長との関係が非常に深く、気象庁発表の毎年の桜の開花予想も積算温度による計算で求められています。
         </Typography>
       </div>
       <AlertMessage
