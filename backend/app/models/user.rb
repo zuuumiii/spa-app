@@ -8,4 +8,8 @@ class User < ActiveRecord::Base
   include DeviseTokenAuth::Concerns::User
 
   has_many :fields, dependent: :destroy
+
+  validates :name, presence: true
+  validates :prec_no, presence: true
+  validates :block_no, presence: true
 end

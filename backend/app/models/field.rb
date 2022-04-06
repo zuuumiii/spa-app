@@ -4,6 +4,11 @@ class Field < ApplicationRecord
   belongs_to :user
   has_many :targets, dependent: :destroy
 
+  validates :field_name, presence: true
+  validates :product, presence: true
+  validates :start_date, presence: true
+  validates :correct, presence: true
+
   def self.each_get_accum(current_api_v1_user)
     fields = Field.where(user_id: current_api_v1_user.id).order(:start_date)
     user = User.find(current_api_v1_user.id)
