@@ -9,12 +9,15 @@ import { ThemeProvider } from "@material-ui/styles";
 import Header from "components/layouts/Header";
 
 const useStyles = makeStyles(() => ({
-  container: { marginTop: 64 },
+  container: {
+    marginTop: 64,
+  },
   itemCenter: {
     display: "grid",
-    justifyContent: "center",
+    justifyItems: "center",
     alignItems: "center",
   },
+  item: {},
 }));
 
 const theme = createMuiTheme({
@@ -80,11 +83,11 @@ const CommonLayout = ({ children }: CommonLayoutProps) => {
           <Header />
         </header>
         <main>
-          <Container className={classes.container}>
-            <Grid container className={classes.itemCenter}>
-              <Grid item>{children}</Grid>
+          <div className={classes.container}>
+            <Grid item className={classes.itemCenter}>
+              {children}
             </Grid>
-          </Container>
+          </div>
         </main>
       </ThemeProvider>
     </>

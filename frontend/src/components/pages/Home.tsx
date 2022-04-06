@@ -12,16 +12,17 @@ const useStyles = makeStyles((theme: Theme) => ({
   topWrapper: {
     display: "flex",
     justifyContent: "space-around",
-    margin: theme.spacing(2, 0, 0, 8),
+    alignItems: "center",
+    margin: theme.spacing(4, 0, 0, 8),
   },
   createBtn: {
     width: 220,
-    height: 50,
+    height: 40,
     "&:hover": {
       backgroundColor: "#b2dfdb",
     },
   },
-  blockName: {},
+  blockName: { marginLeft: 400 },
 }));
 
 const Home: React.FC = () => {

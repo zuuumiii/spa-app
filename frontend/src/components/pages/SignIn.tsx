@@ -31,6 +31,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   card: {
     marginTop: theme.spacing(5),
+    marginLeft: theme.spacing(5),
     padding: theme.spacing(2),
     maxWidth: 400,
   },
@@ -41,21 +42,21 @@ const useStyles = makeStyles((theme: Theme) => ({
     textDecoration: "none",
   },
   background: {
-    float: "none",
     height: "100vh",
     width: "100vw",
     backgroundImage: `url(${BackgroundImage})`,
     backgroundPosition: "center center",
     backgroundSize: "cover",
     backgroundRepeat: "no-repeat",
-    display: "grid",
-    justifyContent: "center",
+    display: "flex",
+    alignItems: "center",
     flexDirection: "column",
     backgroundColor: "rgba(173, 200, 200, 0.6)",
     backgroundBlendMode: "lighten",
   },
   desc: {
     textAlign: "center",
+    marginTop: 30,
   },
 }));
 
@@ -153,18 +154,20 @@ const SignIn: React.FC = () => {
         </Card>
       </form>
       <div className={classes.desc}>
-        <Typography variant="h1">アプリ説明文</Typography>
-        <Typography variant="h5">
+        <Typography variant="h1" style={{ color: "#263238" }}>
+          アプリ説明文
+        </Typography>
+        <Typography variant="h5" style={{ color: "#263238" }}>
           All in the golden afternoon Full leisurely we glide; For both our
           oars, with little skill, By little arms are plied, While little hands
           make vain pretence Our wanderings to guide.
         </Typography>
-        <Typography variant="h5">
+        <Typography variant="h5" style={{ color: "#263238" }}>
           Ah, cruel Three! In such an hour. Beneath such dreamy weather. To beg
           a tale of breath too weak To stir the tiniest feather! Yet what can
           one poor voice avail Against three tongues together?
         </Typography>
-        <Typography variant="h5">
+        <Typography variant="h5" style={{ color: "#263238" }}>
           Imperious Prima flashes forth Her edict "to begin it"— In gentler tone
           Secunda hopes "There will he nonsense in it!"— While Tertia interrupts
           the tale Not more than once a minute.
