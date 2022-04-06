@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   background: {
     height: "100vh",
-    width: "100%",
+    width: "100vw",
     backgroundImage: `url(${BackgroundImage})`,
     backgroundPosition: "center center",
     backgroundSize: "cover",
