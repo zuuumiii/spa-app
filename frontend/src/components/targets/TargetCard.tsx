@@ -56,15 +56,6 @@ const TargetCard: React.FC<Props> = (props) => {
   const [target, setTarget] = useState<TargetParams>(props.target);
   const field: FieldParams = props.field;
   const [alertMessageOpen, setAlertMessageOpen] = useState<boolean>(false);
-
-  const value = Math.floor((field.accumTemp / target.targetTemp) * 100);
-  let color = "";
-  if (value >= 90) {
-    color = "#e53935";
-  } else if (value >= 75) {
-    color = "#ffeb3b";
-  }
-
   const [targetName, setTargetName] = useState<string>(target.targetName);
   const [targetTemp, setTargetTemp] = useState<number>(target.targetTemp);
   const [memo, setMemo] = useState<string>(target.memo);
@@ -118,6 +109,20 @@ const TargetCard: React.FC<Props> = (props) => {
     }
   };
 
+  const value: number = Math.floor((field.accumTemp / target.targetTemp) * 100);
+  //温度によって色分け
+  let color: string = "";
+  if (value >= 90) {
+    color = "#e53935";
+  } else if (value >= 75) {
+    color = "#ffeb3b";
+  }
+  //メーターが100超えても降りきらなようにvalueをコピーして制限
+  let valueE: number = value;
+  if (value > 100) {
+    valueE = 100;
+  }
+
   return (
     <>
       <TargetModal
@@ -139,19 +144,19 @@ const TargetCard: React.FC<Props> = (props) => {
           <Typography variant="h5">{target.targetName}</Typography>
 
           <Box position="relative" display="inline-flex">
-            {/* 背景用のCircularProgress */}
+            {/* 背景(グレー) */}
             <CircularProgress
               className={classes.circularBackground}
               variant="determinate"
               size={96}
               value={100}
             />
-            {/* バロメーター用のCircularProgress */}
+            {/* メーター */}
             <CircularProgress
               className={classes.circularBar}
               variant="determinate"
               size={96}
-              value={value}
+              value={valueE}
               style={{ color: color }}
             />
             <div className={classes.circularInternalContent}>
