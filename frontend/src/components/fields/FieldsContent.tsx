@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, JSXElementConstructor } from "react";
 import { Link } from "react-router-dom";
 import AlertMessage, { AlertMessageProps } from "components/utils/AlertMessage";
 
@@ -155,6 +155,51 @@ const FieldsIndex: React.FC = () => {
     }
   };
 
+  interface AAAprops {
+    targets: TargetParams[];
+    field: FieldParams;
+  }
+
+  const AAA = (props: AAAprops) => {
+    const { targets, field } = props;
+    if (targets.length != 0) {
+      return (
+        <>
+          {targets.map((target) => {
+            return (
+              <Grid item xs={2} className={classes.paper} key={target.id}>
+                <TargetCard
+                  target={target}
+                  field={field}
+                  onClickSubmit={() => {
+                    handleFieldIndex();
+                    setAlertMessageOpen({
+                      open: true,
+                      setOpen: setAlertMessageOpen,
+                      severity: "success",
+                      message: "目標を更新しました。並べ替えを自動で行います。",
+                    });
+                  }}
+                  onClickDelete={() => {
+                    handleFieldIndex();
+                    setAlertMessageOpen({
+                      open: true,
+                      setOpen: setAlertMessageOpen,
+                      severity: "warning",
+                      message: "目標を削除しました。",
+                    });
+                  }}
+                />
+              </Grid>
+            );
+          })}
+        </>
+      );
+    } else {
+      return <>←圃場の詳細画面から新規目標を登録してください</>;
+    }
+  };
+
   return (
     <div className={classes.fieldsWrapper}>
       <Loading>
@@ -192,40 +237,7 @@ const FieldsIndex: React.FC = () => {
                       </Typography>
                     </Button>
                   </Grid>
-                  {targets.map((target) => {
-                    return (
-                      <Grid
-                        item
-                        xs={2}
-                        className={classes.paper}
-                        key={target.id}
-                      >
-                        <TargetCard
-                          target={target}
-                          field={field}
-                          onClickSubmit={() => {
-                            handleFieldIndex();
-                            setAlertMessageOpen({
-                              open: true,
-                              setOpen: setAlertMessageOpen,
-                              severity: "success",
-                              message:
-                                "目標を更新しました。並べ替えを自動で行います。",
-                            });
-                          }}
-                          onClickDelete={() => {
-                            handleFieldIndex();
-                            setAlertMessageOpen({
-                              open: true,
-                              setOpen: setAlertMessageOpen,
-                              severity: "warning",
-                              message: "目標を削除しました。",
-                            });
-                          }}
-                        />
-                      </Grid>
-                    );
-                  })}
+                  <AAA targets={targets} field={field} />
                 </Grid>
               </Card>
             );

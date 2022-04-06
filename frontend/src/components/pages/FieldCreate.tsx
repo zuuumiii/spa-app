@@ -63,9 +63,6 @@ const FieldCreate: React.FC = () => {
 
       if (res.data.status === "SUCCESS") {
         histroy.push("/");
-
-        console.log(res);
-        console.log(res.data.status);
       } else {
         setAlertMessageOpen(true);
       }
