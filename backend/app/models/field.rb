@@ -8,6 +8,13 @@ class Field < ApplicationRecord
   validates :product, presence: true
   validates :start_date, presence: true
   validates :correct, presence: true
+  validate :user_fields_size_validate
+
+  def user_fields_size_validate
+    if self.user && self.user.fields.size >= User::FIELD_MAX
+      errors.add(:base, "圃場は20個までの登録です")
+    end
+  end
 
   def self.each_get_accum(current_api_v1_user)
     fields = Field.where(user_id: current_api_v1_user.id).order(:start_date)
