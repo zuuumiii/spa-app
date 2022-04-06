@@ -57,7 +57,6 @@ const FieldUpdate: React.FC = () => {
 
       if (res.status === 200) {
         histroy.push("/");
-        console.log("Update successfully!");
       } else {
         setAlertMessageOpen(true);
       }
@@ -123,7 +122,7 @@ const FieldUpdate: React.FC = () => {
         open={alertMessageOpen}
         setOpen={setAlertMessageOpen}
         severity="error"
-        message="Invalid Field Data"
+        message="圃場名・作物名・測定開始日を正しく入力してください。"
       />
     </>
   );

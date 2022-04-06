@@ -8,7 +8,7 @@ import { Card, Typography, Grid, CardHeader } from "@material-ui/core";
 
 import DeleteModal from "components/modal/DeleteModal";
 import { FieldParams, TargetParams, TargetCreateParams } from "interfaces";
-import TargetCard from "components/fields/TargetCard";
+import TargetCard from "components/targets/TargetCard";
 import { fieldDelete, fieldShow } from "lib/api/field";
 import { targetCreate } from "lib/api/target";
 import TargetModal from "components/modal/TargetModal";
@@ -94,11 +94,8 @@ const FieldShow: React.FC = () => {
   const handleFieldDelete = async () => {
     try {
       const res = await fieldDelete(field.id);
-      console.log(res);
       if (res.status === 200) {
         histroy.push("/");
-
-        console.log("Succeeded in Field Delete");
       } else {
         console.log("Failed in Field Delete");
       }
@@ -114,9 +111,6 @@ const FieldShow: React.FC = () => {
       if (res.status === 200) {
         targetSort(res.data.data);
         setField(res.data.data);
-
-        console.log(field);
-        console.log("Field Show successfully!");
       } else {
         setAlertMessageOpen({
           open: true,

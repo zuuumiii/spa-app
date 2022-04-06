@@ -89,11 +89,9 @@ const TargetCard: React.FC<Props> = (props) => {
 
     try {
       const res = await targetUpdate(params, target.fieldId, target.id);
-      console.log(res.data.data);
 
       if (res.status === 200) {
         setTarget(res.data.data);
-        console.log("Update successfully!");
         onClickSubmit(e);
       } else {
         setAlertMessageOpen(true);
@@ -110,7 +108,6 @@ const TargetCard: React.FC<Props> = (props) => {
       const res = await targetDelete(target.fieldId, target.id);
 
       if (res.status === 200) {
-        console.log("Delete successfully!");
         onClickDelete(e);
       } else {
         setAlertMessageOpen(true);
@@ -178,7 +175,7 @@ const TargetCard: React.FC<Props> = (props) => {
         open={alertMessageOpen}
         setOpen={setAlertMessageOpen}
         severity="error"
-        message="Invalid Target Data"
+        message="目標名・目標温度を正しく入力してください。"
       />
     </>
   );

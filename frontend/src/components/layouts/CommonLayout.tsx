@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Container, Grid } from "@material-ui/core";
+import { Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { createMuiTheme } from "@material-ui/core/styles";
 import { teal } from "@material-ui/core/colors";
@@ -72,7 +72,7 @@ interface CommonLayoutProps {
   children: React.ReactElement;
 }
 
-// 全てのページで共通となるレイアウト
+// 全ページ共通レイアウト
 const CommonLayout = ({ children }: CommonLayoutProps) => {
   const classes = useStyles();
 

@@ -9,12 +9,12 @@ import { Typography } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import { fieldIndex } from "lib/api/field";
 import { FieldParams, TargetParams } from "interfaces";
-import TargetCard from "./TargetCard";
+import TargetCard from "../targets/TargetCard";
 
 const useStyles = makeStyles((theme: Theme) => ({
   fieldsWrapper: {
     width: 1020,
-    margin: theme.spacing(4, 0, 0, 8),
+    marginTop: theme.spacing(4),
   },
   fieldCard: {
     height: 150,
@@ -94,12 +94,8 @@ const FieldsIndex: React.FC = () => {
     try {
       const res = await fieldIndex();
       if (res.status === 200) {
-        console.log(res.data.data);
         sortFieldsTargets(res.data.data);
-        console.log("sort");
         setFields(res.data.data);
-
-        console.log("FieldIndex successfully!");
       } else {
         setAlertMessageOpen({
           open: true,
@@ -123,7 +119,7 @@ const FieldsIndex: React.FC = () => {
   useEffect(() => {
     handleFieldIndex();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []); //第2引数にfieldsを渡すと無限ループに陥る
+  }, []);
 
   //UNIX時間からYYYY/MM/DDに変換
   const conversionDate = (num: number) => {

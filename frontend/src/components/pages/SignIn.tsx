@@ -136,7 +136,7 @@ const SignIn: React.FC = () => {
               size="large"
               fullWidth
               color="default"
-              disabled={!email || !password ? true : false} // 空欄があった場合はボタンを押せないように
+              disabled={!email || !password ? true : false}
               className={classes.submitBtn}
               onClick={handleSubmit}
             >
@@ -173,11 +173,11 @@ const SignIn: React.FC = () => {
           the tale Not more than once a minute.
         </Typography>
       </div>
-      <AlertMessage // エラーが発生した場合はアラートを表示
+      <AlertMessage
         open={alertMessageOpen}
         setOpen={setAlertMessageOpen}
         severity="error"
-        message="Invalid emai or password"
+        message="メールアドレス、パスワードが間違っています。"
       />
     </div>
   );
