@@ -53,6 +53,10 @@ const useStyles = makeStyles((theme: Theme) => ({
     flexDirection: "column",
   },
   loadingStatus: { marginTop: theme.spacing(3) },
+  footer: {
+    marginTop: 20,
+    textAlign: "right",
+  },
 }));
 
 const FieldsIndex: React.FC = () => {
@@ -226,8 +230,12 @@ const FieldsIndex: React.FC = () => {
               </Card>
             );
           })}
+          <Typography variant="h6" className={classes.footer}>
+            ※当サイトの気象データは、気象庁「過去の気象データ」を元に加工して作成しています。
+          </Typography>
         </Grid>
       </Loading>
+
       <AlertMessage
         open={alertMessageOpen.open}
         setOpen={setAlertMessageOpen}

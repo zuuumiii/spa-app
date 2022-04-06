@@ -68,6 +68,11 @@ const useStyles = makeStyles((theme: Theme) => ({
     justifyContent: "space-around",
   },
   fieldInfo: { display: "flex", flexDirection: "column" },
+  footer: {
+    marginTop: 20,
+    display: "flex",
+    alignItems: "right",
+  },
 }));
 
 const FieldShow: React.FC = () => {
@@ -310,6 +315,9 @@ const FieldShow: React.FC = () => {
           })}
         </Grid>
       </Card>
+      <Typography variant="h6" className={classes.footer}>
+        ※当サイトの気象データは、気象庁「過去の気象データ」を元に加工して作成しています。
+      </Typography>
       <AlertMessage
         open={alertMessageOpen.open}
         setOpen={setAlertMessageOpen}

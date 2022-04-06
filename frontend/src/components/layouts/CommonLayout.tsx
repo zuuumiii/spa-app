@@ -17,7 +17,6 @@ const useStyles = makeStyles(() => ({
     justifyItems: "center",
     alignItems: "center",
   },
-  item: {},
 }));
 
 const theme = createMuiTheme({
