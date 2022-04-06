@@ -8,7 +8,7 @@ import { Card, Typography, Grid, CardHeader } from "@material-ui/core";
 
 import DeleteModal from "components/modal/DeleteModal";
 import { FieldParams, TargetParams, TargetCreateParams } from "interfaces";
-import TargetCard from "components/fields/TargetCard";
+import TargetCard from "components/targets/TargetCard";
 import { fieldDelete, fieldShow } from "lib/api/field";
 import { targetCreate } from "lib/api/target";
 import TargetModal from "components/modal/TargetModal";
@@ -68,6 +68,11 @@ const useStyles = makeStyles((theme: Theme) => ({
     justifyContent: "space-around",
   },
   fieldInfo: { display: "flex", flexDirection: "column" },
+  footer: {
+    marginTop: 20,
+    display: "flex",
+    alignItems: "right",
+  },
 }));
 
 const FieldShow: React.FC = () => {
@@ -94,11 +99,8 @@ const FieldShow: React.FC = () => {
   const handleFieldDelete = async () => {
     try {
       const res = await fieldDelete(field.id);
-      console.log(res);
       if (res.status === 200) {
         histroy.push("/");
-
-        console.log("Succeeded in Field Delete");
       } else {
         console.log("Failed in Field Delete");
       }
@@ -114,9 +116,6 @@ const FieldShow: React.FC = () => {
       if (res.status === 200) {
         targetSort(res.data.data);
         setField(res.data.data);
-
-        console.log(field);
-        console.log("Field Show successfully!");
       } else {
         setAlertMessageOpen({
           open: true,
@@ -316,6 +315,9 @@ const FieldShow: React.FC = () => {
           })}
         </Grid>
       </Card>
+      <Typography variant="h6" className={classes.footer}>
+        ※当サイトの気象データは、気象庁「過去の気象データ」を元に加工して作成しています。
+      </Typography>
       <AlertMessage
         open={alertMessageOpen.open}
         setOpen={setAlertMessageOpen}

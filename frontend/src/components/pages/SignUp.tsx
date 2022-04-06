@@ -14,7 +14,7 @@ import AlertMessage from "components/utils/AlertMessage";
 import { signUp } from "lib/api/auth";
 import { SignUpParams } from "interfaces/index";
 import PrecBlockBox, { PrecBlockItem } from "components/precblock/PrecBlockBox";
-import { PrecBlockList } from "components/precblock/PrefBlockList";
+import { PrecBlockList } from "components/precblock/PrecBlockList";
 
 const useStyles = makeStyles((theme: Theme) => ({
   submitBtn: {
@@ -72,10 +72,7 @@ const SignUp: React.FC = () => {
 
         setIsSignedIn(true);
         setCurrentUser(res.data.data);
-
         histroy.push("/");
-
-        console.log("Signed in successfully!");
       } else {
         setAlertMessageOpen(true);
       }
@@ -84,7 +81,7 @@ const SignUp: React.FC = () => {
       setAlertMessageOpen(true);
     }
   };
-  //Boxのアイテムとするprec一覧をStateで管理
+  //Boxのアイテムとするprec一覧をStateへ
   const [precOptions] = useState<PrecBlockItem[]>(
     PrecBlockList.map((p) => {
       return {
@@ -93,12 +90,12 @@ const SignUp: React.FC = () => {
       };
     })
   );
-  //選択中のprecNoをStateで管理
+  //選択中のprecNoをStateへ
   const [selectedPrecNo, setSelectedPrecNo] = useState<number>(
     PrecBlockList[0].precNo
   );
 
-  //選択中のprecに属するblockをRefで管理
+  //選択中のprecに属するblockをRefに
   const blockOptionsRef = useRef(
     PrecBlockList.filter((p) => p.precNo === selectedPrecNo)[0].blocks.map(
       (p) => {
@@ -109,22 +106,22 @@ const SignUp: React.FC = () => {
       }
     )
   );
-  //選択中のblockNoをStateで管理
+  //選択中のblockNoをStateへ
   const [selectedBlockNo, setSelectedBlockNo] = useState<number>(
     PrecBlockList[0].blocks[0].blockNo
   );
 
   const onPrecBoxChangeHandler = (precNo: number) => {
-    //選択したprecNoをStateに指定
+    //選択したprecNoをStateへ
     setSelectedPrecNo(precNo);
-    //選択したprecのblock一覧
+    //選択したprecのblock一覧取得
     const selectedPrecBlocks = PrecBlockList.filter(
       (p) => p.precNo === precNo
     )[0].blocks;
-    //選択したpreckに属する最初のblockをStateに指定
+    //選択した０番のblockをStateに指定
     setSelectedBlockNo(selectedPrecBlocks[0].blockNo);
 
-    //選択したblockをRefに指定
+    //選択したblockをRefに
     blockOptionsRef.current = selectedPrecBlocks.map((p) => {
       return {
         no: p.blockNo,
@@ -211,11 +208,11 @@ const SignUp: React.FC = () => {
           </CardContent>
         </Card>
       </form>
-      <AlertMessage // エラーが発生した場合はアラートを表示
+      <AlertMessage
         open={alertMessageOpen}
         setOpen={setAlertMessageOpen}
         severity="error"
-        message="Invalid email or password"
+        message="各項目を正しく入力してください。"
       />
     </>
   );

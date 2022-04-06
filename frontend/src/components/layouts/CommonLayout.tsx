@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Container, Grid } from "@material-ui/core";
+import { Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { createMuiTheme } from "@material-ui/core/styles";
 import { teal } from "@material-ui/core/colors";
@@ -9,10 +9,12 @@ import { ThemeProvider } from "@material-ui/styles";
 import Header from "components/layouts/Header";
 
 const useStyles = makeStyles(() => ({
-  container: { marginTop: 64 },
+  container: {
+    marginTop: 64,
+  },
   itemCenter: {
     display: "grid",
-    justifyContent: "center",
+    justifyItems: "center",
     alignItems: "center",
   },
 }));
@@ -69,7 +71,7 @@ interface CommonLayoutProps {
   children: React.ReactElement;
 }
 
-// 全てのページで共通となるレイアウト
+// 全ページ共通レイアウト
 const CommonLayout = ({ children }: CommonLayoutProps) => {
   const classes = useStyles();
 
@@ -80,11 +82,11 @@ const CommonLayout = ({ children }: CommonLayoutProps) => {
           <Header />
         </header>
         <main>
-          <Container className={classes.container}>
-            <Grid container className={classes.itemCenter}>
-              <Grid item>{children}</Grid>
+          <div className={classes.container}>
+            <Grid item className={classes.itemCenter}>
+              {children}
             </Grid>
-          </Container>
+          </div>
         </main>
       </ThemeProvider>
     </>

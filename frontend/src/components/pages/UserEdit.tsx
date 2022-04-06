@@ -14,7 +14,7 @@ import AlertMessage from "components/utils/AlertMessage";
 import { userDelete, userEdit } from "lib/api/auth";
 import { UserEditParams } from "interfaces/index";
 import PrecBlockBox, { PrecBlockItem } from "components/precblock/PrecBlockBox";
-import { PrecBlockList } from "components/precblock/PrefBlockList";
+import { PrecBlockList } from "components/precblock/PrecBlockList";
 import DeleteModal from "components/modal/DeleteModal";
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -66,7 +66,7 @@ const UserEdit: React.FC = () => {
       console.log(res);
 
       if (res.status === 200) {
-        //PUTするとトークンが変更されるので再ログイン処理
+        //再ログイン処理
         Cookies.set("_access_token", res.headers["access-token"]);
         Cookies.set("_client", res.headers["client"]);
         Cookies.set("_uid", res.headers["uid"]);
@@ -97,17 +97,13 @@ const UserEdit: React.FC = () => {
 
         setIsSignedIn(false);
         histroy.push("/signin");
-
-        console.log("Succeeded in User Delete");
       } else {
-        console.log("Failed in User Delete");
       }
     } catch (err) {
       console.log(err);
     }
   };
 
-  //Boxのアイテムとするprec一覧をStateで管理
   const [precOptions] = useState<PrecBlockItem[]>(
     PrecBlockList.map((p) => {
       return {
@@ -116,12 +112,11 @@ const UserEdit: React.FC = () => {
       };
     })
   );
-  //選択中のprecNoをStateで管理
+
   const [selectedPrecNo, setSelectedPrecNo] = useState<number>(
     currentUser!.precNo
   );
 
-  //選択中のprecに属するblockをRefで管理
   const blockOptionsRef = useRef(
     PrecBlockList.filter((p) => p.precNo === selectedPrecNo)[0].blocks.map(
       (p) => {
@@ -132,22 +127,17 @@ const UserEdit: React.FC = () => {
       }
     )
   );
-  //選択中のblockNoをStateで管理
   const [selectedBlockNo, setSelectedBlockNo] = useState<number>(
     currentUser!.blockNo
   );
 
   const onPrecBoxChangeHandler = (precNo: number) => {
-    //選択したprecNoをStateに指定
     setSelectedPrecNo(precNo);
-    //選択したprecのblock一覧
     const selectedPrecBlocks = PrecBlockList.filter(
       (p) => p.precNo === precNo
     )[0].blocks;
-    //選択したpreckに属する最初のblockをStateに指定
     setSelectedBlockNo(selectedPrecBlocks[0].blockNo);
 
-    //選択したblockをRefに指定
     blockOptionsRef.current = selectedPrecBlocks.map((p) => {
       return {
         no: p.blockNo,
@@ -222,7 +212,7 @@ const UserEdit: React.FC = () => {
         open={alertMessageOpen}
         setOpen={setAlertMessageOpen}
         severity="error"
-        message="Invalid email or password"
+        message="各項目を正しく入力してください。"
       />
     </>
   );
