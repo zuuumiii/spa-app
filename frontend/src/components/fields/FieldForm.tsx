@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     textAlign: "center",
   },
 }));
-
+//datepickerを日本語化
 class JaLocalizedUtils extends DateFnsUtils {
   getCalendarHeaderText(date: Date) {
     return format(date, "yyyy年M月", { locale: this.locale });
@@ -127,6 +127,8 @@ const FieldForm: React.FC<Props> = (props) => {
               format="yyyy年M月d日"
               inputVariant="outlined"
               margin="dense"
+              maxDate={new Date()}
+              minDate={new Date().setFullYear(new Date().getFullYear() - 1)} //１年まで取得できるよう範囲指定
               onChange={changeDateHandler}
             />
           </MuiPickersUtilsProvider>
