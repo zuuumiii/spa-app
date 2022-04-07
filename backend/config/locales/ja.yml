@@ -5,7 +5,8 @@ ja:
         name: 名前
         prec_no: 県（地域）
         block_no: 観測所
-      field: 
+      field:
+        fields: 圃場
         field_name: 圃場名
         product: 作物名
         start_date: 開始日

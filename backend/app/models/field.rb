@@ -15,7 +15,7 @@ class Field < ApplicationRecord
 
   def user_fields_size_validate
     if self.user && self.user.fields.size >= User::FIELD_MAX
-      errors.add(:base, "1ユーザーにつき圃場は20個までの登録です")
+      errors.add(:fields, "は1ユーザーにつき20個までの登録です")
     end
   end
 

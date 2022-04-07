@@ -66,6 +66,15 @@ RSpec.describe Field, type: :model do
         @field.valid?
         expect(@field.errors.full_messages).to include "面積は10000より小さい値にしてください"
       end
+      it "1ユーザーにつきfieldは20個までしか登録できない" do
+        @field.save
+        19.times do |i|
+           FactoryBot.create(:field, user_id: @field.user_id)
+        end
+        @field21 = FactoryBot.build(:field, user_id: @field.user_id)
+        @field21.valid?
+        expect(@field21.errors.full_messages).to include "圃場は1ユーザーにつき20個までの登録です"
+      end
     end
   end
 end
