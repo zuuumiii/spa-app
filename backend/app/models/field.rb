@@ -11,11 +11,17 @@ class Field < ApplicationRecord
   validates :area, numericality: {less_than: 10000}
   validates :info, length: {maximum: 100}
   validate :user_fields_size_validate
+  validate :target_size_validate
 
   def user_fields_size_validate
     if self.user && self.user.fields.size >= User::FIELD_MAX
-      errors.add(:base, "圃場は20個までの登録です")
+      errors.add(:base, "1ユーザーにつき圃場は20個までの登録です")
     end
+  end
+
+  TARGET_MAX = 20
+  def target_size_validate
+    errors.add(:targets, "目標は1つの圃場につき20個までの登録です") if self.targets.size > TARGET_MAX
   end
 
   def self.each_get_accum(current_api_v1_user)
