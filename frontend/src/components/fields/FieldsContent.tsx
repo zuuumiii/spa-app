@@ -7,9 +7,12 @@ import { Card, CircularProgress } from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 import { Typography } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
+import ArrowBackIcon from "@material-ui/icons/ArrowBack";
+import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
 import { fieldIndex } from "lib/api/field";
 import { FieldParams, TargetParams } from "interfaces";
 import TargetCard from "../targets/TargetCard";
+import ArrowBack from "@material-ui/icons/ArrowBack";
 
 const useStyles = makeStyles((theme: Theme) => ({
   fieldsWrapper: {
@@ -53,6 +56,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     flexDirection: "column",
   },
   loadingStatus: { marginTop: theme.spacing(3) },
+  newStatus: { display: "flex" },
   footer: {
     marginTop: 20,
     textAlign: "right",
@@ -155,12 +159,12 @@ const FieldsIndex: React.FC = () => {
     }
   };
 
-  interface AAAprops {
+  interface TargetListProps {
     targets: TargetParams[];
     field: FieldParams;
   }
 
-  const AAA = (props: AAAprops) => {
+  const TargetList = (props: TargetListProps) => {
     const { targets, field } = props;
     if (targets.length != 0) {
       return (
@@ -196,14 +200,20 @@ const FieldsIndex: React.FC = () => {
         </>
       );
     } else {
-      return <>←圃場の詳細画面から新規目標を登録してください</>;
+      return (
+        <>
+          <Typography variant="h5" className={classes.newStatus}>
+            <ArrowBack />
+            「圃場詳細」画面へ行き、目標を登録しましょう！
+          </Typography>
+        </>
+      );
     }
   };
-
-  return (
-    <div className={classes.fieldsWrapper}>
-      <Loading>
-        <Grid container spacing={3} direction="column">
+  const FieldList = () => {
+    if (fields.length != 0) {
+      return (
+        <>
           {fields.map((field) => {
             const targets: TargetParams[] = (
               field.targets as unknown as TargetParams[]
@@ -237,11 +247,32 @@ const FieldsIndex: React.FC = () => {
                       </Typography>
                     </Button>
                   </Grid>
-                  <AAA targets={targets} field={field} />
+                  <TargetList targets={targets} field={field} />
                 </Grid>
               </Card>
             );
           })}
+        </>
+      );
+    } else {
+      return (
+        <Grid container spacing={3} direction="column" key={0}>
+          <Card className={classes.loadingCard}>
+            <Typography variant="h5" className={classes.newStatus}>
+              <ArrowUpwardIcon />
+              「新規圃場登録」のボタンから圃場を登録しましょう！
+            </Typography>
+          </Card>
+        </Grid>
+      );
+    }
+  };
+
+  return (
+    <div className={classes.fieldsWrapper}>
+      <Loading>
+        <Grid container spacing={3} direction="column">
+          <FieldList />
           <Typography variant="h6" className={classes.footer}>
             ※当サイトの気象データは、気象庁「過去の気象データ」を元に加工して作成しています。
           </Typography>
