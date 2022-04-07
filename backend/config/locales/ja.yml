@@ -1,0 +1,20 @@
+ja:
+  activerecord:
+    attributes:
+      user:
+        name: 名前
+        prec_no: 県（地域）
+        block_no: 観測所
+      field: 
+        field_name: 圃場名
+        product: 作物名
+        start_date: 開始日
+        area: 面積
+        correct: 補正温度
+        info: 圃場情報
+        user: ユーザー
+      target:
+        target_name: 目標名
+        target_temp: 目標温度
+        memo: メモ
+        field: 圃場
