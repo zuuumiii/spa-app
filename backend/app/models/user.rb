@@ -8,4 +8,14 @@ class User < ActiveRecord::Base
   include DeviseTokenAuth::Concerns::User
 
   has_many :fields, dependent: :destroy
+
+  validates :name, presence: true
+  validates :prec_no, presence: true
+  validates :block_no, presence: true
+  validate :field_size_validate
+
+  FIELD_MAX = 20
+  def field_size_validate
+    errors.add(:fields, "圃場は20個までの登録です") if self.fields.size > FIELD_MAX
+  end
 end

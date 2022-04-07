@@ -40,7 +40,11 @@ const AlertMessage = ({
         anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
         onClose={handleCloseAlertMessage}
       >
-        <Alert onClose={handleCloseAlertMessage} severity={severity}>
+        <Alert
+          onClose={handleCloseAlertMessage}
+          severity={severity}
+          style={{ whiteSpace: "pre-wrap" }}
+        >
           {message}
         </Alert>
       </Snackbar>

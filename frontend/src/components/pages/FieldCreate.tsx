@@ -61,7 +61,7 @@ const FieldCreate: React.FC = () => {
     try {
       const res = await fieldCreate(params);
 
-      if (res.status === 200) {
+      if (res.data.status === "SUCCESS") {
         histroy.push("/");
       } else {
         setAlertMessageOpen(true);
@@ -128,7 +128,7 @@ const FieldCreate: React.FC = () => {
         open={alertMessageOpen}
         setOpen={setAlertMessageOpen}
         severity="error"
-        message="圃場名・作物名・測定開始日を正しく入力してください。"
+        message={`圃場名・作物名・測定開始日を正しく入力してください。\n圃場の登録は20個までです。`}
       />
     </>
   );
