@@ -9,7 +9,7 @@ class User < ActiveRecord::Base
 
   has_many :fields, dependent: :destroy
 
-  validates :name, presence: true
+  validates :name, presence: true, length: {maximum: 18}
   validates :prec_no, presence: true
   validates :block_no, presence: true
   validate :field_size_validate

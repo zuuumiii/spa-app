@@ -4,10 +4,12 @@ class Field < ApplicationRecord
   belongs_to :user
   has_many :targets, dependent: :destroy
 
-  validates :field_name, presence: true
-  validates :product, presence: true
+  validates :field_name, presence: true, length: {maximum: 18}
+  validates :product, presence: true, length: {maximum: 18}
   validates :start_date, presence: true
   validates :correct, presence: true
+  validates :area, numericality: {less_than: 10000}
+  validates :info, length: {maximum: 100}
   validate :user_fields_size_validate
 
   def user_fields_size_validate
