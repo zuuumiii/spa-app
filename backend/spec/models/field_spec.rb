@@ -11,7 +11,7 @@ RSpec.describe Field, type: :model do
         expect(@field).to be_valid
       end
       it "areaが空でも登録できる" do
-        @field.area = nil
+        @field.area = nil.to_i
         expect(@field).to be_valid
       end
       it "infoが空でも登録できる" do
@@ -24,27 +24,27 @@ RSpec.describe Field, type: :model do
       it "field_nameが空では登録できない" do
         @field.field_name = ""
         @field.valid?
-        expect(@field.errors.full_messages).to include "Field name can't be blank"
+        expect(@field.errors.full_messages).to include "圃場名を入力してください"
       end
       it "productが空では登録できない" do
         @field.product = ""
         @field.valid?
-        expect(@field.errors.full_messages).to include "Product can't be blank"
+        expect(@field.errors.full_messages).to include "作物名を入力してください"
       end
       it "star_dateが空では登録できない" do
         @field.start_date = nil
         @field.valid?
-        expect(@field.errors.full_messages).to include "Start date can't be blank"
+        expect(@field.errors.full_messages).to include "開始日を入力してください"
       end
       it "correctが空では登録できない" do
         @field.correct = nil
         @field.valid?
-        expect(@field.errors.full_messages).to include "Correct can't be blank"
+        expect(@field.errors.full_messages).to include "補正温度を入力してください"
       end
       it "user無しでは登録できない" do
         @field.user = nil
         @field.valid?
-        expect(@field.errors.full_messages).to include "User must exist"
+        expect(@field.errors.full_messages).to include "ユーザーを入力してください"
       end
     end
   end

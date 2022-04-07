@@ -17,34 +17,34 @@ RSpec.describe User, type: :model do
       it "nameが空では登録できない" do
         @user.name = ""
         @user.valid?
-        expect(@user.errors.full_messages).to include "Name can't be blank"
+        expect(@user.errors.full_messages).to include "名前を入力してください"
       end
       it "Emailが空では登録できない" do
         @user.email = ""
         @user.valid?
-        expect(@user.errors.full_messages).to include "Email can't be blank"
+        expect(@user.errors.full_messages).to include "Eメールを入力してください"
       end
       it "passwordが空では登録できない" do
         @user.password = ""
         @user.valid?
-        expect(@user.errors.full_messages).to include "Password can't be blank"
+        expect(@user.errors.full_messages).to include "パスワードを入力してください"
       end
       it "prec_noが空では登録できない" do
         @user.prec_no = nil
         @user.valid?
-        expect(@user.errors.full_messages).to include "Prec no can't be blank"
+        expect(@user.errors.full_messages).to include "県（地域）を入力してください"
       end
       it "block_noが空では登録できない" do
         @user.block_no = nil
         @user.valid?
-        expect(@user.errors.full_messages).to include "Block no can't be blank"
+        expect(@user.errors.full_messages).to include "観測所を入力してください"
       end
       it "既に登録されているEmailでは登録できない" do
         @user.save
         user2 = FactoryBot.build(:user)
         user2.email = @user.email
         user2.valid?
-        expect(user2.errors.full_messages).to include "Email has already been taken"
+        expect(user2.errors.full_messages).to include "Eメールはすでに存在します"
       end
     end
   end
