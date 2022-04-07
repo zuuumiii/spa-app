@@ -46,6 +46,11 @@ RSpec.describe User, type: :model do
         user2.valid?
         expect(user2.errors.full_messages).to include "Eメールはすでに存在します"
       end
+      it "naemが19文字以上では登録できない" do
+        @user.name = "#{"a" * 19}"
+        @user.valid?
+        expect(@user.errors.full_messages).to include "名前は18文字以内で入力してください"
+      end
     end
   end
 end

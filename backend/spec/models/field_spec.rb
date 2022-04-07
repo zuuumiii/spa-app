@@ -46,6 +46,26 @@ RSpec.describe Field, type: :model do
         @field.valid?
         expect(@field.errors.full_messages).to include "ユーザーを入力してください"
       end
+      it "field_nameが19文字以上では登録できない" do
+        @field.field_name = "#{"a" * 19}"
+        @field.valid?
+        expect(@field.errors.full_messages).to include "圃場名は18文字以内で入力してください"
+      end
+      it "productが19文字以上では登録できない" do
+        @field.product = "#{"a" * 19}"
+        @field.valid?
+        expect(@field.errors.full_messages).to include "作物名は18文字以内で入力してください"
+      end
+      it "infoが100文字以上では登録できない" do
+        @field.info = "#{"a" * 101}"
+        @field.valid?
+        expect(@field.errors.full_messages).to include "圃場情報は100文字以内で入力してください"
+      end
+      it "areaが10000以上では登録できない" do
+        @field.area = 10000
+        @field.valid?
+        expect(@field.errors.full_messages).to include "面積は10000より小さい値にしてください"
+      end
     end
   end
 end
