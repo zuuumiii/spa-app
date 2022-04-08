@@ -13,19 +13,27 @@ module Api
 
       def update 
         target = Target.find(params[:id])
-        if target.update(target_params)
-          render json: { status: "SUCCESS", data: target }
+        if target.user_id != current_api_v1_user.id
+          if target.update(target_params)
+            render json: { status: "SUCCESS", data: target }
+          else
+            render json: { status: "ERROR", data: target.errors }
+          end
         else
-          render json: { status: "ERROR", data: target.errors }
+          render json: { status: "ERROR", data: "不正な操作です" }
         end
       end
 
       def destroy
         target = Target.find(params[:id])
-        if target.destroy
-          render json: { status: "SUCCESS"}
+        if target.user_id != current_api_v1_user.id
+          if target.destroy
+            render json: { status: "SUCCESS"}
+          else
+            render json: { status: "ERROR", data: target.errors }
+          end
         else
-          render json: { status: "ERROR", data: target.errors }
+          render json: { status: "ERROR", data: "不正な操作です" }
         end
       end
 
