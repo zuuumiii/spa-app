@@ -154,7 +154,7 @@ const FieldShow: React.FC = () => {
       const res = await targetCreate(params, field.id);
       console.log(res);
 
-      if (res.status === 200) {
+      if (res.data.status === "SUCCESS") {
         (field.targets as unknown as TargetParams[]).push(res.data.data);
         setField(field);
         setTargetName("");
@@ -167,13 +167,12 @@ const FieldShow: React.FC = () => {
           severity: "success",
           message: "目標を作成しました。",
         });
-        console.log("Create Target successfully!");
       } else {
         setAlertMessageOpen({
           open: true,
           setOpen: setAlertMessageOpen,
           severity: "error",
-          message: "目標の作成に失敗しました。",
+          message: `${res.data.data.join("\n")}`,
         });
       }
     } catch (err) {

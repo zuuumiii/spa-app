@@ -5,7 +5,6 @@ import { TargetCreateParams } from "interfaces/index";
 
 //create
 export const targetCreate = (params: TargetCreateParams, id: number) => {
-  console.log(params);
   return client.post(`fields/${id}/targets`, params, {
     headers: {
       "access-token": Cookies.get("_access_token")!,
