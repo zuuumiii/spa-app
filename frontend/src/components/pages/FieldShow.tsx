@@ -34,9 +34,9 @@ const useStyles = makeStyles((theme: Theme) => ({
     justifyContent: "space-around",
   },
   fieldContainer: {
-    width: 800,
+    width: 850,
     textAlign: "center",
-    height: 120,
+    height: 150,
     marginTop: theme.spacing(3),
     padding: theme.spacing(1),
     backgroundColor: "#eceff1",
@@ -235,6 +235,12 @@ const FieldShow: React.FC = () => {
                 作物名
               </Typography>
               <Typography>{field.product}</Typography>
+            </div>
+            <div>
+              <Typography variant="h6" className={classes.fieldIndex}>
+                面積
+              </Typography>
+              <Typography>{field.area}a</Typography>
             </div>
             <div>
               <Typography variant="h6" className={classes.fieldIndex}>
