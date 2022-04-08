@@ -13,7 +13,7 @@ module Api
 
       def update 
         target = Target.find(params[:id])
-        if target.user_id != current_api_v1_user.id
+        if target.user_id == current_api_v1_user.id
           if target.update(target_params)
             render json: { status: "SUCCESS", data: target }
           else
@@ -26,7 +26,7 @@ module Api
 
       def destroy
         target = Target.find(params[:id])
-        if target.user_id != current_api_v1_user.id
+        if target.user_id == current_api_v1_user.id
           if target.destroy
             render json: { status: "SUCCESS"}
           else
