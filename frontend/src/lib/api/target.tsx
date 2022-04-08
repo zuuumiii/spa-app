@@ -32,7 +32,6 @@ export const targetUpdate = (
   fieldId: number,
   targetId: number
 ) => {
-  console.log(params);
   return client.put(`fields/${fieldId}/targets/${targetId}`, params, {
     headers: {
       "access-token": Cookies.get("_access_token")!,

@@ -10,8 +10,12 @@ module Api
 
       def show
         field = Field.find(params[:id])
-        string = field.as_json(include: :targets)
-        render json: { status: "SUCCESS", data: string }
+        if field.user_id == current_api_v1_user.id
+          string = field.as_json(include: :targets)
+          render json: { status: "SUCCESS", data: string }
+        else
+          render json: { status: "ERROR", data: "不正な操作です" }
+        end
       end
 
       def create 
@@ -26,21 +30,29 @@ module Api
 
       def update 
         field = Field.find(params[:id])
-        field.update(field_params)
-        field = Field.update_accum(current_api_v1_user, field)
-        if field.save
-         render json: { status: "SUCCESS", data: field }
+        if field.user_id == current_api_v1_user.id
+          field.update(field_params)
+          field = Field.update_accum(current_api_v1_user, field)
+          if field.save
+           render json: { status: "SUCCESS", data: field }
+          else
+           render json: { status: "ERROR", data: field.errors }
+          end
         else
-         render json: { status: "ERROR", data: field.errors }
+          render json: { status: "ERROR", data: "不正な操作です" }
         end
       end
 
       def destroy
         field = Field.find(params[:id])
-        if field.destroy
-          render json: { status: "SUCCESS" }
+        if field.user_id == current_api_v1_user.id
+          if field.destroy
+            render json: { status: "SUCCESS" , data: "削除しました"}
+          else
+            render json: { status: "ERROR", data: field.errors }
+          end
         else
-          render json: { status: "ERROR", data: field.errors }
+          render json: { status: "ERROR", data: "不正な操作です" }
         end
       end
     

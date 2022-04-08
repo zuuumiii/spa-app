@@ -53,7 +53,7 @@ const FieldUpdate: React.FC = () => {
 
     try {
       const res = await fieldUpdate(params, state.id);
-      console.log(res);
+      console.log(res.data);
 
       if (res.status === 200) {
         histroy.push("/");

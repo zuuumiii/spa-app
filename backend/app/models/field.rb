@@ -4,16 +4,24 @@ class Field < ApplicationRecord
   belongs_to :user
   has_many :targets, dependent: :destroy
 
-  validates :field_name, presence: true
-  validates :product, presence: true
+  validates :field_name, presence: true, length: {maximum: 18}
+  validates :product, presence: true, length: {maximum: 18}
   validates :start_date, presence: true
   validates :correct, presence: true
+  validates :area, numericality: {less_than: 10000}
+  validates :info, length: {maximum: 100}
   validate :user_fields_size_validate
+  validate :target_size_validate
 
   def user_fields_size_validate
     if self.user && self.user.fields.size >= User::FIELD_MAX
-      errors.add(:base, "圃場は20個までの登録です")
+      errors.add(:fields, "は1ユーザーにつき20個までの登録です")
     end
+  end
+
+  TARGET_MAX = 20
+  def target_size_validate
+    errors.add(:targets, "は圃場につき20個までの登録です") if self.targets.size > TARGET_MAX
   end
 
   def self.each_get_accum(current_api_v1_user)

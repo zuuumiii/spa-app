@@ -80,7 +80,7 @@ const TargetCard: React.FC<Props> = (props) => {
 
     try {
       const res = await targetUpdate(params, target.fieldId, target.id);
-
+      console.log(res.data);
       if (res.status === 200) {
         setTarget(res.data.data);
         onClickSubmit(e);

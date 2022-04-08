@@ -99,6 +99,7 @@ const FieldShow: React.FC = () => {
   const handleFieldDelete = async () => {
     try {
       const res = await fieldDelete(field.id);
+      console.log(res.data);
       if (res.status === 200) {
         histroy.push("/");
       } else {
