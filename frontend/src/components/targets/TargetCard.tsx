@@ -4,7 +4,7 @@ import { Box, CircularProgress, Grid, Typography } from "@material-ui/core";
 import { FieldParams, TargetParams, TargetCreateParams } from "interfaces";
 import { targetUpdate, targetDelete } from "lib/api/target";
 import TargetModal from "components/modal/TargetModal";
-import AlertMessage from "components/utils/AlertMessage";
+import AlertMessage, { AlertMessageProps } from "components/utils/AlertMessage";
 
 const useStyles = makeStyles((theme: Theme) => ({
   paper: {
@@ -55,10 +55,15 @@ const TargetCard: React.FC<Props> = (props) => {
   const classes = useStyles();
   const [target, setTarget] = useState<TargetParams>(props.target);
   const field: FieldParams = props.field;
-  const [alertMessageOpen, setAlertMessageOpen] = useState<boolean>(false);
   const [targetName, setTargetName] = useState<string>(target.targetName);
   const [targetTemp, setTargetTemp] = useState<number>(target.targetTemp);
   const [memo, setMemo] = useState<string>(target.memo);
+  const [alertMessageOpen, setAlertMessageOpen] = useState<AlertMessageProps>({
+    open: false,
+    setOpen: () => {},
+    severity: "error",
+    message: "",
+  });
 
   const handleChangeTargetName = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTargetName(e.target.value);
@@ -81,15 +86,25 @@ const TargetCard: React.FC<Props> = (props) => {
     try {
       const res = await targetUpdate(params, target.fieldId, target.id);
       console.log(res.data);
-      if (res.status === 200) {
+      if (res.data.status === "SUCCESS") {
         setTarget(res.data.data);
         onClickSubmit(e);
       } else {
-        setAlertMessageOpen(true);
+        setAlertMessageOpen({
+          open: true,
+          setOpen: setAlertMessageOpen,
+          severity: "error",
+          message: `${res.data.data.join("\n")}`,
+        });
       }
     } catch (err) {
       console.log("err");
-      setAlertMessageOpen(true);
+      setAlertMessageOpen({
+        open: true,
+        setOpen: setAlertMessageOpen,
+        severity: "error",
+        message: "目標の更新に失敗しました。",
+      });
     }
   };
 
@@ -98,14 +113,24 @@ const TargetCard: React.FC<Props> = (props) => {
     try {
       const res = await targetDelete(target.fieldId, target.id);
 
-      if (res.status === 200) {
+      if (res.data.status === "SUCCESS") {
         onClickDelete(e);
       } else {
-        setAlertMessageOpen(true);
+        setAlertMessageOpen({
+          open: true,
+          setOpen: setAlertMessageOpen,
+          severity: "error",
+          message: "削除に失敗しました",
+        });
       }
     } catch (err) {
       console.log("err");
-      setAlertMessageOpen(true);
+      setAlertMessageOpen({
+        open: true,
+        setOpen: setAlertMessageOpen,
+        severity: "error",
+        message: "削除に失敗しました",
+      });
     }
   };
 
@@ -177,10 +202,10 @@ const TargetCard: React.FC<Props> = (props) => {
         </div>
       </TargetModal>
       <AlertMessage
-        open={alertMessageOpen}
+        open={alertMessageOpen.open}
         setOpen={setAlertMessageOpen}
-        severity="error"
-        message="目標名・目標温度を正しく入力してください。"
+        severity={alertMessageOpen.severity}
+        message={alertMessageOpen.message}
       />
     </>
   );
