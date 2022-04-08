@@ -8,6 +8,7 @@ class User < ActiveRecord::Base
   include DeviseTokenAuth::Concerns::User
 
   has_many :fields, dependent: :destroy
+  has_many :targets, dependent: :destroy
 
   validates :name, presence: true, length: {maximum: 18}
   validates :prec_no, presence: true
@@ -16,6 +17,6 @@ class User < ActiveRecord::Base
 
   FIELD_MAX = 20
   def field_size_validate
-    errors.add(:fields, "圃場は20個までの登録です") if self.fields.size > FIELD_MAX
+    errors.add(:fields, "は1ユーザーにつき20個までの登録です") if self.fields.size > FIELD_MAX
   end
 end

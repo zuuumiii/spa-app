@@ -15,6 +15,7 @@ ja:
         info: 圃場情報
         user: ユーザー
       target:
+        targets: 目標
         target_name: 目標名
         target_temp: 目標温度
         memo: メモ

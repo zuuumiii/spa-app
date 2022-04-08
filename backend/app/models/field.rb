@@ -21,7 +21,7 @@ class Field < ApplicationRecord
 
   TARGET_MAX = 20
   def target_size_validate
-    errors.add(:targets, "目標は1つの圃場につき20個までの登録です") if self.targets.size > TARGET_MAX
+    errors.add(:targets, "は圃場につき20個までの登録です") if self.targets.size > TARGET_MAX
   end
 
   def self.each_get_accum(current_api_v1_user)
