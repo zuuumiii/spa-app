@@ -5,7 +5,6 @@ import { FieldCreateParams } from "interfaces/index";
 
 //create
 export const fieldCreate = (params: FieldCreateParams) => {
-  console.log(params);
   return client.post("fields/", params, {
     headers: {
       "access-token": Cookies.get("_access_token")!,
@@ -39,7 +38,6 @@ export const fieldShow = (id: number) => {
 
 //update
 export const fieldUpdate = (params: FieldCreateParams, id: number) => {
-  console.log(params);
   return client.put(`fields/${id}`, params, {
     headers: {
       "access-token": Cookies.get("_access_token")!,
