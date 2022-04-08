@@ -5,7 +5,7 @@ import { makeStyles, Theme } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import Button from "@material-ui/core/Button";
 
-import AlertMessage from "components/utils/AlertMessage";
+import AlertMessage, { AlertMessageProps } from "components/utils/AlertMessage";
 import { FieldCreateParams } from "interfaces/index";
 import { fieldCreate } from "lib/api/field";
 import FieldForm from "components/fields/FieldForm";
@@ -44,7 +44,13 @@ const FieldCreate: React.FC = () => {
   const [startDate, setStartDate] = useState<number | null>(
     new Date().getTime() / 1000
   );
-  const [alertMessageOpen, setAlertMessageOpen] = useState<boolean>(false);
+
+  const [alertMessageOpen, setAlertMessageOpen] = useState<AlertMessageProps>({
+    open: false,
+    setOpen: () => {},
+    severity: "error",
+    message: "読み込みに失敗しました",
+  });
 
   const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -60,15 +66,25 @@ const FieldCreate: React.FC = () => {
 
     try {
       const res = await fieldCreate(params);
-
+      console.log(res.data.data);
       if (res.data.status === "SUCCESS") {
         histroy.push("/");
       } else {
-        setAlertMessageOpen(true);
+        setAlertMessageOpen({
+          open: true,
+          setOpen: setAlertMessageOpen,
+          severity: "error",
+          message: `${res.data.data.join("\n")}`,
+        });
       }
     } catch (err) {
       console.log("err");
-      setAlertMessageOpen(true);
+      setAlertMessageOpen({
+        open: true,
+        setOpen: setAlertMessageOpen,
+        severity: "error",
+        message: "読み込みに失敗しました。",
+      });
     }
   };
 
@@ -124,11 +140,11 @@ const FieldCreate: React.FC = () => {
           登録
         </Button>
       </form>
-      <AlertMessage // エラーが発生した場合はアラートを表示
-        open={alertMessageOpen}
+      <AlertMessage
+        open={alertMessageOpen.open}
         setOpen={setAlertMessageOpen}
-        severity="error"
-        message={`圃場名・作物名・測定開始日を正しく入力してください。\n圃場の登録は20個までです。`}
+        severity={alertMessageOpen.severity}
+        message={alertMessageOpen.message}
       />
     </>
   );

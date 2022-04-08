@@ -24,7 +24,7 @@ module Api
        if field.save
         render json: { status: "SUCCESS", data: field }
        else
-        render json: { status: "ERROR", data: field }
+        render json: { status: "ERROR", data: field.errors.full_messages }
        end
       end
 
