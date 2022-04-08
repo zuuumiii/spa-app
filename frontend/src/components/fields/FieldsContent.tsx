@@ -1,4 +1,4 @@
-import React, { useState, useEffect, JSXElementConstructor } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import AlertMessage, { AlertMessageProps } from "components/utils/AlertMessage";
 
@@ -7,7 +7,6 @@ import { Card, CircularProgress } from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 import { Typography } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
-import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
 import { fieldIndex } from "lib/api/field";
 import { FieldParams, TargetParams } from "interfaces";
@@ -166,7 +165,7 @@ const FieldsIndex: React.FC = () => {
 
   const TargetList = (props: TargetListProps) => {
     const { targets, field } = props;
-    if (targets.length != 0) {
+    if (targets.length !== 0) {
       return (
         <>
           {targets.map((target) => {
@@ -211,7 +210,7 @@ const FieldsIndex: React.FC = () => {
     }
   };
   const FieldList = () => {
-    if (fields.length != 0) {
+    if (fields.length !== 0) {
       return (
         <>
           {fields.map((field) => {
