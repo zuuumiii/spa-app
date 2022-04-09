@@ -91,7 +91,6 @@ const App: React.FC = () => {
       );
     }
   };
-  // ユーザーが認証済みかどうかでルーティングを決定
   // 未認証だった場合は「/signin」ページに促す
   const Private = ({ children }: { children: React.ReactElement }) => {
     if (!loading) {
@@ -124,10 +123,10 @@ const App: React.FC = () => {
         <CommonLayout>
           <>
             <UnPrivate>
-              <div className={classes.container}>
+              <Switch>
                 <Route exact path="/signin" component={SignIn} />
                 <Route exact path="/signup" component={SignUp} />
-              </div>
+              </Switch>
             </UnPrivate>
             <Private>
               <Switch>

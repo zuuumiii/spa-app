@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   card: {
     padding: theme.spacing(2),
-    marginBottom: theme.spacing(10),
+    marginTop: theme.spacing(4),
     width: 400,
   },
   deleteCard: {
@@ -197,7 +197,7 @@ const UserEdit: React.FC = () => {
           </CardContent>
         </Card>
         <Card className={classes.card}>
-          <CardHeader className={classes.header} title="User Delete" />
+          <CardHeader className={classes.header} title="アカウント削除" />
           <CardContent className={classes.deleteCard}>
             <DeleteModal
               text={"アカウント削除"}

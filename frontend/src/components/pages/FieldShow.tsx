@@ -34,9 +34,9 @@ const useStyles = makeStyles((theme: Theme) => ({
     justifyContent: "space-around",
   },
   fieldContainer: {
-    width: 800,
+    width: 850,
     textAlign: "center",
-    height: 120,
+    height: 150,
     marginTop: theme.spacing(3),
     padding: theme.spacing(1),
     backgroundColor: "#eceff1",
@@ -154,7 +154,7 @@ const FieldShow: React.FC = () => {
       const res = await targetCreate(params, field.id);
       console.log(res);
 
-      if (res.status === 200) {
+      if (res.data.status === "SUCCESS") {
         (field.targets as unknown as TargetParams[]).push(res.data.data);
         setField(field);
         setTargetName("");
@@ -167,13 +167,12 @@ const FieldShow: React.FC = () => {
           severity: "success",
           message: "目標を作成しました。",
         });
-        console.log("Create Target successfully!");
       } else {
         setAlertMessageOpen({
           open: true,
           setOpen: setAlertMessageOpen,
           severity: "error",
-          message: "目標の作成に失敗しました。",
+          message: `${res.data.data.join("\n")}`,
         });
       }
     } catch (err) {
@@ -236,6 +235,12 @@ const FieldShow: React.FC = () => {
                 作物名
               </Typography>
               <Typography>{field.product}</Typography>
+            </div>
+            <div>
+              <Typography variant="h6" className={classes.fieldIndex}>
+                面積
+              </Typography>
+              <Typography>{field.area}a</Typography>
             </div>
             <div>
               <Typography variant="h6" className={classes.fieldIndex}>

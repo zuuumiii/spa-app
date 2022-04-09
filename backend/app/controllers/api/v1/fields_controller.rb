@@ -24,7 +24,7 @@ module Api
        if field.save
         render json: { status: "SUCCESS", data: field }
        else
-        render json: { status: "ERROR", data: field.errors }
+        render json: { status: "ERROR", data: field.errors.full_messages }
        end
       end
 
@@ -36,7 +36,7 @@ module Api
           if field.save
            render json: { status: "SUCCESS", data: field }
           else
-           render json: { status: "ERROR", data: field.errors }
+           render json: { status: "ERROR", data: field.errors.full_messages }
           end
         else
           render json: { status: "ERROR", data: "不正な操作です" }

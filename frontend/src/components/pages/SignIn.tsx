@@ -42,10 +42,10 @@ const useStyles = makeStyles((theme: Theme) => ({
     textDecoration: "none",
   },
   background: {
-    height: "100vh",
+    height: "1200px",
     width: "100vw",
     backgroundImage: `url(${BackgroundImage})`,
-    backgroundPosition: "center center",
+    backgroundPosition: "top",
     backgroundSize: "cover",
     backgroundRepeat: "no-repeat",
     display: "flex",
@@ -57,7 +57,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   desc: {
     textAlign: "center",
     background: "rgba(200, 255, 255, 0.4)",
-    marginTop: 30,
+    marginTop: "30px",
     padding: "40px",
   },
 }));

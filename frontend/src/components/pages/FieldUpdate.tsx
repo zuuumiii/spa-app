@@ -5,7 +5,7 @@ import { makeStyles, Theme } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import Button from "@material-ui/core/Button";
 
-import AlertMessage from "components/utils/AlertMessage";
+import AlertMessage, { AlertMessageProps } from "components/utils/AlertMessage";
 import { FieldCreateParams, FieldParams } from "interfaces/index";
 import { fieldUpdate } from "lib/api/field";
 import FieldForm from "components/fields/FieldForm";
@@ -37,7 +37,12 @@ const FieldUpdate: React.FC = () => {
   const [info, setInfo] = useState<string>(state.info);
   const [correct, setCorrect] = useState<number>(state.correct);
   const [startDate, setStartDate] = useState<number | null>(state.startDate);
-  const [alertMessageOpen, setAlertMessageOpen] = useState<boolean>(false);
+  const [alertMessageOpen, setAlertMessageOpen] = useState<AlertMessageProps>({
+    open: false,
+    setOpen: () => {},
+    severity: "error",
+    message: "",
+  });
 
   const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -53,16 +58,26 @@ const FieldUpdate: React.FC = () => {
 
     try {
       const res = await fieldUpdate(params, state.id);
-      console.log(res.data);
+      console.log(res.data.data);
 
-      if (res.status === 200) {
+      if (res.data.status === "SUCCESS") {
         histroy.push("/");
       } else {
-        setAlertMessageOpen(true);
+        setAlertMessageOpen({
+          open: true,
+          setOpen: setAlertMessageOpen,
+          severity: "error",
+          message: `${res.data.data.join("\n")}`,
+        });
       }
     } catch (err) {
       console.log("err");
-      setAlertMessageOpen(true);
+      setAlertMessageOpen({
+        open: true,
+        setOpen: setAlertMessageOpen,
+        severity: "error",
+        message: "読み込みに失敗しました。",
+      });
     }
   };
 
@@ -118,11 +133,11 @@ const FieldUpdate: React.FC = () => {
           登録
         </Button>
       </form>
-      <AlertMessage // エラーが発生した場合はアラートを表示
-        open={alertMessageOpen}
+      <AlertMessage
+        open={alertMessageOpen.open}
         setOpen={setAlertMessageOpen}
-        severity="error"
-        message="圃場名・作物名・測定開始日を正しく入力してください。"
+        severity={alertMessageOpen.severity}
+        message={alertMessageOpen.message}
       />
     </>
   );

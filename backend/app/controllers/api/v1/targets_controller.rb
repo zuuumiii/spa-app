@@ -7,7 +7,7 @@ module Api
         if target.save
           render json: { status: "SUCCESS", data: target }
         else
-          render json: { status: "ERROR", data: target.errors }
+          render json: { status: "ERROR", data: target.errors.full_messages }
         end
       end
 
@@ -17,7 +17,7 @@ module Api
           if target.update(target_params)
             render json: { status: "SUCCESS", data: target }
           else
-            render json: { status: "ERROR", data: target.errors }
+            render json: { status: "ERROR", data: target.errors.full_messages }
           end
         else
           render json: { status: "ERROR", data: "不正な操作です" }
