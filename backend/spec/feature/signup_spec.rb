@@ -1,10 +1,7 @@
 require "rails_helper"
 
-RSpec.feature 'ユーザー新規登録', type: :feature do
-  describe "", js: true do
-    before do
-      @user = FactoryBot.build(:user)
-    end
+RSpec.describe 'ユーザー新規登録', type: :system, js: true do
+
 
     context 'ユーザー新規登録ができるとき' do 
       it '正しい情報を入力すればユーザー新規登録ができてトップページに移動する' do
@@ -28,5 +25,4 @@ RSpec.feature 'ユーザー新規登録', type: :feature do
         # 新規登録ページへ戻されることを確認する
       end
     end
-  end
 end

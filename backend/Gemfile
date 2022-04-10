@@ -33,6 +33,7 @@ group :development, :test do
   gem 'faker'
   gem 'capybara', '>= 2.15'
   gem 'selenium-webdriver'
+  gem "poltergeist"
 end
 
 group :development do
