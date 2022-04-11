@@ -6,7 +6,8 @@ RSpec.describe 'ユーザー新規登録', type: :system, js: true do
     context 'ユーザー新規登録ができるとき' do 
       it '正しい情報を入力すればユーザー新規登録ができてトップページに移動する' do
         visit "/"
-        click_button "ログイン"
+        find("#signup").click
+        fill_in "name", with: "aaa"
         # 新規登録ページへ移動する
         # ユーザー情報を入力する
         # サインアップボタンを押すとユーザーモデルのカウントが1上がることを確認する

@@ -92,6 +92,7 @@ const Header: React.FC = () => {
               to="/signup"
               color="inherit"
               className={classes.linkBtn}
+              id="signup"
             >
               新規登録
             </Button>

@@ -137,6 +137,7 @@ const SignUp: React.FC = () => {
           <CardHeader className={classes.header} title="新規登録" />
           <CardContent>
             <TextField
+              name="name"
               variant="outlined"
               required
               fullWidth
