@@ -40,7 +40,7 @@ Capybara.register_driver :remote_chrome do |app|
       "args" => [
         "no-sandbox",
         "disable-gpu",
-        "window-size=1680,1050"
+        "window-size=1200,1050"
       ]
     }
   )
@@ -54,7 +54,7 @@ RSpec.configure do |config|
 
   config.before(:each, type: :system, js: true) do
     driven_by :remote_chrome
-    Capybara.app_host = "http://192.168.144.5:3000"
+    Capybara.app_host = "http://192.168.3.5:80"
   end
 
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
