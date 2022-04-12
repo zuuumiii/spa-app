@@ -40,7 +40,7 @@ Capybara.register_driver :remote_chrome do |app|
       "args" => [
         "no-sandbox",
         "disable-gpu",
-        "window-size=1200,1050"
+        "window-size=1200,900"
       ]
     }
   )
@@ -49,6 +49,7 @@ end
 
 RSpec.configure do |config|
   config.include SignInSupport, type: :system
+  config.include FieldCreateSupport, type: :system
   config.before(:each, type: :system) do
     driven_by :rack_test
   end
