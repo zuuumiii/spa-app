@@ -153,6 +153,7 @@ const UserEdit: React.FC = () => {
           <CardHeader className={classes.header} title="ユーザー情報編集" />
           <CardContent>
             <TextField
+              name="name"
               variant="outlined"
               required
               fullWidth
@@ -162,6 +163,7 @@ const UserEdit: React.FC = () => {
               onChange={(event) => setName(event.target.value)}
             />
             <TextField
+              name="email"
               variant="outlined"
               required
               fullWidth

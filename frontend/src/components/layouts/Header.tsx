@@ -63,6 +63,7 @@ const Header: React.FC = () => {
               component={Link}
               to="/user"
               color="inherit"
+              id="user"
               className={classes.linkBtn}
             >
               {currentUser?.name} さん
