@@ -50,6 +50,8 @@ end
 RSpec.configure do |config|
   config.include SignInSupport, type: :system
   config.include FieldCreateSupport, type: :system
+  config.include TargetCreateSupport, type: :system
+  
   config.before(:each, type: :system) do
     driven_by :rack_test
   end
