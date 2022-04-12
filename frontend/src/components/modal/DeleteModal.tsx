@@ -90,6 +90,7 @@ const DeleteModal: React.FC<DeleteModalProps> = ({
   return (
     <>
       <Button
+        id="delete"
         variant="contained"
         size="large"
         color="default"

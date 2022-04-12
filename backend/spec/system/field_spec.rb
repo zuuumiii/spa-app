@@ -1,5 +1,35 @@
 require "rails_helper"
 
+RSpec.describe '圃場削除', type: :system, js: true do
+  before do
+    @field = FactoryBot.build(:field)
+  end
+
+  context '圃場削除できるとき' do 
+    it '圃場が削除すると一覧から消える' do
+      sign_in(@field.user)
+      field_create(@field)
+      click_on(@field.field_name)
+      find("#delete").click
+      click_button("OK")
+      sleep(2)
+      expect(current_path).to eq "/"
+      expect(page).to have_no_content @field.field_name
+    end
+  end
+  context '圃場削除をキャンセルしたとき' do 
+    it '削除をキャンセルすると一覧に残っている' do
+      sign_in(@field.user)
+      field_create(@field)
+      click_on(@field.field_name)
+      find("#delete").click
+      click_button("キャンセル")
+      sleep(2)
+      expect(page).to have_content @field.field_name
+    end
+  end
+end
+
 RSpec.describe '圃場編集', type: :system, js: true do
   before do
     @field = FactoryBot.build(:field)
