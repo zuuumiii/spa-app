@@ -22,7 +22,7 @@ require 'rspec/rails'
 # directory. Alternatively, in the individual `*_spec.rb` files, manually
 # require only the support files necessary.
 #
-# Dir[Rails.root.join('spec', 'support', '**', '*.rb')].sort.each { |f| require f }
+Dir[Rails.root.join('spec', 'support', '**', '*.rb')].sort.each { |f| require f }
 
 # Checks for pending migrations and applies them before tests are run.
 # If you are not using ActiveRecord, you can remove these lines.
@@ -48,6 +48,7 @@ Capybara.register_driver :remote_chrome do |app|
 end
 
 RSpec.configure do |config|
+  config.include SignInSupport, type: :system
   config.before(:each, type: :system) do
     driven_by :rack_test
   end
@@ -56,10 +57,10 @@ RSpec.configure do |config|
     driven_by :remote_chrome
     Capybara.app_host = "http://192.168.3.5:80"
   end
+  config.fixture_path = "#{::Rails.root}/spec/fixtures"
+  config.include FactoryBot::Syntax::Methods
 
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
-  config.fixture_path = "#{::Rails.root}/spec/fixtures"
-
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false
   # instead of true.
