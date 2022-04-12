@@ -86,6 +86,7 @@ const FieldForm: React.FC<Props> = (props) => {
       <CardHeader className={classes.header} title={title} />
       <CardContent>
         <TextField
+          name="field-name"
           className={classes.textField}
           variant="outlined"
           required
@@ -96,6 +97,7 @@ const FieldForm: React.FC<Props> = (props) => {
           onChange={onChangeFieldName}
         />
         <TextField
+          name="product"
           className={classes.textField}
           variant="outlined"
           required
@@ -106,6 +108,7 @@ const FieldForm: React.FC<Props> = (props) => {
           onChange={onChangeProduct}
         />
         <TextField
+          name="area"
           className={classes.textField}
           variant="outlined"
           fullWidth
@@ -134,6 +137,7 @@ const FieldForm: React.FC<Props> = (props) => {
           </MuiPickersUtilsProvider>
         </div>
         <TextField
+          name="info"
           className={classes.textField}
           variant="outlined"
           fullWidth
