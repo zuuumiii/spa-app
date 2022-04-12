@@ -1,12 +1,45 @@
 require "rails_helper"
 
-RSpec.describe '圃場編集', type: :system, js: true do
+RSpec.describe '目標削除', type: :system, js: true do
+  before do
+    @target = FactoryBot.build(:target)
+  end
+
+  context '目標削除できるとき' do 
+    it '目標を削除したら、完了メッセージと共に一覧に表示されない' do
+      sign_in(@target.field.user)
+      field_create(@target.field)
+      target_create(@target)
+      click_on(@target.target_name)
+      click_on("目標削除")
+      click_button("OK")
+      expect(page).to have_content "目標を削除しました"
+      sleep(2)
+      expect(page).to have_no_content @target.target_name
+      
+    end
+  end
+  context '目標削除キャンセルしたとき' do 
+    it '削除をキャンセルすると、一覧に表示されたまま' do
+      sign_in(@target.field.user)
+      field_create(@target.field)
+      target_create(@target)
+      click_on(@target.target_name)
+      click_on("目標削除")
+      click_button("キャンセル")
+      sleep(2)
+      expect(page).to have_content @target.target_name
+    end
+  end
+end
+
+RSpec.describe '目標編集', type: :system, js: true do
   before do
     @target = FactoryBot.build(:target)
   end
 
   context '目標編集できるとき' do 
-    it '正しい情報で圃場を編集したら、作成メッセージと共に一覧に反映される' do
+    it '正しい情報で目標を編集したら、作成メッセージと共に一覧に反映される' do
       sign_in(@target.field.user)
       field_create(@target.field)
       target_create(@target)
@@ -17,8 +50,8 @@ RSpec.describe '圃場編集', type: :system, js: true do
       expect(page).to have_content "目標1"
     end
   end
-  context '圃場登録できないとき' do 
-    it '間違った情報で登録すると、エラーが発生し表示されない' do
+  context '目標登録できないとき' do 
+    it '間違った情報で登録すると、エラーが発生し反映されない' do
       sign_in(@target.field.user)
       field_create(@target.field)
       target_create(@target)
@@ -32,20 +65,20 @@ RSpec.describe '圃場編集', type: :system, js: true do
 end
 
 
-RSpec.describe '圃場登録', type: :system, js: true do
+RSpec.describe '目標登録', type: :system, js: true do
   before do
     @target = FactoryBot.build(:target)
   end
 
   context '目標登録できるとき' do 
-    it '正しい情報で圃場が登録したら、作成メッセージと共に一覧に表示される' do
+    it '正しい情報で目標が登録したら、作成メッセージと共に一覧に表示される' do
       sign_in(@target.field.user)
       field_create(@target.field)
       target_create(@target)
 
     end
   end
-  context '圃場登録できないとき' do 
+  context '目標登録できないとき' do 
     it '間違った情報で登録すると、エラーが発生し表示されない' do
       sign_in(@target.field.user)
       field_create(@target.field)
