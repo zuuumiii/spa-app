@@ -36,7 +36,7 @@ RSpec.describe '圃場編集', type: :system, js: true do
   end
 
   context '圃場編集できるとき' do 
-    it '正しい情報で圃場が編集できる' do
+    it '正しい情報で圃場が編集でき、一覧表示に反映される' do
       sign_in(@field.user)
       field_create(@field)
       click_on(@field.field_name)
