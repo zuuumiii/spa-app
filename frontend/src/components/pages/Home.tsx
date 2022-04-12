@@ -40,6 +40,7 @@ const Home: React.FC = () => {
     <>
       <div className={classes.topWrapper}>
         <Button
+          id="field-create"
           className={classes.createBtn}
           variant="contained"
           size="large"

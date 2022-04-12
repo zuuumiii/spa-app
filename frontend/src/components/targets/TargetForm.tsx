@@ -63,6 +63,7 @@ const TargetForm: React.FC<Props> = (props) => {
       <CardHeader className={classes.header} title={title} />
       <CardContent>
         <TextField
+          name="target-name"
           className={classes.textField}
           variant="outlined"
           required
@@ -73,6 +74,7 @@ const TargetForm: React.FC<Props> = (props) => {
           onChange={onChangeTargetName}
         />
         <TextField
+          name="target-temp"
           className={classes.textField}
           variant="outlined"
           fullWidth
@@ -86,6 +88,7 @@ const TargetForm: React.FC<Props> = (props) => {
         />
 
         <TextField
+          name="memo"
           className={classes.textField}
           variant="outlined"
           fullWidth

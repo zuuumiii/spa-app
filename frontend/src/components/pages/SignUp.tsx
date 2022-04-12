@@ -137,6 +137,7 @@ const SignUp: React.FC = () => {
           <CardHeader className={classes.header} title="新規登録" />
           <CardContent>
             <TextField
+              name="name"
               variant="outlined"
               required
               fullWidth
@@ -146,6 +147,7 @@ const SignUp: React.FC = () => {
               onChange={(event) => setName(event.target.value)}
             />
             <TextField
+              name="email"
               variant="outlined"
               required
               fullWidth
@@ -168,6 +170,7 @@ const SignUp: React.FC = () => {
             />
 
             <TextField
+              name="password"
               variant="outlined"
               required
               fullWidth
@@ -179,6 +182,7 @@ const SignUp: React.FC = () => {
               onChange={(event) => setPassword(event.target.value)}
             />
             <TextField
+              name="password-confirmation"
               variant="outlined"
               required
               fullWidth

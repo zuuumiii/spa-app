@@ -31,6 +31,9 @@ group :development, :test do
   gem "rspec-rails", "~> 4.0.0"
   gem 'factory_bot_rails'
   gem 'faker'
+  gem 'capybara', '>= 2.15'
+  gem 'selenium-webdriver'
+  gem "poltergeist"
 end
 
 group :development do
@@ -46,3 +49,4 @@ gem 'devise'
 gem 'devise_token_auth'
 gem 'mechanize'
 gem 'rails-i18n'
+gem 'pry-rails'

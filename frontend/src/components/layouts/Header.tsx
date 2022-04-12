@@ -63,6 +63,7 @@ const Header: React.FC = () => {
               component={Link}
               to="/user"
               color="inherit"
+              id="user"
               className={classes.linkBtn}
             >
               {currentUser?.name} さん
@@ -92,6 +93,7 @@ const Header: React.FC = () => {
               to="/signup"
               color="inherit"
               className={classes.linkBtn}
+              id="signup"
             >
               新規登録
             </Button>
