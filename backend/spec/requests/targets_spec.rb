@@ -107,4 +107,15 @@ RSpec.describe "Create", type: :request do
       end
     end
   end
+
+  describe "ユーザー削除されたら目標も消える" do
+    context "ユーザー削除されたら目標も消える" do
+      it "ユーザー削除されたら目標も消える" do
+        expect{delete api_v1_user_registration_path(@target.user), headers: @auth_tokens}.to change{User.count}.by(-1).and change{Target.count}.by(-1)
+        res = JSON.parse(response.body)
+        expect(res["status"]).to eq("success")
+        expect(response).to have_http_status :ok
+      end
+    end
+  end
 end
