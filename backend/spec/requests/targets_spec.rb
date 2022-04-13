@@ -64,4 +64,47 @@ RSpec.describe "Create", type: :request do
       end
     end
   end
+
+  describe "目標編集" do
+    context "正しく編集できるとき" do
+      it "正しく入力で編集できるとき" do
+        @params["target_temp"] = 1200
+        expect{put api_v1_field_target_path(@target.field_id, @target.id), params: @params, headers: @auth_tokens}.to change{Target.count}.by(0)
+        res = JSON.parse(response.body)
+        expect(res["status"]).to eq("SUCCESS")
+        expect(res["data"]["target_temp"]).to eq(Target.last.target_temp)
+        expect(response).to have_http_status :ok
+      end
+    end
+    context "編集できないとき" do
+      it "別のユーザから編集しようとすると、エラーが出て編集されない" do
+        another_user = FactoryBot.create(:user)
+        another_tokens = auth_sign_in(another_user)
+        @params["target_temp"] = 1200
+        expect{put api_v1_field_target_path(@target.field_id, @target.id), params: @params, headers: another_tokens}.to change{Target.count}.by(0)
+        expect(Target.last.target_temp).to eq(@target.target_temp)
+        res = JSON.parse(response.body)
+        expect(res["status"]).to eq("ERROR")
+        expect(res["data"]).to eq("不正な操作です")
+        expect(response).to have_http_status :ok
+      end
+      it "間違った入力で編集できない" do
+        @params["target_temp"] = 10000
+        expect{put api_v1_field_target_path(@target.field_id, @target.id), params: @params, headers: @auth_tokens}.to change{Target.count}.by(0)
+        expect(Target.last.target_temp).to eq(@target.target_temp)
+        res = JSON.parse(response.body)
+        expect(res["status"]).to eq("ERROR")
+        expect(res["data"]).to include("目標温度は10000より小さい値にしてください")
+        expect(response).to have_http_status :ok
+      end
+      it "認証されてないユーザーから編集できない" do
+        @params["target_temp"] = 1200
+        expect{put api_v1_field_target_path(@target.field_id, @target.id), params: @params, headers: nil}.to change{Target.count}.by(0)
+        expect(Target.last.target_temp).to eq(@target.target_temp)
+        res = JSON.parse(response.body)
+        expect(res["errors"]).to include("ログインもしくはアカウント登録してください。")
+        expect(response).to have_http_status 401
+      end
+    end
+  end
 end
