@@ -1,7 +1,7 @@
 module Api
   module V1
     class FieldsController < ApplicationController
-
+      before_action :authenticate_api_v1_user!
       def index
         fields = Field.each_get_accum(current_api_v1_user)
         string = fields.map.as_json(include: :targets)

@@ -59,6 +59,12 @@ RSpec.describe "Create", type: :request do
         expect(res["data"]).to eq("不正な操作です")
         expect(response).to have_http_status :ok
       end
+      it "認証されていないユーザーから削除できない" do
+        expect{delete api_v1_field_path(@field), params: @params, headers: nil}.to change{Field.count}.by(0)
+        res = JSON.parse(response.body)
+        expect(res["errors"]).to include("ログインもしくはアカウント登録してください。")
+        expect(response).to have_http_status 401
+      end
     end
   end
 
@@ -73,7 +79,7 @@ RSpec.describe "Create", type: :request do
         expect(response).to have_http_status :ok
       end
     end
-    context "削除できないとき" do
+    context "編集できないとき" do
       it "別のユーザから編集しようとすると、エラーが出て編集されない" do
         another_user = FactoryBot.create(:user)
         another_tokens = auth_sign_in(another_user)
@@ -88,10 +94,19 @@ RSpec.describe "Create", type: :request do
       it "間違った入力で編集できない" do
         @params["product"] = "#{"a" * 19}"
         expect{put api_v1_field_path(@field), params: @params, headers: @auth_tokens}.to change{Field.count}.by(0)
+        expect(Field.last.product).to eq(@field.product)
         res = JSON.parse(response.body)
         expect(res["status"]).to eq("ERROR")
         expect(res["data"]).to include("作物名は18文字以内で入力してください")
         expect(response).to have_http_status :ok
+      end
+      it "認証されてないユーザーから編集できない" do
+        @params["product"] = "ながいも"
+        expect{put api_v1_field_path(@field), params: @params, headers: nil}.to change{Field.count}.by(0)
+        expect(Field.last.product).to eq(@field.product)
+        res = JSON.parse(response.body)
+        expect(res["errors"]).to include("ログインもしくはアカウント登録してください。")
+        expect(response).to have_http_status 401
       end
     end
   end
