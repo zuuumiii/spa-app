@@ -2,7 +2,7 @@
 require 'capybara/rspec'
 require 'spec_helper'
 require "factory_bot_rails"
-ENV['RAILS_ENV'] ||= 'test'
+ENV['RAILS_ENV']= 'test'
 require File.expand_path('../config/environment', __dir__)
 # Prevent database truncation if the environment is production
 abort("The Rails environment is running in production mode!") if Rails.env.production?
@@ -51,6 +51,7 @@ RSpec.configure do |config|
   config.include SignInSupport, type: :system
   config.include FieldCreateSupport, type: :system
   config.include TargetCreateSupport, type: :system
+  config.include AuthHelper, type: :request
   
   config.before(:each, type: :system) do
     driven_by :rack_test
