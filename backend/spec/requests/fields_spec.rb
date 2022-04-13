@@ -41,7 +41,7 @@ RSpec.describe "Create", type: :request do
   describe "圃場削除" do
     context "正しく削除できるとき" do
       it "正しく削除できたらメッセージが含まれる" do
-        expect{delete api_v1_field_path(@field), params: @params, headers: @auth_tokens}.to change{Field.count}.by(-1)
+        expect{delete api_v1_field_path(@field), headers: @auth_tokens}.to change{Field.count}.by(-1)
         res = JSON.parse(response.body)
         expect(res["status"]).to eq("SUCCESS")
         expect(res["data"]).to eq("削除しました")
@@ -52,7 +52,7 @@ RSpec.describe "Create", type: :request do
       it "別のユーザから削除しようとすると、エラーが出て削除されない" do
         another_user = FactoryBot.create(:user)
         another_tokens = auth_sign_in(another_user)
-        expect{delete api_v1_field_path(@field), params: @params, headers: another_tokens}.to change{Field.count}.by(0)
+        expect{delete api_v1_field_path(@field), headers: another_tokens}.to change{Field.count}.by(0)
         expect(Field.last.field_name).to eq(@field.field_name)
         res = JSON.parse(response.body)
         expect(res["status"]).to eq("ERROR")
@@ -60,7 +60,7 @@ RSpec.describe "Create", type: :request do
         expect(response).to have_http_status :ok
       end
       it "認証されていないユーザーから削除できない" do
-        expect{delete api_v1_field_path(@field), params: @params, headers: nil}.to change{Field.count}.by(0)
+        expect{delete api_v1_field_path(@field), headers: nil}.to change{Field.count}.by(0)
         res = JSON.parse(response.body)
         expect(res["errors"]).to include("ログインもしくはアカウント登録してください。")
         expect(response).to have_http_status 401
@@ -107,6 +107,17 @@ RSpec.describe "Create", type: :request do
         res = JSON.parse(response.body)
         expect(res["errors"]).to include("ログインもしくはアカウント登録してください。")
         expect(response).to have_http_status 401
+      end
+    end
+  end
+
+  describe "ユーザー削除されたら圃場も消える" do
+    context "ユーザー削除されたら圃場も消える" do
+      it "ユーザー削除されたら圃場も消える" do
+        expect{delete api_v1_user_registration_path(@field.user), params: @params, headers: @auth_tokens}.to change{User.count}.by(-1).and change{Field.count}.by(-1)
+        res = JSON.parse(response.body)
+        expect(res["status"]).to eq("success")
+        expect(response).to have_http_status :ok
       end
     end
   end
