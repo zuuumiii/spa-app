@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
   include DeviseTokenAuth::Concerns::User
 
   has_many :fields, dependent: :destroy
-  has_many :targets, dependent: :destroy
+  has_many :targets, dependent: :destroy, through: :field
 
   validates :name, presence: true, length: {maximum: 18}
   validates :prec_no, presence: true
