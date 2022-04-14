@@ -17,11 +17,11 @@ import ArrowBack from "@material-ui/icons/ArrowBack";
 
 const useStyles = makeStyles((theme: Theme) => ({
   fieldsWrapper: {
-    width: 1020,
+    width: 1200,
     marginTop: theme.spacing(4),
   },
   fieldCard: {
-    height: 150,
+    height: 160,
     marginTop: theme.spacing(3),
     backgroundColor: "#eceff1",
   },
@@ -32,14 +32,13 @@ const useStyles = makeStyles((theme: Theme) => ({
   paper: {
     textAlign: "center",
     color: theme.palette.text.primary,
-    height: 150,
+    height: 160,
     display: "flex",
     alignItems: "center",
   },
   fieldBtn: {
-    marginTop: theme.spacing(1),
     height: 160,
-    width: 173,
+    width: 205,
     textAlign: "center",
     display: "block",
     "&:hover": {
@@ -48,7 +47,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   fieldIndex: { marginTop: 3 },
   loadingCard: {
-    height: 150,
+    height: 160,
     marginTop: theme.spacing(3),
     backgroundColor: "#fafafa",
     display: "flex",

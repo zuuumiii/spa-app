@@ -18,7 +18,8 @@ const useStyles = makeStyles((theme: Theme) => ({
     justifyContent: "center",
   },
   btn: {
-    paddingTop: theme.spacing(2),
+    paddingTop: theme.spacing(4),
+    paddingBottom: theme.spacing(2),
     textAlign: "center",
     display: "block",
     justifyContent: "center",
