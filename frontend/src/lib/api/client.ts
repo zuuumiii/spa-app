@@ -10,10 +10,8 @@ const options = {
 
 const client = applyCaseMiddleware(
   axios.create({
-    baseURL: "http://192.168.3.5:3001/api/v1",
+    baseURL: process.env.REACT_APP_CLIENT,
   }),
   options
 );
-//http://54.249.116.120:3001/api/v1
-//http://localhost:3001/api/v1
 export default client;
