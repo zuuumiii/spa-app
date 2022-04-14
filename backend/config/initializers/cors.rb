@@ -1,7 +1,7 @@
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
     
-    origins  "trag.online", "192.168.3.5", "localhost"
+    origins  Rails.application.credentials.CORS[:api_domain], Rails.application.credentials.CORS[:local_domain], "localhost"
 
     resource "*",
       headers: :any,
