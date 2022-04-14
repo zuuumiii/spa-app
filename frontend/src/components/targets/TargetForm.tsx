@@ -95,6 +95,8 @@ const TargetForm: React.FC<Props> = (props) => {
           label="メモ"
           value={memo}
           margin="dense"
+          multiline
+          rows={3}
           onChange={onChangeMemo}
         />
         <Button
