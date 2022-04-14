@@ -1,17 +1,5 @@
 version: "3"
 services:
-  db:
-    image: mysql:8.0
-    environment:
-      MYSQL_ROOT_PASSWORD: password
-    command:
-      - --default-authentication-plugin=mysql_native_password
-      - --sql-mode=NO_ENGINE_SUBSTITUTION
-    volumes:
-      - mysql-data:/var/lib/mysql
-      - /tmp/dockerdir:/etc/mysql/conf.d/
-    ports:
-      - 3306:3306
   api:
     build:
       context: ./backend
