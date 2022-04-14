@@ -3,9 +3,9 @@ default: &default
   encoding: utf8mb4
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   username: root
-  password: password # デフォルトだと空欄になっているはずなので変更
-  host: db # デフォルトだとlocalhostになっているはずなので変更
-
+  password: password
+  host: db
+  
 development:
   <<: *default
   database: myapp_development
@@ -17,7 +17,6 @@ test:
 
 production:
   <<: *default
-  database: <%= ENV["DATABASE_NAME"] %>
-  username: <%= ENV["DATABASE_USERNAME"] %>
-  password: <%= ENV["DATABASE_PASSWORD"] %>
-  host: <%= ENV["DATABASE_HOST"] %>
+  username: <%= Rails.application.credentials.DB[:db_username] %>
+  password: <%= Rails.application.credentials.DB[:db_password] %>
+  host: <%= Rails.application.credentials.DB[:db_host] %>
