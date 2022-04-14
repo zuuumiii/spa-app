@@ -10,12 +10,14 @@ import CardHeader from "@material-ui/core/CardHeader";
 import Button from "@material-ui/core/Button";
 
 import { AuthContext } from "App";
-import AlertMessage from "components/utils/AlertMessage";
+import AlertMessage from "components/alerts/AlertMessage";
 import { userDelete, userEdit } from "lib/api/auth";
 import { UserEditParams } from "interfaces/index";
-import PrecBlockBox, { PrecBlockItem } from "components/precblock/PrecBlockBox";
-import { PrecBlockList } from "components/precblock/PrecBlockList";
-import DeleteModal from "components/modal/DeleteModal";
+import PrecBlockBox, {
+  PrecBlockItem,
+} from "components/selectbox/precblock/PrecBlockBox";
+import { PrecBlockList } from "components/selectbox/precblock/PrecBlockList";
+import DeleteModal from "components/modals/DeleteModal";
 
 const useStyles = makeStyles((theme: Theme) => ({
   submitBtn: {
@@ -160,7 +162,7 @@ const UserEdit: React.FC = () => {
               label="名前"
               value={name}
               margin="dense"
-              onChange={(event) => setName(event.target.value)}
+              onChange={(e) => setName(e.target.value)}
             />
             <TextField
               name="email"
@@ -170,7 +172,7 @@ const UserEdit: React.FC = () => {
               label="Email"
               value={email}
               margin="dense"
-              onChange={(event) => setEmail(event.target.value)}
+              onChange={(e) => setEmail(e.target.value)}
             />
             <PrecBlockBox
               inputLabel="都道府県"

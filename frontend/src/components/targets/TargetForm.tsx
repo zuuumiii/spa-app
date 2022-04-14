@@ -39,10 +39,10 @@ interface Props {
   targetName: string;
   targetTemp: number;
   memo: string;
-  onChangeTargetName: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  onChangeTargetTemp: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  onChangeMemo: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  onClickSubmit: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  onChangeTargetName: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onChangeTargetTemp: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onChangeMemo: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onClickSubmit: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 const TargetForm: React.FC<Props> = (props) => {

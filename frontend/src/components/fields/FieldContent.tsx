@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import AlertMessage, { AlertMessageProps } from "components/utils/AlertMessage";
+import AlertMessage, {
+  AlertMessageProps,
+} from "components/alerts/AlertMessage";
 
 import { makeStyles, Theme } from "@material-ui/core/styles";
 import { Card, CircularProgress } from "@material-ui/core";

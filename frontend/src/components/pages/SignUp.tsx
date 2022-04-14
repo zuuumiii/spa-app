@@ -10,11 +10,13 @@ import CardHeader from "@material-ui/core/CardHeader";
 import Button from "@material-ui/core/Button";
 
 import { AuthContext } from "App";
-import AlertMessage from "components/utils/AlertMessage";
+import AlertMessage from "components/alerts/AlertMessage";
 import { signUp } from "lib/api/auth";
 import { SignUpParams } from "interfaces/index";
-import PrecBlockBox, { PrecBlockItem } from "components/precblock/PrecBlockBox";
-import { PrecBlockList } from "components/precblock/PrecBlockList";
+import PrecBlockBox, {
+  PrecBlockItem,
+} from "components/selectbox/precblock/PrecBlockBox";
+import { PrecBlockList } from "components/selectbox/precblock/PrecBlockList";
 
 const useStyles = makeStyles((theme: Theme) => ({
   submitBtn: {
@@ -62,7 +64,6 @@ const SignUp: React.FC = () => {
 
     try {
       const res = await signUp(params);
-      console.log(res);
 
       if (res.status === 200) {
         // アカウント作成と同時にログイン
@@ -144,7 +145,7 @@ const SignUp: React.FC = () => {
               label="名前"
               value={name}
               margin="dense"
-              onChange={(event) => setName(event.target.value)}
+              onChange={(e) => setName(e.target.value)}
             />
             <TextField
               name="email"
@@ -154,7 +155,7 @@ const SignUp: React.FC = () => {
               label="Email"
               value={email}
               margin="dense"
-              onChange={(event) => setEmail(event.target.value)}
+              onChange={(e) => setEmail(e.target.value)}
             />
             <PrecBlockBox
               inputLabel="都道府県"
@@ -179,7 +180,7 @@ const SignUp: React.FC = () => {
               value={password}
               margin="dense"
               autoComplete="current-password"
-              onChange={(event) => setPassword(event.target.value)}
+              onChange={(e) => setPassword(e.target.value)}
             />
             <TextField
               name="password-confirmation"
@@ -191,7 +192,7 @@ const SignUp: React.FC = () => {
               value={passwordConfirmation}
               margin="dense"
               autoComplete="current-password"
-              onChange={(event) => setPasswordConfirmation(event.target.value)}
+              onChange={(e) => setPasswordConfirmation(e.target.value)}
             />
             <Button
               type="submit"

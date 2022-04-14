@@ -3,8 +3,10 @@ import { makeStyles, Theme } from "@material-ui/core/styles";
 import { Box, CircularProgress, Grid, Typography } from "@material-ui/core";
 import { FieldParams, TargetParams, TargetCreateParams } from "interfaces";
 import { targetUpdate, targetDelete } from "lib/api/target";
-import TargetModal from "components/modal/TargetModal";
-import AlertMessage, { AlertMessageProps } from "components/utils/AlertMessage";
+import TargetModal from "components/modals/TargetModal";
+import AlertMessage, {
+  AlertMessageProps,
+} from "components/alerts/AlertMessage";
 
 const useStyles = makeStyles((theme: Theme) => ({
   paper: {

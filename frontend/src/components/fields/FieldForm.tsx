@@ -10,7 +10,7 @@ import DateFnsUtils from "@date-io/date-fns";
 import jaLocale from "date-fns/locale/ja";
 import { format } from "date-fns";
 
-import CorrectBox from "components/correct/CorrectBox";
+import CorrectBox from "components/selectbox/correct/CorrectBox";
 const useStyles = makeStyles((theme: Theme) => ({
   textField: {
     marginTop: theme.spacing(3),
@@ -40,11 +40,11 @@ interface Props {
   info: string;
   correct: number;
   startDate: number | null;
-  onChangeFieldName: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  onChangeProduct: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  onChangeArea: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onChangeFieldName: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onChangeProduct: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onChangeArea: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onChangeStartDate: (date: number) => void;
-  onChangeInfo: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onChangeInfo: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onChangeCorrect: (selected: number) => void;
 }
 
@@ -151,8 +151,8 @@ const FieldForm: React.FC<Props> = (props) => {
         <CorrectBox
           inputLabel="補正値"
           value={correct}
-          onChange={(event) => {
-            onChangeCorrect(event);
+          onChange={(e) => {
+            onChangeCorrect(e);
           }}
         />
       </CardContent>

@@ -6,8 +6,8 @@ import { makeStyles, Theme } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import { Typography } from "@material-ui/core";
 
-import FieldsContent from "components/fields/FieldsContent";
-import { PrecBlockList } from "components/precblock/PrecBlockList";
+import FieldsContent from "components/fields/FieldContent";
+import { PrecBlockList } from "components/selectbox/precblock/PrecBlockList";
 const useStyles = makeStyles((theme: Theme) => ({
   topWrapper: {
     display: "flex",

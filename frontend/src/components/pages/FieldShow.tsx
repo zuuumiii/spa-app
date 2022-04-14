@@ -6,13 +6,15 @@ import { makeStyles, Theme } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import { Card, Typography, Grid, CardHeader } from "@material-ui/core";
 
-import DeleteModal from "components/modal/DeleteModal";
+import DeleteModal from "components/modals/DeleteModal";
 import { FieldParams, TargetParams, TargetCreateParams } from "interfaces";
 import TargetCard from "components/targets/TargetCard";
 import { fieldDelete, fieldShow } from "lib/api/field";
 import { targetCreate } from "lib/api/target";
-import TargetModal from "components/modal/TargetModal";
-import AlertMessage, { AlertMessageProps } from "components/utils/AlertMessage";
+import TargetModal from "components/modals/TargetModal";
+import AlertMessage, {
+  AlertMessageProps,
+} from "components/alerts/AlertMessage";
 
 const useStyles = makeStyles((theme: Theme) => ({
   createBtn: {

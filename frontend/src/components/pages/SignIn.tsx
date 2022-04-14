@@ -13,7 +13,7 @@ import Box from "@material-ui/core/Box";
 import BackgroundImage from "images/background.jpg";
 
 import { AuthContext } from "App";
-import AlertMessage from "components/utils/AlertMessage";
+import AlertMessage from "components/alerts/AlertMessage";
 import { signIn } from "lib/api/auth";
 import { SignInParams } from "interfaces/index";
 
@@ -83,7 +83,6 @@ const SignIn: React.FC = () => {
 
     try {
       const res = await signIn(params);
-      console.log(res);
 
       if (res.status === 200) {
         // ログインに成功した場合はCookieに各値を格納
@@ -94,8 +93,6 @@ const SignIn: React.FC = () => {
         setCurrentUser(res.data.data);
         setIsSignedIn(true);
         history.push("/");
-
-        console.log("Signed in successfully!");
       } else {
         setAlertMessageOpen(true);
       }
@@ -119,7 +116,7 @@ const SignIn: React.FC = () => {
               label="Email"
               value={email}
               margin="dense"
-              onChange={(event) => setEmail(event.target.value)}
+              onChange={(e) => setEmail(e.target.value)}
             />
             <TextField
               name="password"
@@ -132,7 +129,7 @@ const SignIn: React.FC = () => {
               value={password}
               margin="dense"
               autoComplete="current-password"
-              onChange={(event) => setPassword(event.target.value)}
+              onChange={(e) => setPassword(e.target.value)}
             />
             <Button
               type="submit"

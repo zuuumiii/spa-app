@@ -5,7 +5,9 @@ import { makeStyles, Theme } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import Button from "@material-ui/core/Button";
 
-import AlertMessage, { AlertMessageProps } from "components/utils/AlertMessage";
+import AlertMessage, {
+  AlertMessageProps,
+} from "components/alerts/AlertMessage";
 import { FieldCreateParams } from "interfaces/index";
 import { fieldCreate } from "lib/api/field";
 import FieldForm from "components/fields/FieldForm";
