@@ -1,7 +1,7 @@
 module Api
   module V1
     class TargetsController < ApplicationController
-    
+      before_action :authenticate_api_v1_user!
       def create 
         target = Target.new(target_params)
         if target.save
@@ -28,7 +28,7 @@ module Api
         target = Target.find(params[:id])
         if target.user_id == current_api_v1_user.id
           if target.destroy
-            render json: { status: "SUCCESS"}
+            render json: { status: "SUCCESS", data: "削除しました"}
           else
             render json: { status: "ERROR", data: target.errors }
           end
