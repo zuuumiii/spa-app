@@ -1,5 +1,5 @@
-# TARGET AG
-## URL:  http://54.249.116.120:3000/
+# 積算温度管理アプリ　TRAG
+## URL:  http://trag.online/
 <br>
 農業者様、ご家庭で栽培を行なっている方に向けた積算温度※を基準にして作業予定を可視化できるサービスです。
 
@@ -7,26 +7,27 @@
 圃場登録では20件まで登録可能で、計測開始日（一般的には播種日や定植日）を設定することで、開始日から前日までの積算温度を気象庁のデータをもとに計算します。
 圃場には目標値が設定でき、目標とする積算温度を設定すれば、グラフ表示で目標値が近いことを可視化できます。
 
-共有機能として、他の生産者がどの作物を、どの地域で、何の作業を、何℃で行なったか、を表示でき、新規就農者など経験が浅くても、数値化することによって参考にできるようになっています。
 
 ※積算温度とは、ある期間の毎日の日平均気温を合計した値のことです。植物の成長との関係が非常に深く、気象庁発表の毎年の桜の開花予想も積算温度による計算で求められています。
->https://www.data.jma.go.jp/obd/stats/etrn/　<br>
+>https://www.data.jma.go.jp/obd/stats/etrn/<br>
 観測データは気象庁より引用
-　<br>
+<br>
 
 # 使用技術
 - バックエンド
   - Ruby 3.0.1
   - Ruby on Rails 6.1.3 APIモード
   - Mechanize
-  - devise authen token
+  - devise_authen_token
 - フロントエンド
-  - React
+  - React(Typescript)
   - Material UI
 - MySQL 8.0
 - AWS
   - VPC
   - EC2
+  - Route53
+  - RDS
 - Docker / Docker-compose
 
 <br>
@@ -38,4 +39,8 @@
 <br>
 
 # ER図
-[![Image from Gyazo](https://i.gyazo.com/6aa4c83692460f0f46eee8382763408b.png)](https://gyazo.com/6aa4c83692460f0f46eee8382763408b)
+[![Image from Gyazo](https://i.gyazo.com/a0f24093cafc98fdd5697d7703db45b0.png)](https://gyazo.com/a0f24093cafc98fdd5697d7703db45b0)
+
+
+# 今後の実装予定
+同じ地域のユーザー間で作業に適切な温度の情報や記録を共有できるようにし、新規就農の方にも作業の目安として使っていただけるものに発展させていきたいと思います。
