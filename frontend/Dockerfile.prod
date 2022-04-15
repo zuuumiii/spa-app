@@ -1,0 +1,9 @@
+FROM node:16.0.0-alpine
+WORKDIR /myapp
+
+FROM nginx:alpine
+COPY --from=build ${APP_HOME}/build /var/www
+COPY ./nginx /etc/nginx/conf.d/
+
+WORKDIR /usr/share/nginx/html
+CMD ["nginx", "-g", "daemon off;"]

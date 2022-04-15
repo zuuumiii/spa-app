@@ -16,8 +16,10 @@ services:
   front:
     build: 
       context: ./frontend
-      dockerfile: Dockerfile
-    command: sh -c "yarn start"
+      dockerfile: Dockerfile.prod
+    command: 
+      - sh -c "yarn start"
+      - sh -c "yarn build"
     ports:
       - '80:3000'
     stdin_open: true
