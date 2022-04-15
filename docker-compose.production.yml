@@ -30,15 +30,5 @@ services:
     ports:
       - 4444:4444
       - 5900:5900
-  nginx:
-    image: nginx
-    container_name: nginx
-    ports:
-      - 8080:80
-    volumes:
-      - ./web/build:/var/www
-      - ./nginx/:/etc/nginx/conf.d/
-    depends_on:
-      - front
 volumes:
   mysql-data:
