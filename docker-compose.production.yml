@@ -38,7 +38,7 @@ services:
     ports:
       - 8080:80
     volumes:
-      - ./myapp/build:/var/www
+      - ./web/build:/var/www
       - ./nginx/:/etc/nginx/conf.d/
     depends_on:
       - front
