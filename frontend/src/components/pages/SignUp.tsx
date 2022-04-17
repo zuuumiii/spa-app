@@ -22,9 +22,6 @@ const useStyles = makeStyles((theme: Theme) => ({
       backgroundColor: "#b2dfdb",
     },
   },
-  header: {
-    textAlign: "center",
-  },
   card: {
     marginTop: theme.spacing(5),
     padding: theme.spacing(2),
