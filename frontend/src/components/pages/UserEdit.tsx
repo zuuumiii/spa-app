@@ -131,6 +131,7 @@ const UserEdit: React.FC = () => {
       <form noValidate autoComplete="off">
         <Card className={classes.card}>
           <UserForm
+            title="ユーザー情報編集"
             name={name}
             email={email}
             selectedPrecNo={selectedPrecNo}

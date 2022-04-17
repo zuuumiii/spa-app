@@ -112,6 +112,7 @@ const SignUp: React.FC = () => {
       <form noValidate autoComplete="off">
         <Card className={classes.card}>
           <UserForm
+            title="ユーザー新規登録"
             name={name}
             email={email}
             password={password}
