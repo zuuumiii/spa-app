@@ -887,7 +887,7 @@ export const PrecBlockList: PrecBlock[] = [
     ],
   },
   {
-    precNo: 86,
+    precNo: 87,
     precName: "宮崎県",
     blocks: [
       {
