@@ -139,30 +139,36 @@ const UserForm: React.FC<Props> = (props) => {
           onChange={(selected) => onChangeBlockNo(selected)}
         />
 
-        <TextField
-          name="password"
-          variant="outlined"
-          required
-          fullWidth
-          label="パスワード"
-          type="password"
-          value={password}
-          margin="dense"
-          autoComplete="current-password"
-          onChange={onChangePassword}
-        />
-        <TextField
-          name="password-confirmation"
-          variant="outlined"
-          required
-          fullWidth
-          label="確認用パスワード"
-          type="password"
-          value={passwordConfirmation}
-          margin="dense"
-          autoComplete="current-password"
-          onChange={onChangePasswordConfirmaiton}
-        />
+        {title === "ユーザー新規登録" ? (
+          <>
+            <TextField
+              name="password"
+              variant="outlined"
+              required
+              fullWidth
+              label="パスワード"
+              type="password"
+              value={password}
+              margin="dense"
+              autoComplete="current-password"
+              onChange={onChangePassword}
+            />
+            <TextField
+              name="password-confirmation"
+              variant="outlined"
+              required
+              fullWidth
+              label="確認用パスワード"
+              type="password"
+              value={passwordConfirmation}
+              margin="dense"
+              autoComplete="current-password"
+              onChange={onChangePasswordConfirmaiton}
+            />
+          </>
+        ) : (
+          <></>
+        )}
       </CardContent>
     </>
   );
