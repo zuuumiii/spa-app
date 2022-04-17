@@ -1,9 +1,8 @@
-import React, { useState, useContext, useRef } from "react";
+import React, { useState, useContext } from "react";
 import { useHistory } from "react-router-dom";
 import Cookies from "js-cookie";
 
 import { makeStyles, Theme } from "@material-ui/core/styles";
-import TextField from "@material-ui/core/TextField";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import CardHeader from "@material-ui/core/CardHeader";
@@ -13,10 +12,6 @@ import { AuthContext } from "App";
 import AlertMessage from "components/alerts/AlertMessage";
 import { userDelete, userEdit } from "lib/api/auth";
 import { UserEditParams } from "interfaces/index";
-import PrecBlockBox, {
-  PrecBlockItem,
-} from "components/selectbox/precblock/PrecBlockBox";
-import { PrecBlockList } from "components/selectbox/precblock/PrecBlockList";
 import DeleteModal from "components/modals/DeleteModal";
 import UserForm from "components/users/UserForm";
 

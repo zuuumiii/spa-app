@@ -61,7 +61,7 @@ const UserForm: React.FC<Props> = (props) => {
   } = props;
   const classes = useStyles();
 
-  //Boxのアイテムとするprec一覧をStateへ
+  //１つ目のBOXに表示させるprecの一覧のみ取り出してStateへ
   const [precOptions] = useState<PrecBlockItem[]>(
     PrecBlockList.map((p) => {
       return {
@@ -71,7 +71,7 @@ const UserForm: React.FC<Props> = (props) => {
     })
   );
 
-  //選択中のprecに属するblockをRefに
+  //選択中のprecの持つblockを一覧化してRefに設定
   const blockOptionsRef = useRef(
     PrecBlockList.filter((p) => p.precNo === selectedPrecNo)[0].blocks.map(
       (p) => {
@@ -84,16 +84,16 @@ const UserForm: React.FC<Props> = (props) => {
   );
 
   const onPrecBoxChangeHandler = (precNo: number) => {
-    //選択したprecNoをStateへ
+    //選択したprecNoを親に渡す
     onChangePrecNo(precNo);
-    //選択したprecのblock一覧取得
+    //選択したprecに属するblock一覧取得
     const selectedPrecBlocks = PrecBlockList.filter(
       (p) => p.precNo === precNo
     )[0].blocks;
-    //選択した０番のblockをStateに指定
+    //選択した項目の０番のblockを親に渡す
     onChangeBlockNo(selectedPrecBlocks[0].blockNo);
 
-    //選択したblockをRefに
+    //選択したblock一覧をRef.currentに設定し直し
     blockOptionsRef.current = selectedPrecBlocks.map((p) => {
       return {
         no: p.blockNo,
