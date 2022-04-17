@@ -10,7 +10,7 @@ import { AuthContext } from "App";
 import AlertMessage from "components/alerts/AlertMessage";
 import { signUp } from "lib/api/auth";
 import { SignUpParams } from "interfaces/index";
-import UserForm from "../users/UserForm";
+import UserForm from "components/users/UserForm";
 import { PrecBlockList } from "components/selectbox/precblock/PrecBlockList";
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -124,7 +124,7 @@ const SignUp: React.FC = () => {
             onChangeEmail={handleChangeEmail}
             onChangePassword={handleChangePassword}
             onChangePasswordConfirmaiton={handleChangePasswordConfirmation}
-          ></UserForm>
+          />
           <Button
             type="submit"
             variant="contained"
