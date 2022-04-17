@@ -28,16 +28,16 @@ const useStyles = makeStyles((theme: Theme) => ({
 interface Props {
   name: string;
   email: string;
-  password: string;
-  passwordConfirmation: string;
+  password?: string;
+  passwordConfirmation?: string;
   selectedPrecNo: number;
   selectedBlockNo: number;
   onChangeName: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onChangeEmail: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onChangePrecNo: (e: number) => void;
   onChangeBlockNo: (e: number) => void;
-  onChangePassword: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  onChangePasswordConfirmaiton: (
+  onChangePassword?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onChangePasswordConfirmaiton?: (
     e: React.ChangeEvent<HTMLInputElement>
   ) => void;
 }
