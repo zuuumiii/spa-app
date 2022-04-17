@@ -26,6 +26,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 }));
 
 interface Props {
+  title: string;
   name: string;
   email: string;
   password?: string;
@@ -44,6 +45,7 @@ interface Props {
 
 const UserForm: React.FC<Props> = (props) => {
   const {
+    title,
     name,
     email,
     password,
@@ -102,7 +104,7 @@ const UserForm: React.FC<Props> = (props) => {
 
   return (
     <>
-      <CardHeader className={classes.header} title="新規登録" />
+      <CardHeader className={classes.header} title={title} />
       <CardContent>
         <TextField
           name="name"
