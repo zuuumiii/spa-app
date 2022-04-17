@@ -15,14 +15,6 @@ const useStyles = makeStyles((theme: Theme) => ({
   header: {
     textAlign: "center",
   },
-  submitBtn: {
-    marginTop: theme.spacing(2),
-    flexGrow: 1,
-    textTransform: "none",
-    "&:hover": {
-      backgroundColor: "#b2dfdb",
-    },
-  },
 }));
 
 interface Props {
