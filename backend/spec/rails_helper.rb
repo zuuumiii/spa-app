@@ -59,7 +59,7 @@ RSpec.configure do |config|
 
   config.before(:each, type: :system, js: true) do
     driven_by :remote_chrome
-    Capybara.app_host = "http://192.168.3.5:80"
+    Capybara.app_host = "http://front:80"
   end
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
   config.include FactoryBot::Syntax::Methods
