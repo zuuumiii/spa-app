@@ -1,5 +1,8 @@
 # 積算温度管理アプリ　TRAG
 ## URL:  http://trag.online/
+### テスト用ID
+email: sample@sample.com  pass: aaaaaa
+
 <br>
 農業者様、ご家庭で栽培を行なっている方に向けた積算温度※を基準にして作業予定を可視化できるサービスです。
 
