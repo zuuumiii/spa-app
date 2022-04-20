@@ -66,10 +66,6 @@ const TargetCard: React.FC<Props> = (props) => {
     useState<TargetCreateParams>(initialTargetUpdateParams);
   const field: FieldParams = props.field;
 
-  //const [targetName, setTargetName] = useState<string>(target.targetName);
-  //const [targetTemp, setTargetTemp] = useState<number>(target.targetTemp);
-  //const [memo, setMemo] = useState<string>(target.memo);
-
   const [alertMessageOpen, setAlertMessageOpen] = useState<AlertMessageProps>({
     open: false,
     setOpen: () => {},
@@ -88,12 +84,6 @@ const TargetCard: React.FC<Props> = (props) => {
       });
     }
   };
-  //const handleChangeTargetTemp = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //  setTargetTemp(parseInt(e.target.value) || 0);
-  //};
-  //const handleChangeMemo = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //  setMemo(e.target.value);
-  //};
 
   const handleTargetUpdate = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -172,11 +162,7 @@ const TargetCard: React.FC<Props> = (props) => {
       <TargetModal
         title="目標編集"
         target={targetUpdateParams}
-        //targetTemp={targetUpdateParams.targetTemp}
-        //memo={targetUpdateParams.memo}
         onChangeTarget={handleChangeTarget}
-        //onChangeTargetTemp={handleChangeTargetTemp}
-        //onChangeMemo={handleChangeMemo}
         onClickSubmit={(e) => {
           handleTargetUpdate(e);
         }}

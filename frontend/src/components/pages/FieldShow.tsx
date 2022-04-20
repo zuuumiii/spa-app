@@ -90,10 +90,6 @@ const FieldShow: React.FC = () => {
     memo: "",
   };
   const [target, setTarget] = useState<TargetCreateParams>(initialTargetParams);
-  //const [targetName, setTargetName] = useState<string>("");
-  //const [targetTemp, setTargetTemp] = useState<number>(0);
-  //const [memo, setMemo] = useState<string>("");
-
   const [alertMessageOpen, setAlertMessageOpen] = useState<AlertMessageProps>({
     open: false,
     setOpen: () => {},
@@ -205,12 +201,6 @@ const FieldShow: React.FC = () => {
       });
     }
   };
-  //const handleChangeTargetTemp = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //  setTargetTemp(parseInt(e.target.value) || 0);
-  //};
-  //const handleChangeMemo = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //  setMemo(e.target.value);
-  //};
 
   const conversionDate = (num: number) => {
     const d = new Date(num * 1000);
@@ -294,11 +284,7 @@ const FieldShow: React.FC = () => {
           <TargetModal
             title="目標新規作成"
             target={target}
-            //targetTemp={target.targetTemp}
-            //memo={target.memo}
             onChangeTarget={handleChangeTarget}
-            //onChangeTargetTemp={handleChangeTargetTemp}
-            //onChangeMemo={handleChangeMemo}
             onClickSubmit={(e) => {
               handleTargetCreate(e);
             }}

@@ -38,23 +38,12 @@ const useStyles = makeStyles((theme: Theme) => ({
 interface Props {
   title: string;
   target: TargetCreateParams;
-  //targetTemp: number;
-  //memo: string;
   onChangeTarget: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  //onChangeTargetTemp: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  //onChangeMemo: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onClickSubmit: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 const TargetForm: React.FC<Props> = (props) => {
-  const {
-    title,
-    target,
-    onChangeTarget,
-    //onChangeTargetTemp,
-    //onChangeMemo,
-    onClickSubmit,
-  } = props;
+  const { title, target, onChangeTarget, onClickSubmit } = props;
   const classes = useStyles();
 
   return (
