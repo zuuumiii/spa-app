@@ -91,7 +91,7 @@ const FieldForm: React.FC<Props> = (props) => {
       <CardHeader className={classes.header} title={title} />
       <CardContent>
         <TextField
-          name="field-name"
+          name="fieldName"
           className={classes.textField}
           variant="outlined"
           required
@@ -130,6 +130,7 @@ const FieldForm: React.FC<Props> = (props) => {
         <div className={classes.datePicker}>
           <MuiPickersUtilsProvider locale={jaLocale} utils={JaLocalizedUtils}>
             <DatePicker
+              name="startDate"
               label="測定開始日"
               value={selectedDate}
               format="yyyy年M月d日"

@@ -29,6 +29,7 @@ const CorrectBox: React.FC<Props> = (props) => {
     <FormControl className={classes.formControl}>
       <InputLabel>{inputLabel}</InputLabel>
       <Select
+        name="correct"
         fullWidth
         variant="outlined"
         margin="dense"
