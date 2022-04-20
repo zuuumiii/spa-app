@@ -149,7 +149,7 @@ const UserForm: React.FC<Props> = (props) => {
               onChange={onChangeUserParams}
             />
             <TextField
-              name="password-confirmation"
+              name="passwordConfirmation"
               variant="outlined"
               required
               fullWidth
