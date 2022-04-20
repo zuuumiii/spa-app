@@ -43,12 +43,6 @@ const FieldUpdate: React.FC = () => {
   };
   const [fieldUpdateParams, setFieldUpdateParams] =
     useState(initialFieldParams);
-  //const [fieldName, setFieldName] = useState<string>(state.fieldName);
-  //const [product, setProduct] = useState<string>(state.product);
-  //const [area, setArea] = useState<number | null>(state.area);
-  //const [info, setInfo] = useState<string>(state.info);
-  //const [correct, setCorrect] = useState<number>(state.correct);
-  //const [startDate, setStartDate] = useState<number | null>(state.startDate);
   const [alertMessageOpen, setAlertMessageOpen] = useState<AlertMessageProps>({
     open: false,
     setOpen: () => {},
@@ -95,18 +89,7 @@ const FieldUpdate: React.FC = () => {
       });
     }
   };
-  //const handleChangeFieldName = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //  setFieldName(e.target.value);
-  //};
-  //const handleChangeProduct = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //  setProduct(e.target.value);
-  //};
-  //const handleChangeArea = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //  setArea(parseInt(e.target.value) || 0);
-  //};
-  //const handleChangeInfo = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //  setInfo(e.target.value);
-  //};
+
   const handleChangeStartDate = (e: number) => {
     setFieldUpdateParams({ ...fieldUpdateParams, ["startDate"]: e });
   };
@@ -121,17 +104,7 @@ const FieldUpdate: React.FC = () => {
           <FieldForm
             title="圃場情報編集"
             field={fieldUpdateParams}
-            //fieldName={fieldName}
-            //product={product}
-            //area={area}
-            //info={info}
-            //correct={correct}
-            //startDate={startDate}
             onChangeFieldParams={handleChangeFieldParams}
-            //onChangeFieldName={handleChangeFieldName}
-            //onChangeProduct={handleChangeProduct}
-            //onChangeInfo={handleChangeInfo}
-            //onChangeArea={handleChangeArea}
             onChangeStartDate={(e) => handleChangeStartDate(e)}
             onChangeCorrect={(e) => handleChangeCorerct(e)}
           />

@@ -36,18 +36,8 @@ class JaLocalizedUtils extends DateFnsUtils {
 interface Props {
   title: string;
   field: FieldCreateParams;
-  //fieldName: string;
-  //product: string;
-  //area: number | null;
-  //info: string;
-  //correct: number;
-  //startDate: number | null;
   onChangeFieldParams: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  //onChangeFieldName: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  //onChangeProduct: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  //onChangeArea: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onChangeStartDate: (date: number) => void;
-  //onChangeInfo: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onChangeCorrect: (selected: number) => void;
 }
 
@@ -56,17 +46,7 @@ const FieldForm: React.FC<Props> = (props) => {
     title,
     field,
     onChangeFieldParams,
-    //fieldName,
-    //product,
-    //area,
-    //info,
-    //correct,
-    //startDate,
-    //onChangeFieldName,
-    //onChangeProduct,
-    //onChangeArea,
     onChangeStartDate,
-    //onChangeInfo,
     onChangeCorrect,
   } = props;
   const classes = useStyles();

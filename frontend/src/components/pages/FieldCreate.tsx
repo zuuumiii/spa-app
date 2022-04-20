@@ -48,15 +48,6 @@ const FieldCreate: React.FC = () => {
   };
   const [fieldCreateParams, setFieldCreateParams] =
     useState(initialFieldParams);
-  //const [fieldName, setFieldName] = useState<string>("");
-  //const [product, setProduct] = useState<string>("");
-  //const [area, setArea] = useState<number | null>(0);
-  //const [info, setInfo] = useState<string>("");
-  //const [correct, setCorrect] = useState<number>(0);
-  //const [startDate, setStartDate] = useState<number | null>(
-  //  new Date().getTime() / 1000
-  //);
-
   const [alertMessageOpen, setAlertMessageOpen] = useState<AlertMessageProps>({
     open: false,
     setOpen: () => {},
@@ -102,18 +93,6 @@ const FieldCreate: React.FC = () => {
     }
   };
 
-  //const handleChangeFieldName = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //  setFieldName(e.target.value);
-  //};
-  //const handleChangeProduct = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //  setProduct(e.target.value);
-  //};
-  //const handleChangeArea = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //  setArea(parseInt(e.target.value) || 0);
-  //};
-  //const handleChangeInfo = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //  setInfo(e.target.value);
-  //};
   const handleChangeStartDate = (e: number) => {
     setFieldCreateParams({ ...fieldCreateParams, ["startDate"]: e });
   };
@@ -128,17 +107,7 @@ const FieldCreate: React.FC = () => {
           <FieldForm
             title="新規圃場情報登録"
             field={fieldCreateParams}
-            //fieldName={fieldName}
-            //product={product}
-            //area={area}
-            //info={info}
-            //correct={correct}
-            //startDate={startDate}
             onChangeFieldParams={handleChangeFieldParams}
-            //onChangeFieldName={handleChangeFieldName}
-            //onChangeProduct={handleChangeProduct}
-            //onChangeInfo={handleChangeInfo}
-            //onChangeArea={handleChangeArea}
             onChangeStartDate={(e) => handleChangeStartDate(e)}
             onChangeCorrect={(e) => handleChangeCorerct(e)}
           />
