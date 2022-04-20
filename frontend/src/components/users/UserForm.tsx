@@ -27,14 +27,15 @@ interface Props {
   //passwordConfirmation?: string;
   //selectedPrecNo: number;
   //selectedBlockNo: number;
-  onChangeName: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  onChangeEmail: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onChangeUserParams: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  //onChangeName: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  //onChangeEmail: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onChangePrecNo: (e: number) => void;
   onChangeBlockNo: (e: number) => void;
-  onChangePassword?: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  onChangePasswordConfirmaiton?: (
-    e: React.ChangeEvent<HTMLInputElement>
-  ) => void;
+  //onChangePassword?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  //onChangePasswordConfirmaiton?: (
+  //  e: React.ChangeEvent<HTMLInputElement>
+  //) => void;
 }
 
 const UserForm: React.FC<Props> = (props) => {
@@ -47,12 +48,13 @@ const UserForm: React.FC<Props> = (props) => {
     //passwordConfirmation,
     //selectedPrecNo,
     //selectedBlockNo,
-    onChangeName,
-    onChangeEmail,
+    onChangeUserParams,
+    //onChangeName,
+    //onChangeEmail,
     onChangePrecNo,
     onChangeBlockNo,
-    onChangePassword,
-    onChangePasswordConfirmaiton,
+    //onChangePassword,
+    //onChangePasswordConfirmaiton,
   } = props;
   const classes = useStyles();
 
@@ -107,7 +109,7 @@ const UserForm: React.FC<Props> = (props) => {
           label="名前"
           value={name}
           margin="dense"
-          onChange={onChangeName}
+          onChange={onChangeUserParams}
         />
         <TextField
           name="email"
@@ -117,7 +119,7 @@ const UserForm: React.FC<Props> = (props) => {
           label="Email"
           value={user.email}
           margin="dense"
-          onChange={onChangeEmail}
+          onChange={onChangeUserParams}
         />
         <PrecBlockBox
           inputLabel="都道府県"
@@ -144,7 +146,7 @@ const UserForm: React.FC<Props> = (props) => {
               value={user.password}
               margin="dense"
               autoComplete="current-password"
-              onChange={onChangePassword}
+              onChange={onChangeUserParams}
             />
             <TextField
               name="password-confirmation"
@@ -156,7 +158,7 @@ const UserForm: React.FC<Props> = (props) => {
               value={user.passwordConfirmation}
               margin="dense"
               autoComplete="current-password"
-              onChange={onChangePasswordConfirmaiton}
+              onChange={onChangeUserParams}
             />
           </>
         ) : (
