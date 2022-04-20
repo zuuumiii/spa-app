@@ -285,9 +285,9 @@ const FieldShow: React.FC = () => {
         <div className={classes.btnWrapper}>
           <TargetModal
             title="目標新規作成"
-            targetName={target.targetName}
-            targetTemp={target.targetTemp}
-            memo={target.memo}
+            target={target}
+            //targetTemp={target.targetTemp}
+            //memo={target.memo}
             onChangeTarget={handleChangeTarget}
             //onChangeTargetTemp={handleChangeTargetTemp}
             //onChangeMemo={handleChangeMemo}
