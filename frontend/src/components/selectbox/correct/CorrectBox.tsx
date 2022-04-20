@@ -16,20 +16,21 @@ const correctItems = [
 ];
 
 interface Props {
+  name: string;
   inputLabel: string;
   value: number;
   onChange: (selected: number) => void;
 }
 
 const CorrectBox: React.FC<Props> = (props) => {
-  const { inputLabel, value, onChange } = props;
+  const { name, inputLabel, value, onChange } = props;
   const classes = useStyles();
 
   return (
     <FormControl className={classes.formControl}>
       <InputLabel>{inputLabel}</InputLabel>
       <Select
-        name="correct"
+        name={name}
         fullWidth
         variant="outlined"
         margin="dense"

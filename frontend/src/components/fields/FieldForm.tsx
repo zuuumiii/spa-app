@@ -155,6 +155,7 @@ const FieldForm: React.FC<Props> = (props) => {
           onChange={onChangeFieldParams}
         />
         <CorrectBox
+          name="correct"
           inputLabel="補正値"
           value={field.correct}
           onChange={(e) => {
