@@ -3,6 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import React, { useState } from "react";
 import TargetForm from "components/targets/TargetForm";
 import DeleteModal from "./DeleteModal";
+import { TargetCreateParams } from "interfaces";
 const useStyles = makeStyles((theme) => ({
   paper: {
     position: "absolute",
@@ -46,12 +47,12 @@ const useStyles = makeStyles((theme) => ({
 interface TargetModalProps {
   children: React.ReactElement;
   title: string;
-  targetName: string;
-  targetTemp: number;
-  memo: string;
-  onChangeTargetName: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  onChangeTargetTemp: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  onChangeMemo: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  target: TargetCreateParams;
+  //targetTemp: number;
+  //memo: string;
+  onChangeTarget: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  //onChangeTargetTemp: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  //onChangeMemo: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onClickSubmit: (e: React.MouseEvent<HTMLButtonElement>) => void;
 
   onClickDelete: (e: React.MouseEvent<HTMLButtonElement>) => void;
@@ -60,12 +61,12 @@ interface TargetModalProps {
 const TargetModal: React.FC<TargetModalProps> = ({
   children,
   title,
-  targetName,
-  targetTemp,
-  memo,
-  onChangeTargetName,
-  onChangeTargetTemp,
-  onChangeMemo,
+  target,
+  //targetTemp,
+  //memo,
+  onChangeTarget,
+  //onChangeTargetTemp,
+  //onChangeMemo,
   onClickSubmit,
   onClickDelete,
 }: TargetModalProps) => {
@@ -84,12 +85,12 @@ const TargetModal: React.FC<TargetModalProps> = ({
     <div className={classes.paper}>
       <TargetForm
         title={title}
-        targetName={targetName}
-        targetTemp={targetTemp}
-        memo={memo}
-        onChangeTargetName={onChangeTargetName}
-        onChangeTargetTemp={onChangeTargetTemp}
-        onChangeMemo={onChangeMemo}
+        target={target}
+        //targetTemp={targetTemp}
+        //memo={memo}
+        onChangeTarget={onChangeTarget}
+        //onChangeTargetTemp={onChangeTargetTemp}
+        //onChangeMemo={onChangeMemo}
         onClickSubmit={(e) => {
           onClickSubmit(e);
           handleClose();

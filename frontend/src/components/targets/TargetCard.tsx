@@ -54,13 +54,18 @@ interface Props {
 }
 
 const TargetCard: React.FC<Props> = (props) => {
-  const { onClickSubmit, onClickDelete }: Props = props;
+  const { target, onClickSubmit, onClickDelete }: Props = props;
   const classes = useStyles();
-  const [target, setTarget] = useState<TargetParams>(props.target);
+
+  const initialTargetUpdateParams: TargetCreateParams = {
+    targetName: target.targetName,
+    targetTemp: target.targetTemp,
+    memo: target.memo,
+  };
+  const [targetUpdateParams, setTargetUpdateParams] =
+    useState<TargetCreateParams>(initialTargetUpdateParams);
   const field: FieldParams = props.field;
-  const [targetName, setTargetName] = useState<string>(target.targetName);
-  const [targetTemp, setTargetTemp] = useState<number>(target.targetTemp);
-  const [memo, setMemo] = useState<string>(target.memo);
+
   const [alertMessageOpen, setAlertMessageOpen] = useState<AlertMessageProps>({
     open: false,
     setOpen: () => {},
@@ -68,29 +73,29 @@ const TargetCard: React.FC<Props> = (props) => {
     message: "",
   });
 
-  const handleChangeTargetName = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setTargetName(e.target.value);
-  };
-  const handleChangeTargetTemp = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setTargetTemp(parseInt(e.target.value) || 0);
-  };
-  const handleChangeMemo = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setMemo(e.target.value);
+  const handleChangeTarget = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const name = e.target.name;
+    if (name !== "targetTemp") {
+      setTargetUpdateParams({ ...targetUpdateParams, [name]: e.target.value });
+    } else {
+      setTargetUpdateParams({
+        ...targetUpdateParams,
+        [name]: parseInt(e.target.value) || 0,
+      });
+    }
   };
 
   const handleTargetUpdate = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    const params: TargetCreateParams = {
-      targetName: targetName,
-      targetTemp: targetTemp,
-      memo: memo,
-    };
 
     try {
-      const res = await targetUpdate(params, target.fieldId, target.id);
+      const res = await targetUpdate(
+        targetUpdateParams,
+        target.fieldId,
+        target.id
+      );
       console.log(res.data);
       if (res.data.status === "SUCCESS") {
-        setTarget(res.data.data);
         onClickSubmit(e);
       } else {
         setAlertMessageOpen({
@@ -155,12 +160,8 @@ const TargetCard: React.FC<Props> = (props) => {
     <>
       <TargetModal
         title="目標編集"
-        targetName={targetName}
-        targetTemp={targetTemp}
-        memo={memo}
-        onChangeTargetName={handleChangeTargetName}
-        onChangeTargetTemp={handleChangeTargetTemp}
-        onChangeMemo={handleChangeMemo}
+        target={targetUpdateParams}
+        onChangeTarget={handleChangeTarget}
         onClickSubmit={(e) => {
           handleTargetUpdate(e);
         }}
