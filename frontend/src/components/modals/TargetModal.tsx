@@ -49,9 +49,9 @@ interface TargetModalProps {
   targetName: string;
   targetTemp: number;
   memo: string;
-  onChangeTargetName: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  onChangeTargetTemp: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  onChangeMemo: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onChangeTarget: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  //onChangeTargetTemp: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  //onChangeMemo: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onClickSubmit: (e: React.MouseEvent<HTMLButtonElement>) => void;
 
   onClickDelete: (e: React.MouseEvent<HTMLButtonElement>) => void;
@@ -63,9 +63,9 @@ const TargetModal: React.FC<TargetModalProps> = ({
   targetName,
   targetTemp,
   memo,
-  onChangeTargetName,
-  onChangeTargetTemp,
-  onChangeMemo,
+  onChangeTarget,
+  //onChangeTargetTemp,
+  //onChangeMemo,
   onClickSubmit,
   onClickDelete,
 }: TargetModalProps) => {
@@ -87,9 +87,9 @@ const TargetModal: React.FC<TargetModalProps> = ({
         targetName={targetName}
         targetTemp={targetTemp}
         memo={memo}
-        onChangeTargetName={onChangeTargetName}
-        onChangeTargetTemp={onChangeTargetTemp}
-        onChangeMemo={onChangeMemo}
+        onChangeTarget={onChangeTarget}
+        //onChangeTargetTemp={onChangeTargetTemp}
+        //onChangeMemo={onChangeMemo}
         onClickSubmit={(e) => {
           onClickSubmit(e);
           handleClose();
