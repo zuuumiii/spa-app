@@ -38,14 +38,24 @@ const FieldCreate: React.FC = () => {
   const classes = useStyles();
   const histroy = useHistory();
 
-  const [fieldName, setFieldName] = useState<string>("");
-  const [product, setProduct] = useState<string>("");
-  const [area, setArea] = useState<number | null>(0);
-  const [info, setInfo] = useState<string>("");
-  const [correct, setCorrect] = useState<number>(0);
-  const [startDate, setStartDate] = useState<number | null>(
-    new Date().getTime() / 1000
-  );
+  const initialFieldParams: FieldCreateParams = {
+    fieldName: "",
+    product: "",
+    area: 0,
+    info: "",
+    correct: 0,
+    startDate: new Date().getTime() / 1000,
+  };
+  const [fieldCreateParams, setFieldCreateParams] =
+    useState(initialFieldParams);
+  //const [fieldName, setFieldName] = useState<string>("");
+  //const [product, setProduct] = useState<string>("");
+  //const [area, setArea] = useState<number | null>(0);
+  //const [info, setInfo] = useState<string>("");
+  //const [correct, setCorrect] = useState<number>(0);
+  //const [startDate, setStartDate] = useState<number | null>(
+  //  new Date().getTime() / 1000
+  //);
 
   const [alertMessageOpen, setAlertMessageOpen] = useState<AlertMessageProps>({
     open: false,
@@ -57,17 +67,8 @@ const FieldCreate: React.FC = () => {
   const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
-    const params: FieldCreateParams = {
-      fieldName: fieldName,
-      product: product,
-      area: area,
-      startDate: startDate,
-      info: info,
-      correct: correct,
-    };
-
     try {
-      const res = await fieldCreate(params);
+      const res = await fieldCreate(fieldCreateParams);
       console.log(res.data.data);
       if (res.data.status === "SUCCESS") {
         histroy.push("/");
@@ -89,24 +90,35 @@ const FieldCreate: React.FC = () => {
       });
     }
   };
+  const handleChangeFieldParams = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const name = e.target.name;
+    if (name !== "area") {
+      setFieldCreateParams({ ...fieldCreateParams, [name]: e.target.value });
+    } else {
+      setFieldCreateParams({
+        ...fieldCreateParams,
+        [name]: parseInt(e.target.value) || 0,
+      });
+    }
+  };
 
-  const handleChangeFieldName = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFieldName(e.target.value);
-  };
-  const handleChangeProduct = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setProduct(e.target.value);
-  };
-  const handleChangeArea = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setArea(parseInt(e.target.value) || 0);
-  };
-  const handleChangeInfo = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInfo(e.target.value);
-  };
+  //const handleChangeFieldName = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //  setFieldName(e.target.value);
+  //};
+  //const handleChangeProduct = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //  setProduct(e.target.value);
+  //};
+  //const handleChangeArea = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //  setArea(parseInt(e.target.value) || 0);
+  //};
+  //const handleChangeInfo = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //  setInfo(e.target.value);
+  //};
   const handleChangeStartDate = (e: number) => {
-    setStartDate(e);
+    setFieldCreateParams({ ...fieldCreateParams, ["startDate"]: e });
   };
   const handleChangeCorerct = (e: number) => {
-    setCorrect(e);
+    setFieldCreateParams({ ...fieldCreateParams, ["correct"]: e });
   };
 
   return (
@@ -115,16 +127,18 @@ const FieldCreate: React.FC = () => {
         <Card className={classes.card}>
           <FieldForm
             title="新規圃場情報登録"
-            fieldName={fieldName}
-            product={product}
-            area={area}
-            info={info}
-            correct={correct}
-            startDate={startDate}
-            onChangeFieldName={handleChangeFieldName}
-            onChangeProduct={handleChangeProduct}
-            onChangeInfo={handleChangeInfo}
-            onChangeArea={handleChangeArea}
+            field={fieldCreateParams}
+            //fieldName={fieldName}
+            //product={product}
+            //area={area}
+            //info={info}
+            //correct={correct}
+            //startDate={startDate}
+            onChangeFieldParams={handleChangeFieldParams}
+            //onChangeFieldName={handleChangeFieldName}
+            //onChangeProduct={handleChangeProduct}
+            //onChangeInfo={handleChangeInfo}
+            //onChangeArea={handleChangeArea}
             onChangeStartDate={(e) => handleChangeStartDate(e)}
             onChangeCorrect={(e) => handleChangeCorerct(e)}
           />
@@ -135,7 +149,11 @@ const FieldCreate: React.FC = () => {
           size="large"
           fullWidth
           color="default"
-          disabled={!fieldName || !product ? true : false}
+          disabled={
+            !fieldCreateParams.fieldName || !fieldCreateParams.product
+              ? true
+              : false
+          }
           className={classes.submitBtn}
           onClick={handleSubmit}
         >
