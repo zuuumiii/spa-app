@@ -195,7 +195,15 @@ const FieldShow: React.FC = () => {
   };
 
   const handleChangeTarget = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setTarget(target);
+    const name = e.target.name;
+    if (name !== "targetTemp") {
+      setTarget({ ...target, [name]: e.target.value });
+    } else {
+      setTarget({
+        ...target,
+        [name]: parseInt(e.target.value) || 0,
+      });
+    }
   };
   //const handleChangeTargetTemp = (e: React.ChangeEvent<HTMLInputElement>) => {
   //  setTargetTemp(parseInt(e.target.value) || 0);
