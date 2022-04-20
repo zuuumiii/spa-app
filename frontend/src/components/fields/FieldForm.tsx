@@ -11,6 +11,7 @@ import jaLocale from "date-fns/locale/ja";
 import { format } from "date-fns";
 
 import CorrectBox from "components/selectbox/correct/CorrectBox";
+import { FieldCreateParams } from "interfaces";
 const useStyles = makeStyles((theme: Theme) => ({
   textField: {
     marginTop: theme.spacing(3),
@@ -34,34 +35,38 @@ class JaLocalizedUtils extends DateFnsUtils {
 
 interface Props {
   title: string;
-  fieldName: string;
-  product: string;
-  area: number | null;
-  info: string;
-  correct: number;
-  startDate: number | null;
-  onChangeFieldName: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  onChangeProduct: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  onChangeArea: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  field: FieldCreateParams;
+  //fieldName: string;
+  //product: string;
+  //area: number | null;
+  //info: string;
+  //correct: number;
+  //startDate: number | null;
+  onChangeFieldParams: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  //onChangeFieldName: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  //onChangeProduct: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  //onChangeArea: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onChangeStartDate: (date: number) => void;
-  onChangeInfo: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  //onChangeInfo: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onChangeCorrect: (selected: number) => void;
 }
 
 const FieldForm: React.FC<Props> = (props) => {
   const {
     title,
-    fieldName,
-    product,
-    area,
-    info,
-    correct,
-    startDate,
-    onChangeFieldName,
-    onChangeProduct,
-    onChangeArea,
+    field,
+    onChangeFieldParams,
+    //fieldName,
+    //product,
+    //area,
+    //info,
+    //correct,
+    //startDate,
+    //onChangeFieldName,
+    //onChangeProduct,
+    //onChangeArea,
     onChangeStartDate,
-    onChangeInfo,
+    //onChangeInfo,
     onChangeCorrect,
   } = props;
   const classes = useStyles();
@@ -71,7 +76,7 @@ const FieldForm: React.FC<Props> = (props) => {
   }; //
 
   const [selectedDate, setSelectedDate] = useState<Date | null>(
-    numToDate(startDate)
+    numToDate(field.startDate)
   ); //選択した日付を保持
 
   const changeDateHandler = (newDate: Date | null): void => {
@@ -92,9 +97,9 @@ const FieldForm: React.FC<Props> = (props) => {
           required
           fullWidth
           label="圃場名"
-          value={fieldName}
+          value={field.fieldName}
           margin="dense"
-          onChange={onChangeFieldName}
+          onChange={onChangeFieldParams}
         />
         <TextField
           name="product"
@@ -103,9 +108,9 @@ const FieldForm: React.FC<Props> = (props) => {
           required
           fullWidth
           label="作物名"
-          value={product}
+          value={field.product}
           margin="dense"
-          onChange={onChangeProduct}
+          onChange={onChangeFieldParams}
         />
         <TextField
           name="area"
@@ -113,13 +118,13 @@ const FieldForm: React.FC<Props> = (props) => {
           variant="outlined"
           fullWidth
           label="圃場面積"
-          value={area}
+          value={field.area}
           InputProps={{
             endAdornment: (
               <InputAdornment position="end">単位（a）</InputAdornment>
             ),
           }}
-          onChange={onChangeArea}
+          onChange={onChangeFieldParams}
           margin="dense"
         />
         <div className={classes.datePicker}>
@@ -142,15 +147,15 @@ const FieldForm: React.FC<Props> = (props) => {
           variant="outlined"
           fullWidth
           label="情報"
-          value={info}
+          value={field.info}
           margin="dense"
           multiline
           rows={3}
-          onChange={onChangeInfo}
+          onChange={onChangeFieldParams}
         />
         <CorrectBox
           inputLabel="補正値"
-          value={correct}
+          value={field.correct}
           onChange={(e) => {
             onChangeCorrect(e);
           }}
