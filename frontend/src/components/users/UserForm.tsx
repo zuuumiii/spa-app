@@ -10,6 +10,7 @@ import PrecBlockBox, {
 } from "components/selectbox/precblock/PrecBlockBox";
 
 import { PrecBlockList } from "components/selectbox/precblock/PrecBlockList";
+import { SignUpParams } from "interfaces";
 
 const useStyles = makeStyles((theme: Theme) => ({
   header: {
@@ -19,12 +20,13 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 interface Props {
   title: string;
-  name: string;
-  email: string;
-  password?: string;
-  passwordConfirmation?: string;
-  selectedPrecNo: number;
-  selectedBlockNo: number;
+  user: SignUpParams;
+  //name: string;
+  //email: string;
+  //password?: string;
+  //passwordConfirmation?: string;
+  //selectedPrecNo: number;
+  //selectedBlockNo: number;
   onChangeName: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onChangeEmail: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onChangePrecNo: (e: number) => void;
@@ -38,12 +40,13 @@ interface Props {
 const UserForm: React.FC<Props> = (props) => {
   const {
     title,
-    name,
-    email,
-    password,
-    passwordConfirmation,
-    selectedPrecNo,
-    selectedBlockNo,
+    user,
+    //name,
+    //email,
+    //password,
+    //passwordConfirmation,
+    //selectedPrecNo,
+    //selectedBlockNo,
     onChangeName,
     onChangeEmail,
     onChangePrecNo,
@@ -65,14 +68,12 @@ const UserForm: React.FC<Props> = (props) => {
 
   //選択中のprecの持つblockを一覧化してRefに設定
   const blockOptionsRef = useRef(
-    PrecBlockList.filter((p) => p.precNo === selectedPrecNo)[0].blocks.map(
-      (p) => {
-        return {
-          no: p.blockNo,
-          name: p.blockName,
-        };
-      }
-    )
+    PrecBlockList.filter((p) => p.precNo === user.precNo)[0].blocks.map((p) => {
+      return {
+        no: p.blockNo,
+        name: p.blockName,
+      };
+    })
   );
 
   const onPrecBoxChangeHandler = (precNo: number) => {
@@ -114,20 +115,20 @@ const UserForm: React.FC<Props> = (props) => {
           required
           fullWidth
           label="Email"
-          value={email}
+          value={user.email}
           margin="dense"
           onChange={onChangeEmail}
         />
         <PrecBlockBox
           inputLabel="都道府県"
           items={precOptions}
-          value={selectedPrecNo}
+          value={user.precNo}
           onChange={(selected) => onPrecBoxChangeHandler(selected)}
         />
         <PrecBlockBox
           inputLabel="観測所"
           items={blockOptionsRef.current}
-          value={selectedBlockNo}
+          value={user.blockNo}
           onChange={(selected) => onChangeBlockNo(selected)}
         />
 
@@ -140,7 +141,7 @@ const UserForm: React.FC<Props> = (props) => {
               fullWidth
               label="パスワード"
               type="password"
-              value={password}
+              value={user.password}
               margin="dense"
               autoComplete="current-password"
               onChange={onChangePassword}
@@ -152,7 +153,7 @@ const UserForm: React.FC<Props> = (props) => {
               fullWidth
               label="確認用パスワード"
               type="password"
-              value={passwordConfirmation}
+              value={user.passwordConfirmation}
               margin="dense"
               autoComplete="current-password"
               onChange={onChangePasswordConfirmaiton}
