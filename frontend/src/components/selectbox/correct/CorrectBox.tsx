@@ -11,24 +11,26 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const correctItems = [
+const correctItems: number[] = [
   -10, -9, -8, -7, -6, -5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
 ];
 
 interface Props {
+  name: string;
   inputLabel: string;
   value: number;
   onChange: (selected: number) => void;
 }
 
 const CorrectBox: React.FC<Props> = (props) => {
-  const { inputLabel, value, onChange } = props;
+  const { name, inputLabel, value, onChange } = props;
   const classes = useStyles();
 
   return (
     <FormControl className={classes.formControl}>
       <InputLabel>{inputLabel}</InputLabel>
       <Select
+        name={name}
         fullWidth
         variant="outlined"
         margin="dense"
