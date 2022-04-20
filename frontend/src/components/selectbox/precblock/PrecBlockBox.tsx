@@ -17,6 +17,7 @@ export interface PrecBlockItem {
 }
 
 type Props = {
+  name: string;
   inputLabel: string;
   items: PrecBlockItem[];
 
@@ -25,13 +26,14 @@ type Props = {
 };
 
 const PrecBlockBox: React.FC<Props> = (props) => {
-  const { inputLabel, items, value, onChange } = props;
+  const { name, inputLabel, items, value, onChange } = props;
   const classes = useStyles();
 
   return (
     <FormControl className={classes.formControl}>
       <InputLabel>{inputLabel}</InputLabel>
       <Select
+        name={name}
         value={value}
         onChange={(e) => {
           if (e.target.value !== undefined) {

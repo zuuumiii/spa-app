@@ -122,12 +122,14 @@ const UserForm: React.FC<Props> = (props) => {
           onChange={onChangeUserParams}
         />
         <PrecBlockBox
+          name="precNo"
           inputLabel="都道府県"
           items={precOptions}
           value={user.precNo}
           onChange={(selected) => onPrecBoxChangeHandler(selected)}
         />
         <PrecBlockBox
+          name="blockNo"
           inputLabel="観測所"
           items={blockOptionsRef.current}
           value={user.blockNo}
