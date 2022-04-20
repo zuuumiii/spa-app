@@ -89,7 +89,8 @@ const FieldShow: React.FC = () => {
     targetTemp: 0,
     memo: "",
   };
-  const [target, setTarget] = useState<TargetCreateParams>(initialTargetParams);
+  const [targetCreateParams, setTargetCreateParams] =
+    useState<TargetCreateParams>(initialTargetParams);
   const [alertMessageOpen, setAlertMessageOpen] = useState<AlertMessageProps>({
     open: false,
     setOpen: () => {},
@@ -150,20 +151,14 @@ const FieldShow: React.FC = () => {
   const handleTargetCreate = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
-    const params: TargetCreateParams = {
-      targetName: target.targetName,
-      targetTemp: target.targetTemp,
-      memo: target.memo,
-    };
-
     try {
-      const res = await targetCreate(params, field.id);
+      const res = await targetCreate(targetCreateParams, field.id);
       console.log(res);
 
       if (res.data.status === "SUCCESS") {
         (field.targets as unknown as TargetParams[]).push(res.data.data);
         setField(field);
-        setTarget(initialTargetParams);
+        setTargetCreateParams(initialTargetParams);
         handleFieldShow();
         setAlertMessageOpen({
           open: true,
@@ -193,10 +188,10 @@ const FieldShow: React.FC = () => {
   const handleChangeTarget = (e: React.ChangeEvent<HTMLInputElement>) => {
     const name = e.target.name;
     if (name !== "targetTemp") {
-      setTarget({ ...target, [name]: e.target.value });
+      setTargetCreateParams({ ...targetCreateParams, [name]: e.target.value });
     } else {
-      setTarget({
-        ...target,
+      setTargetCreateParams({
+        ...targetCreateParams,
         [name]: parseInt(e.target.value) || 0,
       });
     }
@@ -283,7 +278,7 @@ const FieldShow: React.FC = () => {
         <div className={classes.btnWrapper}>
           <TargetModal
             title="目標新規作成"
-            target={target}
+            target={targetCreateParams}
             onChangeTarget={handleChangeTarget}
             onClickSubmit={(e) => {
               handleTargetCreate(e);
