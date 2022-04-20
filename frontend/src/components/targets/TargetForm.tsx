@@ -39,9 +39,9 @@ interface Props {
   targetName: string;
   targetTemp: number;
   memo: string;
-  onChangeTargetName: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  onChangeTargetTemp: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  onChangeMemo: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onChangeTarget: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  //onChangeTargetTemp: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  //onChangeMemo: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onClickSubmit: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
@@ -51,9 +51,9 @@ const TargetForm: React.FC<Props> = (props) => {
     targetName,
     targetTemp,
     memo,
-    onChangeTargetName,
-    onChangeTargetTemp,
-    onChangeMemo,
+    onChangeTarget,
+    //onChangeTargetTemp,
+    //onChangeMemo,
     onClickSubmit,
   } = props;
   const classes = useStyles();
@@ -71,7 +71,7 @@ const TargetForm: React.FC<Props> = (props) => {
           label="目標名"
           value={targetName}
           margin="dense"
-          onChange={onChangeTargetName}
+          onChange={onChangeTarget}
         />
         <TextField
           name="target-temp"
@@ -83,7 +83,7 @@ const TargetForm: React.FC<Props> = (props) => {
           InputProps={{
             endAdornment: <InputAdornment position="end">℃</InputAdornment>,
           }}
-          onChange={onChangeTargetTemp}
+          onChange={onChangeTarget}
           margin="dense"
         />
 
@@ -97,7 +97,7 @@ const TargetForm: React.FC<Props> = (props) => {
           margin="dense"
           multiline
           rows={3}
-          onChange={onChangeMemo}
+          onChange={onChangeTarget}
         />
         <Button
           type="submit"
