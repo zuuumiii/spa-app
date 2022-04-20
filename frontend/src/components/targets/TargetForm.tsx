@@ -6,6 +6,7 @@ import CardContent from "@material-ui/core/CardContent";
 import CardHeader from "@material-ui/core/CardHeader";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import { Button } from "@material-ui/core";
+import { TargetCreateParams } from "interfaces";
 
 const useStyles = makeStyles((theme: Theme) => ({
   textField: {
@@ -36,9 +37,9 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 interface Props {
   title: string;
-  targetName: string;
-  targetTemp: number;
-  memo: string;
+  target: TargetCreateParams;
+  //targetTemp: number;
+  //memo: string;
   onChangeTarget: (e: React.ChangeEvent<HTMLInputElement>) => void;
   //onChangeTargetTemp: (e: React.ChangeEvent<HTMLInputElement>) => void;
   //onChangeMemo: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -48,9 +49,7 @@ interface Props {
 const TargetForm: React.FC<Props> = (props) => {
   const {
     title,
-    targetName,
-    targetTemp,
-    memo,
+    target,
     onChangeTarget,
     //onChangeTargetTemp,
     //onChangeMemo,
@@ -69,7 +68,7 @@ const TargetForm: React.FC<Props> = (props) => {
           required
           fullWidth
           label="目標名"
-          value={targetName}
+          value={target.targetName}
           margin="dense"
           onChange={onChangeTarget}
         />
@@ -79,7 +78,7 @@ const TargetForm: React.FC<Props> = (props) => {
           variant="outlined"
           fullWidth
           label="目標積算温度"
-          value={targetTemp}
+          value={target.targetTemp}
           InputProps={{
             endAdornment: <InputAdornment position="end">℃</InputAdornment>,
           }}
@@ -93,7 +92,7 @@ const TargetForm: React.FC<Props> = (props) => {
           variant="outlined"
           fullWidth
           label="メモ"
-          value={memo}
+          value={target.memo}
           margin="dense"
           multiline
           rows={3}
@@ -105,7 +104,7 @@ const TargetForm: React.FC<Props> = (props) => {
           size="large"
           fullWidth
           color="default"
-          disabled={!targetName || !targetTemp ? true : false}
+          disabled={!target.targetName || !target.targetTemp ? true : false}
           className={classes.submitBtn}
           onClick={onClickSubmit}
         >
