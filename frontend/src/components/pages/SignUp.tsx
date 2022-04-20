@@ -50,13 +50,13 @@ const SignUp: React.FC = () => {
   //const [password, setPassword] = useState<string>("");
   //const [passwordConfirmation, setPasswordConfirmation] = useState<string>("");
   //選択中のprecNoをStateへ
-  const [selectedPrecNo, setSelectedPrecNo] = useState<number>(
-    PrecBlockList[0].precNo
-  );
-  //選択中のblockNoをStateへ
-  const [selectedBlockNo, setSelectedBlockNo] = useState<number>(
-    PrecBlockList[0].blocks[0].blockNo
-  );
+  //const [selectedPrecNo, setSelectedPrecNo] = useState<number>(
+  //  PrecBlockList[0].precNo
+  //);
+  ////選択中のblockNoをStateへ
+  //const [selectedBlockNo, setSelectedBlockNo] = useState<number>(
+  //  PrecBlockList[0].blocks[0].blockNo
+  //);
   const [alertMessageOpen, setAlertMessageOpen] = useState<boolean>(false);
 
   const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -102,10 +102,12 @@ const SignUp: React.FC = () => {
   //  setPasswordConfirmation(e.target.value);
   //};
   const handleChangePrecNo = (e: number) => {
-    setSelectedPrecNo(e);
+    const precNo = "precNo";
+    setSignUpUserParams({ ...signUpUserParams, [precNo]: e });
   };
   const handleChangeBlockNo = (e: number) => {
-    setSelectedBlockNo(e);
+    const blockNo = "blockNo";
+    setSignUpUserParams({ ...signUpUserParams, [blockNo]: e });
   };
 
   return (
