@@ -94,10 +94,12 @@ const FieldCreate: React.FC = () => {
   };
 
   const handleChangeStartDate = (e: number) => {
-    setFieldCreateParams({ ...fieldCreateParams, ["startDate"]: e });
+    const startDate: string = "startDate";
+    setFieldCreateParams({ ...fieldCreateParams, [startDate]: e });
   };
   const handleChangeCorerct = (e: number) => {
-    setFieldCreateParams({ ...fieldCreateParams, ["correct"]: e });
+    const correct: string = "correct";
+    setFieldCreateParams({ ...fieldCreateParams, [correct]: e });
   };
 
   return (
