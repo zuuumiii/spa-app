@@ -87,14 +87,13 @@ const TargetCard: React.FC<Props> = (props) => {
 
   const handleTargetUpdate = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    const params: TargetCreateParams = {
-      targetName: targetUpdateParams.targetName,
-      targetTemp: targetUpdateParams.targetTemp,
-      memo: targetUpdateParams.memo,
-    };
 
     try {
-      const res = await targetUpdate(params, target.fieldId, target.id);
+      const res = await targetUpdate(
+        targetUpdateParams,
+        target.fieldId,
+        target.id
+      );
       console.log(res.data);
       if (res.data.status === "SUCCESS") {
         onClickSubmit(e);
