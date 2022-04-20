@@ -78,7 +78,15 @@ const TargetCard: React.FC<Props> = (props) => {
   });
 
   const handleChangeTarget = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setTargetUpdateParams(targetUpdateParams);
+    const name = e.target.name;
+    if (name !== "targetTemp") {
+      setTargetUpdateParams({ ...targetUpdateParams, [name]: e.target.value });
+    } else {
+      setTargetUpdateParams({
+        ...targetUpdateParams,
+        [name]: parseInt(e.target.value) || 0,
+      });
+    }
   };
   //const handleChangeTargetTemp = (e: React.ChangeEvent<HTMLInputElement>) => {
   //  setTargetTemp(parseInt(e.target.value) || 0);
