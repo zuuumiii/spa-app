@@ -36,10 +36,19 @@ const SignUp: React.FC = () => {
 
   const { setIsSignedIn, setCurrentUser } = useContext(AuthContext);
 
-  const [name, setName] = useState<string>("");
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
-  const [passwordConfirmation, setPasswordConfirmation] = useState<string>("");
+  const initialUserParams: SignUpParams = {
+    name: "",
+    email: "",
+    password: "",
+    passwordConfirmation: "",
+    precNo: PrecBlockList[0].precNo,
+    blockNo: PrecBlockList[0].blocks[0].blockNo,
+  };
+  const [signUpUserParams, setSignUpUserParams] = useState(initialUserParams);
+  //const [name, setName] = useState<string>("");
+  //const [email, setEmail] = useState<string>("");
+  //const [password, setPassword] = useState<string>("");
+  //const [passwordConfirmation, setPasswordConfirmation] = useState<string>("");
   //選択中のprecNoをStateへ
   const [selectedPrecNo, setSelectedPrecNo] = useState<number>(
     PrecBlockList[0].precNo
@@ -53,17 +62,8 @@ const SignUp: React.FC = () => {
   const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
-    const params: SignUpParams = {
-      name: name,
-      email: email,
-      precNo: selectedPrecNo,
-      blockNo: selectedBlockNo,
-      password: password,
-      passwordConfirmation: passwordConfirmation,
-    };
-
     try {
-      const res = await signUp(params);
+      const res = await signUp(signUpUserParams);
 
       if (res.status === 200) {
         // アカウント作成と同時にログイン
@@ -83,20 +83,24 @@ const SignUp: React.FC = () => {
     }
   };
 
-  const handleChangeName = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setName(e.target.value);
+  const handleChangeUserParams = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const name = e.target.name;
+    setSignUpUserParams({ ...signUpUserParams, [name]: e.target.value });
   };
-  const handleChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setEmail(e.target.value);
-  };
-  const handleChangePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPassword(e.target.value);
-  };
-  const handleChangePasswordConfirmation = (
-    e: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    setPasswordConfirmation(e.target.value);
-  };
+  //const handleChangeName = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //  setName(e.target.value);
+  //};
+  //const handleChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //  setEmail(e.target.value);
+  //};
+  //const handleChangePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //  setPassword(e.target.value);
+  //};
+  //const handleChangePasswordConfirmation = (
+  //  e: React.ChangeEvent<HTMLInputElement>
+  //) => {
+  //  setPasswordConfirmation(e.target.value);
+  //};
   const handleChangePrecNo = (e: number) => {
     setSelectedPrecNo(e);
   };
@@ -110,18 +114,20 @@ const SignUp: React.FC = () => {
         <Card className={classes.card}>
           <UserForm
             title="ユーザー新規登録"
-            name={name}
-            email={email}
-            password={password}
-            passwordConfirmation={passwordConfirmation}
-            selectedPrecNo={selectedPrecNo}
-            selectedBlockNo={selectedBlockNo}
+            user={signUpUserParams}
+            onChangeUserParams={handleChangeUserParams}
+            //name={name}
+            //email={email}
+            //password={password}
+            //passwordConfirmation={passwordConfirmation}
+            //selectedPrecNo={selectedPrecNo}
+            //selectedBlockNo={selectedBlockNo}
             onChangePrecNo={handleChangePrecNo}
             onChangeBlockNo={handleChangeBlockNo}
-            onChangeName={handleChangeName}
-            onChangeEmail={handleChangeEmail}
-            onChangePassword={handleChangePassword}
-            onChangePasswordConfirmaiton={handleChangePasswordConfirmation}
+            //onChangeName={handleChangeName}
+            //onChangeEmail={handleChangeEmail}
+            //onChangePassword={handleChangePassword}
+            //onChangePasswordConfirmaiton={handleChangePasswordConfirmation}
           />
           <Button
             type="submit"
@@ -130,7 +136,10 @@ const SignUp: React.FC = () => {
             fullWidth
             color="default"
             disabled={
-              !name || !email || !password || !passwordConfirmation
+              !signUpUserParams.name ||
+              !signUpUserParams.email ||
+              !signUpUserParams.password ||
+              !signUpUserParams.passwordConfirmation
                 ? true
                 : false
             }
