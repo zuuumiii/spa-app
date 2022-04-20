@@ -83,9 +83,17 @@ const FieldShow: React.FC = () => {
   const { state } = useLocation<FieldParams>();
   const [field, setField] = useState<FieldParams>(state);
   const targets: TargetParams[] = field.targets as unknown as TargetParams[];
-  const [targetName, setTargetName] = useState<string>("");
-  const [targetTemp, setTargetTemp] = useState<number>(0);
-  const [memo, setMemo] = useState<string>("");
+
+  const initialTargetParams: TargetCreateParams = {
+    targetName: "",
+    targetTemp: 0,
+    memo: "",
+  };
+  const [target, setTarget] = useState<TargetCreateParams>(initialTargetParams);
+  //const [targetName, setTargetName] = useState<string>("");
+  //const [targetTemp, setTargetTemp] = useState<number>(0);
+  //const [memo, setMemo] = useState<string>("");
+
   const [alertMessageOpen, setAlertMessageOpen] = useState<AlertMessageProps>({
     open: false,
     setOpen: () => {},
@@ -147,9 +155,9 @@ const FieldShow: React.FC = () => {
     e.preventDefault();
 
     const params: TargetCreateParams = {
-      targetName: targetName,
-      targetTemp: targetTemp,
-      memo: memo,
+      targetName: target.targetName,
+      targetTemp: target.targetTemp,
+      memo: target.memo,
     };
 
     try {
@@ -159,9 +167,7 @@ const FieldShow: React.FC = () => {
       if (res.data.status === "SUCCESS") {
         (field.targets as unknown as TargetParams[]).push(res.data.data);
         setField(field);
-        setTargetName("");
-        setTargetTemp(0);
-        setMemo("");
+        setTarget(initialTargetParams);
         handleFieldShow();
         setAlertMessageOpen({
           open: true,
@@ -188,15 +194,15 @@ const FieldShow: React.FC = () => {
     }
   };
 
-  const handleChangeTargetName = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setTargetName(e.target.value);
+  const handleChangeTarget = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setTarget(target);
   };
-  const handleChangeTargetTemp = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setTargetTemp(parseInt(e.target.value) || 0);
-  };
-  const handleChangeMemo = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setMemo(e.target.value);
-  };
+  //const handleChangeTargetTemp = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //  setTargetTemp(parseInt(e.target.value) || 0);
+  //};
+  //const handleChangeMemo = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //  setMemo(e.target.value);
+  //};
 
   const conversionDate = (num: number) => {
     const d = new Date(num * 1000);
@@ -279,12 +285,12 @@ const FieldShow: React.FC = () => {
         <div className={classes.btnWrapper}>
           <TargetModal
             title="目標新規作成"
-            targetName={targetName}
-            targetTemp={targetTemp}
-            memo={memo}
-            onChangeTargetName={handleChangeTargetName}
-            onChangeTargetTemp={handleChangeTargetTemp}
-            onChangeMemo={handleChangeMemo}
+            targetName={target.targetName}
+            targetTemp={target.targetTemp}
+            memo={target.memo}
+            onChangeTarget={handleChangeTarget}
+            //onChangeTargetTemp={handleChangeTargetTemp}
+            //onChangeMemo={handleChangeMemo}
             onClickSubmit={(e) => {
               handleTargetCreate(e);
             }}
