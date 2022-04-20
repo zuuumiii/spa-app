@@ -33,12 +33,22 @@ const FieldUpdate: React.FC = () => {
   const histroy = useHistory();
   const { state } = useLocation<FieldParams>();
 
-  const [fieldName, setFieldName] = useState<string>(state.fieldName);
-  const [product, setProduct] = useState<string>(state.product);
-  const [area, setArea] = useState<number | null>(state.area);
-  const [info, setInfo] = useState<string>(state.info);
-  const [correct, setCorrect] = useState<number>(state.correct);
-  const [startDate, setStartDate] = useState<number | null>(state.startDate);
+  const initialFieldParams: FieldCreateParams = {
+    fieldName: state.fieldName,
+    product: state.product,
+    area: state.area,
+    info: state.info,
+    correct: state.correct,
+    startDate: state.startDate,
+  };
+  const [fieldUpdateParams, setFieldUpdateParams] =
+    useState(initialFieldParams);
+  //const [fieldName, setFieldName] = useState<string>(state.fieldName);
+  //const [product, setProduct] = useState<string>(state.product);
+  //const [area, setArea] = useState<number | null>(state.area);
+  //const [info, setInfo] = useState<string>(state.info);
+  //const [correct, setCorrect] = useState<number>(state.correct);
+  //const [startDate, setStartDate] = useState<number | null>(state.startDate);
   const [alertMessageOpen, setAlertMessageOpen] = useState<AlertMessageProps>({
     open: false,
     setOpen: () => {},
@@ -49,17 +59,8 @@ const FieldUpdate: React.FC = () => {
   const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
-    const params: FieldCreateParams = {
-      fieldName: fieldName,
-      product: product,
-      area: area,
-      startDate: startDate,
-      info: info,
-      correct: correct,
-    };
-
     try {
-      const res = await fieldUpdate(params, state.id);
+      const res = await fieldUpdate(fieldUpdateParams, state.id);
       console.log(res.data.data);
 
       if (res.data.status === "SUCCESS") {
@@ -83,23 +84,34 @@ const FieldUpdate: React.FC = () => {
     }
   };
 
-  const handleChangeFieldName = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFieldName(e.target.value);
+  const handleChangeFieldParams = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const name: string = e.target.name;
+    if (name !== "area") {
+      setFieldUpdateParams({ ...fieldUpdateParams, [name]: e.target.value });
+    } else {
+      setFieldUpdateParams({
+        ...fieldUpdateParams,
+        [name]: parseInt(e.target.value) || 0,
+      });
+    }
   };
-  const handleChangeProduct = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setProduct(e.target.value);
-  };
-  const handleChangeArea = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setArea(parseInt(e.target.value) || 0);
-  };
-  const handleChangeInfo = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInfo(e.target.value);
-  };
+  //const handleChangeFieldName = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //  setFieldName(e.target.value);
+  //};
+  //const handleChangeProduct = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //  setProduct(e.target.value);
+  //};
+  //const handleChangeArea = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //  setArea(parseInt(e.target.value) || 0);
+  //};
+  //const handleChangeInfo = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //  setInfo(e.target.value);
+  //};
   const handleChangeStartDate = (e: number) => {
-    setStartDate(e);
+    setFieldUpdateParams({ ...fieldUpdateParams, ["startDate"]: e });
   };
   const handleChangeCorerct = (e: number) => {
-    setCorrect(e);
+    setFieldUpdateParams({ ...fieldUpdateParams, ["correct"]: e });
   };
 
   return (
@@ -108,16 +120,18 @@ const FieldUpdate: React.FC = () => {
         <Card className={classes.card}>
           <FieldForm
             title="圃場情報編集"
-            fieldName={fieldName}
-            product={product}
-            area={area}
-            info={info}
-            correct={correct}
-            startDate={startDate}
-            onChangeFieldName={handleChangeFieldName}
-            onChangeProduct={handleChangeProduct}
-            onChangeInfo={handleChangeInfo}
-            onChangeArea={handleChangeArea}
+            field={fieldUpdateParams}
+            //fieldName={fieldName}
+            //product={product}
+            //area={area}
+            //info={info}
+            //correct={correct}
+            //startDate={startDate}
+            onChangeFieldParams={handleChangeFieldParams}
+            //onChangeFieldName={handleChangeFieldName}
+            //onChangeProduct={handleChangeProduct}
+            //onChangeInfo={handleChangeInfo}
+            //onChangeArea={handleChangeArea}
             onChangeStartDate={(e) => handleChangeStartDate(e)}
             onChangeCorrect={(e) => handleChangeCorerct(e)}
           />
@@ -128,7 +142,11 @@ const FieldUpdate: React.FC = () => {
           size="large"
           fullWidth
           color="default"
-          disabled={!fieldName || !product ? true : false}
+          disabled={
+            !fieldUpdateParams.fieldName || !fieldUpdateParams.product
+              ? true
+              : false
+          }
           className={classes.submitBtn}
           onClick={handleSubmit}
         >
