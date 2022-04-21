@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import Cookies from "js-cookie";
 
@@ -101,15 +101,21 @@ const SignUp: React.FC = () => {
   //) => {
   //  setPasswordConfirmation(e.target.value);
   //};
-  const handleChangePrecNo = (e: number) => {
-    const precNo = "precNo";
-    setSignUpUserParams({ ...signUpUserParams, [precNo]: e });
-  };
-  const handleChangeBlockNo = (e: number) => {
-    const blockNo = "blockNo";
-    setSignUpUserParams({ ...signUpUserParams, [blockNo]: e });
+  const handleChangePrecNo = (
+    selectedPrecNo: number,
+    selectedBlockNo: number
+  ) => {
+    setSignUpUserParams({
+      ...signUpUserParams,
+      precNo: selectedPrecNo,
+      blockNo: selectedBlockNo,
+    });
   };
 
+  const handleChangeBlockNo = (e: number) => {
+    console.log(e);
+    setSignUpUserParams({ ...signUpUserParams, blockNo: e });
+  };
   return (
     <>
       <form noValidate autoComplete="off">
