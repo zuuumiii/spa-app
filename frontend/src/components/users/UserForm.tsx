@@ -21,41 +21,14 @@ const useStyles = makeStyles((theme: Theme) => ({
 interface Props {
   title: string;
   user: SignUpParams;
-  //name: string;
-  //email: string;
-  //password?: string;
-  //passwordConfirmation?: string;
-  //selectedPrecNo: number;
-  //selectedBlockNo: number;
   onChangeUserParams: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  //onChangeName: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  //onChangeEmail: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onChangePrecNo: (selectedPrecNo: number, selectedBlockNo: number) => void;
   onChangeBlockNo: (e: number) => void;
-  //onChangePassword?: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  //onChangePasswordConfirmaiton?: (
-  //  e: React.ChangeEvent<HTMLInputElement>
-  //) => void;
 }
 
 const UserForm: React.FC<Props> = (props) => {
-  const {
-    title,
-    user,
-    //name,
-    //email,
-    //password,
-    //passwordConfirmation,
-    //selectedPrecNo,
-    //selectedBlockNo,
-    onChangeUserParams,
-    //onChangeName,
-    //onChangeEmail,
-    onChangePrecNo,
-    onChangeBlockNo,
-    //onChangePassword,
-    //onChangePasswordConfirmaiton,
-  } = props;
+  const { title, user, onChangeUserParams, onChangePrecNo, onChangeBlockNo } =
+    props;
   const classes = useStyles();
 
   //１つ目のBOXに表示させるprecの一覧のみ取り出してStateへ
@@ -83,9 +56,8 @@ const UserForm: React.FC<Props> = (props) => {
     const selectedPrecBlocks = PrecBlockList.filter(
       (p) => p.precNo === precNo
     )[0].blocks;
+    //選択したprecNoとblockNoを持って親へ伝える
     onChangePrecNo(precNo, selectedPrecBlocks[0].blockNo);
-    //選択した項目の０番のblockを親に渡す
-    // onChangeBlockNo(selectedPrecBlocks[0].blockNo);
     //選択したblock一覧をRef.currentに設定し直し
     blockOptionsRef.current = selectedPrecBlocks.map((p) => {
       return {

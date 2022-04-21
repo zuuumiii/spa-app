@@ -52,26 +52,10 @@ const UserEdit: React.FC = () => {
     blockNo: currentUser!.blockNo,
   };
   const [userUpdateParams, setUserUpdateParams] = useState(initialUserParams);
-  //const [name, setName] = useState<string>(currentUser!.name);
-  //const [email, setEmail] = useState<string>(currentUser!.email);
-  //const [selectedPrecNo, setSelectedPrecNo] = useState<number>(
-  //  currentUser!.precNo
-  //);
-  //const [selectedBlockNo, setSelectedBlockNo] = useState<number>(
-  //  currentUser!.blockNo
-  //);
   const [alertMessageOpen, setAlertMessageOpen] = useState<boolean>(false);
 
   const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-
-    // const params: UserEditParams = {
-    //   name: name,
-    //   email: email,
-    //   precNo: selectedPrecNo,
-    //   blockNo: selectedBlockNo,
-    // };
-
     try {
       const res = await userEdit(userUpdateParams);
       console.log(res);
@@ -119,12 +103,6 @@ const UserEdit: React.FC = () => {
     const name = e.target.name;
     setUserUpdateParams({ ...userUpdateParams, [name]: e.target.value });
   };
-  //const handleChangeName = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //  setName(e.target.value);
-  //};
-  //const handleChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //  setEmail(e.target.value);
-  //};
   const handleChangePrecNo = (
     selectedPrecNo: number,
     selectedBlockNo: number
@@ -149,14 +127,8 @@ const UserEdit: React.FC = () => {
             title="ユーザー情報編集"
             user={userUpdateParams}
             onChangeUserParams={handleChangeUserParams}
-            //name={name}
-            //email={email}
-            //selectedPrecNo={selectedPrecNo}
-            //selectedBlockNo={selectedBlockNo}
             onChangePrecNo={handleChangePrecNo}
             onChangeBlockNo={handleChangeBlockNo}
-            //onChangeName={handleChangeName}
-            //onChangeEmail={handleChangeEmail}
           />
           <Button
             type="submit"

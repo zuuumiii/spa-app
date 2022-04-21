@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import { useHistory } from "react-router-dom";
 import Cookies from "js-cookie";
 
@@ -45,18 +45,6 @@ const SignUp: React.FC = () => {
     blockNo: PrecBlockList[0].blocks[0].blockNo,
   };
   const [signUpUserParams, setSignUpUserParams] = useState(initialUserParams);
-  //const [name, setName] = useState<string>("");
-  //const [email, setEmail] = useState<string>("");
-  //const [password, setPassword] = useState<string>("");
-  //const [passwordConfirmation, setPasswordConfirmation] = useState<string>("");
-  //選択中のprecNoをStateへ
-  //const [selectedPrecNo, setSelectedPrecNo] = useState<number>(
-  //  PrecBlockList[0].precNo
-  //);
-  ////選択中のblockNoをStateへ
-  //const [selectedBlockNo, setSelectedBlockNo] = useState<number>(
-  //  PrecBlockList[0].blocks[0].blockNo
-  //);
   const [alertMessageOpen, setAlertMessageOpen] = useState<boolean>(false);
 
   const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -87,20 +75,6 @@ const SignUp: React.FC = () => {
     const name = e.target.name;
     setSignUpUserParams({ ...signUpUserParams, [name]: e.target.value });
   };
-  //const handleChangeName = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //  setName(e.target.value);
-  //};
-  //const handleChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //  setEmail(e.target.value);
-  //};
-  //const handleChangePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //  setPassword(e.target.value);
-  //};
-  //const handleChangePasswordConfirmation = (
-  //  e: React.ChangeEvent<HTMLInputElement>
-  //) => {
-  //  setPasswordConfirmation(e.target.value);
-  //};
   const handleChangePrecNo = (
     selectedPrecNo: number,
     selectedBlockNo: number
@@ -124,18 +98,8 @@ const SignUp: React.FC = () => {
             title="ユーザー新規登録"
             user={signUpUserParams}
             onChangeUserParams={handleChangeUserParams}
-            //name={name}
-            //email={email}
-            //password={password}
-            //passwordConfirmation={passwordConfirmation}
-            //selectedPrecNo={selectedPrecNo}
-            //selectedBlockNo={selectedBlockNo}
             onChangePrecNo={handleChangePrecNo}
             onChangeBlockNo={handleChangeBlockNo}
-            //onChangeName={handleChangeName}
-            //onChangeEmail={handleChangeEmail}
-            //onChangePassword={handleChangePassword}
-            //onChangePasswordConfirmaiton={handleChangePasswordConfirmation}
           />
           <Button
             type="submit"
