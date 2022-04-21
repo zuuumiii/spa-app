@@ -9,7 +9,10 @@ import CardHeader from "@material-ui/core/CardHeader";
 import Button from "@material-ui/core/Button";
 
 import { AuthContext } from "App";
-import AlertMessage from "components/alerts/AlertMessage";
+import AlertMessage, {
+  AlertMessageProps,
+} from "components/alerts/AlertMessage";
+import { initialMessage, errorMessage } from "components/alerts/Messages";
 import { userDelete, userEdit } from "lib/api/auth";
 import { UserUpdateParams } from "interfaces/index";
 import DeleteModal from "components/modals/DeleteModal";
@@ -52,7 +55,8 @@ const UserEdit: React.FC = () => {
     blockNo: currentUser!.blockNo,
   };
   const [userUpdateParams, setUserUpdateParams] = useState(initialUserParams);
-  const [alertMessageOpen, setAlertMessageOpen] = useState<boolean>(false);
+  const [alertMessageOpen, setAlertMessageOpen] =
+    useState<AlertMessageProps>(initialMessage);
 
   const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -72,11 +76,15 @@ const UserEdit: React.FC = () => {
         histroy.push("/");
         console.log("User edit successfully!");
       } else {
-        setAlertMessageOpen(true);
+        setAlertMessageOpen(
+          errorMessage(setAlertMessageOpen, "各項目を正しく入力してください")
+        );
       }
     } catch (err) {
       console.log(err);
-      setAlertMessageOpen(true);
+      setAlertMessageOpen(
+        errorMessage(setAlertMessageOpen, "読み込みに失敗しました")
+      );
     }
   };
 
@@ -156,12 +164,7 @@ const UserEdit: React.FC = () => {
           </CardContent>
         </Card>
       </form>
-      <AlertMessage // エラーが発生した場合はアラートを表示
-        open={alertMessageOpen}
-        setOpen={setAlertMessageOpen}
-        severity="error"
-        message="各項目を正しく入力してください。"
-      />
+      <AlertMessage alertProp={alertMessageOpen} />
     </>
   );
 };
