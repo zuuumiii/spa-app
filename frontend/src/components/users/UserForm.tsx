@@ -30,7 +30,7 @@ interface Props {
   onChangeUserParams: (e: React.ChangeEvent<HTMLInputElement>) => void;
   //onChangeName: (e: React.ChangeEvent<HTMLInputElement>) => void;
   //onChangeEmail: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  onChangePrecNo: (e: number) => void;
+  onChangePrecNo: (selectedPrecNo: number, selectedBlockNo: number) => void;
   onChangeBlockNo: (e: number) => void;
   //onChangePassword?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   //onChangePasswordConfirmaiton?: (
@@ -68,7 +68,7 @@ const UserForm: React.FC<Props> = (props) => {
     })
   );
 
-  //選択中のprecの持つblockを一覧化してRefに設定
+  //選択中のprecの持つblockを一覧化してRef初期値に設定
   const blockOptionsRef = useRef(
     PrecBlockList.filter((p) => p.precNo === user.precNo)[0].blocks.map((p) => {
       return {
@@ -79,15 +79,13 @@ const UserForm: React.FC<Props> = (props) => {
   );
 
   const onPrecBoxChangeHandler = (precNo: number) => {
-    //選択したprecNoを親に渡す
-    onChangePrecNo(precNo);
     //選択したprecに属するblock一覧取得
     const selectedPrecBlocks = PrecBlockList.filter(
       (p) => p.precNo === precNo
     )[0].blocks;
+    onChangePrecNo(precNo, selectedPrecBlocks[0].blockNo);
     //選択した項目の０番のblockを親に渡す
-    onChangeBlockNo(selectedPrecBlocks[0].blockNo);
-
+    // onChangeBlockNo(selectedPrecBlocks[0].blockNo);
     //選択したblock一覧をRef.currentに設定し直し
     blockOptionsRef.current = selectedPrecBlocks.map((p) => {
       return {
@@ -107,7 +105,7 @@ const UserForm: React.FC<Props> = (props) => {
           required
           fullWidth
           label="名前"
-          value={name}
+          value={user.name}
           margin="dense"
           onChange={onChangeUserParams}
         />
@@ -126,7 +124,9 @@ const UserForm: React.FC<Props> = (props) => {
           inputLabel="都道府県"
           items={precOptions}
           value={user.precNo}
-          onChange={(selected) => onPrecBoxChangeHandler(selected)}
+          onChange={(selected) => {
+            onPrecBoxChangeHandler(selected);
+          }}
         />
         <PrecBlockBox
           name="blockNo"
