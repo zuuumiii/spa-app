@@ -14,6 +14,12 @@ import { fieldIndex } from "lib/api/field";
 import { FieldParams, TargetParams } from "interfaces";
 import TargetCard from "../targets/TargetCard";
 import ArrowBack from "@material-ui/icons/ArrowBack";
+import {
+  initialMessage,
+  errorMessage,
+  successMessage,
+  warningMessage,
+} from "components/alerts/Messages";
 
 const useStyles = makeStyles((theme: Theme) => ({
   fieldsWrapper: {
@@ -67,12 +73,8 @@ const FieldsIndex: React.FC = () => {
   const classes = useStyles();
   const [loading, setLoading] = useState<boolean>(true);
   const [fields, setFields] = useState<FieldParams[]>([]);
-  const [alertMessageOpen, setAlertMessageOpen] = useState<AlertMessageProps>({
-    open: false,
-    setOpen: () => {},
-    severity: "error",
-    message: "",
-  });
+  const [alertMessageOpen, setAlertMessageOpen] =
+    useState<AlertMessageProps>(initialMessage);
 
   const sortFieldsTargets = (fields: FieldParams[]) => {
     //設定温度の低い順にfiled内でtargetの並べ替え
@@ -105,21 +107,15 @@ const FieldsIndex: React.FC = () => {
         sortFieldsTargets(res.data.data);
         setFields(res.data.data);
       } else {
-        setAlertMessageOpen({
-          open: true,
-          setOpen: setAlertMessageOpen,
-          severity: "error",
-          message: "読み込みに失敗しました。",
-        });
+        setAlertMessageOpen(
+          errorMessage(setAlertMessageOpen, "読み込みに失敗しました")
+        );
       }
     } catch (err) {
       console.log("err");
-      setAlertMessageOpen({
-        open: true,
-        setOpen: setAlertMessageOpen,
-        severity: "error",
-        message: "読み込みに失敗しました。",
-      });
+      setAlertMessageOpen(
+        errorMessage(setAlertMessageOpen, "読み込みに失敗しました")
+      );
     }
     setLoading(false);
   };
@@ -177,21 +173,18 @@ const FieldsIndex: React.FC = () => {
                   field={field}
                   onClickSubmit={() => {
                     handleFieldIndex();
-                    setAlertMessageOpen({
-                      open: true,
-                      setOpen: setAlertMessageOpen,
-                      severity: "success",
-                      message: "目標を更新しました。並べ替えを自動で行います。",
-                    });
+                    setAlertMessageOpen(
+                      successMessage(
+                        setAlertMessageOpen,
+                        "目標を更新しました。並べ替えを自動で行います"
+                      )
+                    );
                   }}
                   onClickDelete={() => {
                     handleFieldIndex();
-                    setAlertMessageOpen({
-                      open: true,
-                      setOpen: setAlertMessageOpen,
-                      severity: "warning",
-                      message: "目標を削除しました。",
-                    });
+                    setAlertMessageOpen(
+                      warningMessage(setAlertMessageOpen, "目標を削除しました")
+                    );
                   }}
                 />
               </Grid>
@@ -279,12 +272,7 @@ const FieldsIndex: React.FC = () => {
         </Grid>
       </Loading>
 
-      <AlertMessage
-        open={alertMessageOpen.open}
-        setOpen={setAlertMessageOpen}
-        severity={alertMessageOpen.severity}
-        message={alertMessageOpen.message}
-      />
+      <AlertMessage alertProp={alertMessageOpen} />
     </div>
   );
 };

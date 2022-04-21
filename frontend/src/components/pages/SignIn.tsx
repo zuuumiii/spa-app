@@ -14,6 +14,8 @@ import BackgroundImage from "images/background.jpg";
 
 import { AuthContext } from "App";
 import AlertMessage from "components/alerts/AlertMessage";
+import { AlertMessageProps } from "components/alerts/AlertMessage";
+import { initialMessage, errorMessage } from "components/alerts/Messages";
 import { signIn } from "lib/api/auth";
 import { SignInParams } from "interfaces/index";
 
@@ -71,7 +73,8 @@ const SignIn: React.FC = () => {
 
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const [alertMessageOpen, setAlertMessageOpen] = useState<boolean>(false);
+  const [alertMessageOpen, setAlertMessageOpen] =
+    useState<AlertMessageProps>(initialMessage);
 
   const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -94,11 +97,18 @@ const SignIn: React.FC = () => {
         setIsSignedIn(true);
         history.push("/");
       } else {
-        setAlertMessageOpen(true);
+        setAlertMessageOpen(
+          errorMessage(
+            setAlertMessageOpen,
+            "メールアドレス、パスワードが間違っています。"
+          )
+        );
       }
     } catch (err) {
       console.log(err);
-      setAlertMessageOpen(true);
+      setAlertMessageOpen(
+        errorMessage(setAlertMessageOpen, "読み込みに失敗しました")
+      );
     }
   };
 
@@ -195,12 +205,7 @@ const SignIn: React.FC = () => {
           作業が完了したら、目標を作業完了（削除）してください。
         </Typography>
       </div>
-      <AlertMessage
-        open={alertMessageOpen}
-        setOpen={setAlertMessageOpen}
-        severity="error"
-        message="メールアドレス、パスワードが間違っています。"
-      />
+      <AlertMessage alertProp={alertMessageOpen} />
     </div>
   );
 };

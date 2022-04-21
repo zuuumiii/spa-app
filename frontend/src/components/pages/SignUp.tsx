@@ -7,7 +7,10 @@ import Card from "@material-ui/core/Card";
 import Button from "@material-ui/core/Button";
 
 import { AuthContext } from "App";
-import AlertMessage from "components/alerts/AlertMessage";
+import AlertMessage, {
+  AlertMessageProps,
+} from "components/alerts/AlertMessage";
+import { initialMessage, errorMessage } from "components/alerts/Messages";
 import { signUp } from "lib/api/auth";
 import { SignUpParams } from "interfaces/index";
 import UserForm from "components/users/UserForm";
@@ -45,7 +48,8 @@ const SignUp: React.FC = () => {
     blockNo: PrecBlockList[0].blocks[0].blockNo,
   };
   const [signUpUserParams, setSignUpUserParams] = useState(initialUserParams);
-  const [alertMessageOpen, setAlertMessageOpen] = useState<boolean>(false);
+  const [alertMessageOpen, setAlertMessageOpen] =
+    useState<AlertMessageProps>(initialMessage);
 
   const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -63,11 +67,15 @@ const SignUp: React.FC = () => {
         setCurrentUser(res.data.data);
         histroy.push("/");
       } else {
-        setAlertMessageOpen(true);
+        setAlertMessageOpen(
+          errorMessage(setAlertMessageOpen, "各項目を正しく入力してください")
+        );
       }
     } catch (err) {
       console.log(err);
-      setAlertMessageOpen(true);
+      setAlertMessageOpen(
+        errorMessage(setAlertMessageOpen, "読み込みに失敗しました")
+      );
     }
   };
 
@@ -122,12 +130,7 @@ const SignUp: React.FC = () => {
           </Button>
         </Card>
       </form>
-      <AlertMessage
-        open={alertMessageOpen}
-        setOpen={setAlertMessageOpen}
-        severity="error"
-        message="各項目を正しく入力してください。"
-      />
+      <AlertMessage alertProp={alertMessageOpen} />
     </>
   );
 };

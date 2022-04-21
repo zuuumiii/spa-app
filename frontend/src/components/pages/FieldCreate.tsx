@@ -11,6 +11,7 @@ import AlertMessage, {
 import { FieldCreateParams } from "interfaces/index";
 import { fieldCreate } from "lib/api/field";
 import FieldForm from "components/fields/FieldForm";
+import { initialMessage, errorMessage } from "components/alerts/Messages";
 
 const useStyles = makeStyles((theme: Theme) => ({
   submitBtn: {
@@ -48,12 +49,8 @@ const FieldCreate: React.FC = () => {
   };
   const [fieldCreateParams, setFieldCreateParams] =
     useState(initialFieldParams);
-  const [alertMessageOpen, setAlertMessageOpen] = useState<AlertMessageProps>({
-    open: false,
-    setOpen: () => {},
-    severity: "error",
-    message: "読み込みに失敗しました",
-  });
+  const [alertMessageOpen, setAlertMessageOpen] =
+    useState<AlertMessageProps>(initialMessage);
 
   const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -64,23 +61,18 @@ const FieldCreate: React.FC = () => {
       if (res.data.status === "SUCCESS") {
         histroy.push("/");
       } else {
-        setAlertMessageOpen({
-          open: true,
-          setOpen: setAlertMessageOpen,
-          severity: "error",
-          message: `${res.data.data.join("\n")}`,
-        });
+        setAlertMessageOpen(
+          errorMessage(setAlertMessageOpen, `${res.data.data.join("\n")}`)
+        );
       }
     } catch (err) {
       console.log("err");
-      setAlertMessageOpen({
-        open: true,
-        setOpen: setAlertMessageOpen,
-        severity: "error",
-        message: "読み込みに失敗しました。",
-      });
+      setAlertMessageOpen(
+        errorMessage(setAlertMessageOpen, "読み込みに失敗しました")
+      );
     }
   };
+
   const handleChangeFieldParams = (e: React.ChangeEvent<HTMLInputElement>) => {
     const name = e.target.name;
     if (name !== "area") {
@@ -131,12 +123,7 @@ const FieldCreate: React.FC = () => {
           登録
         </Button>
       </form>
-      <AlertMessage
-        open={alertMessageOpen.open}
-        setOpen={setAlertMessageOpen}
-        severity={alertMessageOpen.severity}
-        message={alertMessageOpen.message}
-      />
+      <AlertMessage alertProp={alertMessageOpen} />
     </>
   );
 };

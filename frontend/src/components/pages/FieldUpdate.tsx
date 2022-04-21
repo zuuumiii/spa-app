@@ -8,6 +8,7 @@ import Button from "@material-ui/core/Button";
 import AlertMessage, {
   AlertMessageProps,
 } from "components/alerts/AlertMessage";
+import { initialMessage, errorMessage } from "components/alerts/Messages";
 import { FieldCreateParams, FieldParams } from "interfaces/index";
 import { fieldUpdate } from "lib/api/field";
 import FieldForm from "components/fields/FieldForm";
@@ -43,12 +44,8 @@ const FieldUpdate: React.FC = () => {
   };
   const [fieldUpdateParams, setFieldUpdateParams] =
     useState(initialFieldParams);
-  const [alertMessageOpen, setAlertMessageOpen] = useState<AlertMessageProps>({
-    open: false,
-    setOpen: () => {},
-    severity: "error",
-    message: "",
-  });
+  const [alertMessageOpen, setAlertMessageOpen] =
+    useState<AlertMessageProps>(initialMessage);
 
   const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -60,21 +57,15 @@ const FieldUpdate: React.FC = () => {
       if (res.data.status === "SUCCESS") {
         histroy.push("/");
       } else {
-        setAlertMessageOpen({
-          open: true,
-          setOpen: setAlertMessageOpen,
-          severity: "error",
-          message: `${res.data.data.join("\n")}`,
-        });
+        setAlertMessageOpen(
+          errorMessage(setAlertMessageOpen, `${res.data.data.join("\n")}`)
+        );
       }
     } catch (err) {
       console.log("err");
-      setAlertMessageOpen({
-        open: true,
-        setOpen: setAlertMessageOpen,
-        severity: "error",
-        message: "読み込みに失敗しました。",
-      });
+      setAlertMessageOpen(
+        errorMessage(setAlertMessageOpen, "読み込みに失敗しました")
+      );
     }
   };
 
@@ -128,12 +119,7 @@ const FieldUpdate: React.FC = () => {
           登録
         </Button>
       </form>
-      <AlertMessage
-        open={alertMessageOpen.open}
-        setOpen={setAlertMessageOpen}
-        severity={alertMessageOpen.severity}
-        message={alertMessageOpen.message}
-      />
+      <AlertMessage alertProp={alertMessageOpen} />
     </>
   );
 };
