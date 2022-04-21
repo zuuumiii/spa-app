@@ -114,9 +114,8 @@ const UserEdit: React.FC = () => {
     });
   };
 
-  const handleChangeBlockNo = (e: number) => {
-    console.log(e);
-    setUserUpdateParams({ ...userUpdateParams, blockNo: e });
+  const handleChangeBlockNo = (selectedBlockNo: number) => {
+    setUserUpdateParams({ ...userUpdateParams, blockNo: selectedBlockNo });
   };
 
   return (

@@ -86,10 +86,10 @@ const SignUp: React.FC = () => {
     });
   };
 
-  const handleChangeBlockNo = (e: number) => {
-    console.log(e);
-    setSignUpUserParams({ ...signUpUserParams, blockNo: e });
+  const handleChangeBlockNo = (selectedBlockNo: number) => {
+    setSignUpUserParams({ ...signUpUserParams, blockNo: selectedBlockNo });
   };
+
   return (
     <>
       <form noValidate autoComplete="off">

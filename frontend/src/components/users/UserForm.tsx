@@ -23,7 +23,7 @@ interface Props {
   user: SignUpParams;
   onChangeUserParams: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onChangePrecNo: (selectedPrecNo: number, selectedBlockNo: number) => void;
-  onChangeBlockNo: (e: number) => void;
+  onChangeBlockNo: (selectedBlockNo: number) => void;
 }
 
 const UserForm: React.FC<Props> = (props) => {
