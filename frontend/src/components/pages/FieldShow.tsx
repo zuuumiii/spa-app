@@ -15,6 +15,12 @@ import TargetModal from "components/modals/TargetModal";
 import AlertMessage, {
   AlertMessageProps,
 } from "components/alerts/AlertMessage";
+import {
+  initialMessage,
+  errorMessage,
+  successMessage,
+  warningMessage,
+} from "components/alerts/Messages";
 
 const useStyles = makeStyles((theme: Theme) => ({
   createBtn: {
@@ -91,12 +97,8 @@ const FieldShow: React.FC = () => {
   };
   const [targetCreateParams, setTargetCreateParams] =
     useState<TargetCreateParams>(initialTargetParams);
-  const [alertMessageOpen, setAlertMessageOpen] = useState<AlertMessageProps>({
-    open: false,
-    setOpen: () => {},
-    severity: "error",
-    message: "",
-  });
+  const [alertMessageOpen, setAlertMessageOpen] =
+    useState<AlertMessageProps>(initialMessage);
   const targetSort = (field: FieldParams) => {
     (field.targets as unknown as TargetParams[]).sort((a, b) => {
       return a.targetTemp < b.targetTemp ? -1 : 1;
@@ -125,21 +127,15 @@ const FieldShow: React.FC = () => {
         targetSort(res.data.data);
         setField(res.data.data);
       } else {
-        setAlertMessageOpen({
-          open: true,
-          setOpen: setAlertMessageOpen,
-          severity: "error",
-          message: "読み込みに失敗しました。",
-        });
+        setAlertMessageOpen(
+          errorMessage(setAlertMessageOpen, "読み込みに失敗しました")
+        );
       }
     } catch (err) {
       console.log("err");
-      setAlertMessageOpen({
-        open: true,
-        setOpen: setAlertMessageOpen,
-        severity: "error",
-        message: "読み込みに失敗しました。",
-      });
+      setAlertMessageOpen(
+        errorMessage(setAlertMessageOpen, "読み込みに失敗しました")
+      );
     }
   };
 
@@ -160,28 +156,19 @@ const FieldShow: React.FC = () => {
         setField(field);
         setTargetCreateParams(initialTargetParams);
         handleFieldShow();
-        setAlertMessageOpen({
-          open: true,
-          setOpen: setAlertMessageOpen,
-          severity: "success",
-          message: "目標を作成しました。",
-        });
+        setAlertMessageOpen(
+          successMessage(setAlertMessageOpen, "目標を作成しました")
+        );
       } else {
-        setAlertMessageOpen({
-          open: true,
-          setOpen: setAlertMessageOpen,
-          severity: "error",
-          message: `${res.data.data.join("\n")}`,
-        });
+        setAlertMessageOpen(
+          errorMessage(setAlertMessageOpen, `${res.data.data.join("\n")}`)
+        );
       }
     } catch (err) {
       console.log("err");
-      setAlertMessageOpen({
-        open: true,
-        setOpen: setAlertMessageOpen,
-        severity: "error",
-        message: "目標の作成に失敗しました。",
-      });
+      setAlertMessageOpen(
+        errorMessage(setAlertMessageOpen, "目標の作成に失敗しました")
+      );
     }
   };
 
@@ -297,21 +284,15 @@ const FieldShow: React.FC = () => {
                   field={field}
                   onClickSubmit={() => {
                     handleFieldShow();
-                    setAlertMessageOpen({
-                      open: true,
-                      setOpen: setAlertMessageOpen,
-                      severity: "success",
-                      message: "目標を更新しました。",
-                    });
+                    setAlertMessageOpen(
+                      successMessage(setAlertMessageOpen, "目標を作成しました")
+                    );
                   }}
                   onClickDelete={() => {
                     handleFieldShow();
-                    setAlertMessageOpen({
-                      open: true,
-                      setOpen: setAlertMessageOpen,
-                      severity: "warning",
-                      message: "目標を削除しました",
-                    });
+                    setAlertMessageOpen(
+                      warningMessage(setAlertMessageOpen, "目標を削除しました")
+                    );
                   }}
                 />
               </Grid>
@@ -322,12 +303,7 @@ const FieldShow: React.FC = () => {
       <Typography variant="h6" className={classes.footer}>
         ※当サイトの気象データは、気象庁「過去の気象データ」を元に加工して作成しています。
       </Typography>
-      <AlertMessage
-        open={alertMessageOpen.open}
-        setOpen={setAlertMessageOpen}
-        severity={alertMessageOpen.severity}
-        message={alertMessageOpen.message}
-      />
+      <AlertMessage alertProp={alertMessageOpen} />
     </>
   );
 };
