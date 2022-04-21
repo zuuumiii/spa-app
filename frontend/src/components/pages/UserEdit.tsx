@@ -11,7 +11,7 @@ import Button from "@material-ui/core/Button";
 import { AuthContext } from "App";
 import AlertMessage from "components/alerts/AlertMessage";
 import { userDelete, userEdit } from "lib/api/auth";
-import { UserEditParams } from "interfaces/index";
+import { UserUpdateParams } from "interfaces/index";
 import DeleteModal from "components/modals/DeleteModal";
 import UserForm from "components/users/UserForm";
 
@@ -45,28 +45,35 @@ const UserEdit: React.FC = () => {
   const { setIsSignedIn, setCurrentUser, currentUser } =
     useContext(AuthContext);
 
-  const [name, setName] = useState<string>(currentUser!.name);
-  const [email, setEmail] = useState<string>(currentUser!.email);
-  const [selectedPrecNo, setSelectedPrecNo] = useState<number>(
-    currentUser!.precNo
-  );
-  const [selectedBlockNo, setSelectedBlockNo] = useState<number>(
-    currentUser!.blockNo
-  );
+  const initialUserParams: UserUpdateParams = {
+    name: currentUser!.name,
+    email: currentUser!.email,
+    precNo: currentUser!.precNo,
+    blockNo: currentUser!.blockNo,
+  };
+  const [userUpdateParams, setUserUpdateParams] = useState(initialUserParams);
+  //const [name, setName] = useState<string>(currentUser!.name);
+  //const [email, setEmail] = useState<string>(currentUser!.email);
+  //const [selectedPrecNo, setSelectedPrecNo] = useState<number>(
+  //  currentUser!.precNo
+  //);
+  //const [selectedBlockNo, setSelectedBlockNo] = useState<number>(
+  //  currentUser!.blockNo
+  //);
   const [alertMessageOpen, setAlertMessageOpen] = useState<boolean>(false);
 
   const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
-    const params: UserEditParams = {
-      name: name,
-      email: email,
-      precNo: selectedPrecNo,
-      blockNo: selectedBlockNo,
-    };
+    // const params: UserEditParams = {
+    //   name: name,
+    //   email: email,
+    //   precNo: selectedPrecNo,
+    //   blockNo: selectedBlockNo,
+    // };
 
     try {
-      const res = await userEdit(params);
+      const res = await userEdit(userUpdateParams);
       console.log(res);
 
       if (res.status === 200) {
@@ -108,17 +115,30 @@ const UserEdit: React.FC = () => {
     }
   };
 
-  const handleChangeName = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setName(e.target.value);
+  const handleChangeUserParams = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const name = e.target.name;
+    setUserUpdateParams({ ...userUpdateParams, [name]: e.target.value });
   };
-  const handleChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setEmail(e.target.value);
+  //const handleChangeName = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //  setName(e.target.value);
+  //};
+  //const handleChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //  setEmail(e.target.value);
+  //};
+  const handleChangePrecNo = (
+    selectedPrecNo: number,
+    selectedBlockNo: number
+  ) => {
+    setUserUpdateParams({
+      ...userUpdateParams,
+      precNo: selectedPrecNo,
+      blockNo: selectedBlockNo,
+    });
   };
-  const handleChangePrecNo = (e: number) => {
-    setSelectedPrecNo(e);
-  };
+
   const handleChangeBlockNo = (e: number) => {
-    setSelectedBlockNo(e);
+    console.log(e);
+    setUserUpdateParams({ ...userUpdateParams, blockNo: e });
   };
 
   return (
@@ -127,14 +147,16 @@ const UserEdit: React.FC = () => {
         <Card className={classes.card}>
           <UserForm
             title="ユーザー情報編集"
-            name={name}
-            email={email}
-            selectedPrecNo={selectedPrecNo}
-            selectedBlockNo={selectedBlockNo}
+            user={userUpdateParams}
+            onChangeUserParams={handleChangeUserParams}
+            //name={name}
+            //email={email}
+            //selectedPrecNo={selectedPrecNo}
+            //selectedBlockNo={selectedBlockNo}
             onChangePrecNo={handleChangePrecNo}
             onChangeBlockNo={handleChangeBlockNo}
-            onChangeName={handleChangeName}
-            onChangeEmail={handleChangeEmail}
+            //onChangeName={handleChangeName}
+            //onChangeEmail={handleChangeEmail}
           />
           <Button
             type="submit"
@@ -142,7 +164,9 @@ const UserEdit: React.FC = () => {
             size="large"
             fullWidth
             color="default"
-            disabled={!name || !email ? true : false}
+            disabled={
+              !userUpdateParams.name || !userUpdateParams.email ? true : false
+            }
             className={classes.submitBtn}
             onClick={handleSubmit}
           >
