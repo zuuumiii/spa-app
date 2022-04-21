@@ -123,12 +123,7 @@ const FieldCreate: React.FC = () => {
           登録
         </Button>
       </form>
-      <AlertMessage
-        open={alertMessageOpen.open}
-        setOpen={setAlertMessageOpen}
-        severity={alertMessageOpen.severity}
-        message={alertMessageOpen.message}
-      />
+      <AlertMessage alertProp={alertMessageOpen} />
     </>
   );
 };
