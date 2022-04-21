@@ -7,6 +7,7 @@ import TargetModal from "components/modals/TargetModal";
 import AlertMessage, {
   AlertMessageProps,
 } from "components/alerts/AlertMessage";
+import { initialMessage, errorMessage } from "components/alerts/Messages";
 
 const useStyles = makeStyles((theme: Theme) => ({
   paper: {
@@ -66,12 +67,8 @@ const TargetCard: React.FC<Props> = (props) => {
     useState<TargetCreateParams>(initialTargetUpdateParams);
   const field: FieldParams = props.field;
 
-  const [alertMessageOpen, setAlertMessageOpen] = useState<AlertMessageProps>({
-    open: false,
-    setOpen: () => {},
-    severity: "error",
-    message: "",
-  });
+  const [alertMessageOpen, setAlertMessageOpen] =
+    useState<AlertMessageProps>(initialMessage);
 
   const handleChangeTarget = (e: React.ChangeEvent<HTMLInputElement>) => {
     const name = e.target.name;
@@ -98,21 +95,15 @@ const TargetCard: React.FC<Props> = (props) => {
       if (res.data.status === "SUCCESS") {
         onClickSubmit(e);
       } else {
-        setAlertMessageOpen({
-          open: true,
-          setOpen: setAlertMessageOpen,
-          severity: "error",
-          message: `${res.data.data.join("\n")}`,
-        });
+        setAlertMessageOpen(
+          errorMessage(setAlertMessageOpen, `${res.data.data.join("\n")}`)
+        );
       }
     } catch (err) {
       console.log("err");
-      setAlertMessageOpen({
-        open: true,
-        setOpen: setAlertMessageOpen,
-        severity: "error",
-        message: "目標の更新に失敗しました。",
-      });
+      setAlertMessageOpen(
+        errorMessage(setAlertMessageOpen, "目標の更新に失敗しました。")
+      );
     }
   };
 
@@ -124,21 +115,15 @@ const TargetCard: React.FC<Props> = (props) => {
       if (res.data.status === "SUCCESS") {
         onClickDelete(e);
       } else {
-        setAlertMessageOpen({
-          open: true,
-          setOpen: setAlertMessageOpen,
-          severity: "error",
-          message: "削除に失敗しました",
-        });
+        setAlertMessageOpen(
+          errorMessage(setAlertMessageOpen, "削除に失敗しました")
+        );
       }
     } catch (err) {
       console.log("err");
-      setAlertMessageOpen({
-        open: true,
-        setOpen: setAlertMessageOpen,
-        severity: "error",
-        message: "削除に失敗しました",
-      });
+      setAlertMessageOpen(
+        errorMessage(setAlertMessageOpen, "削除に失敗しました")
+      );
     }
   };
 
@@ -205,12 +190,7 @@ const TargetCard: React.FC<Props> = (props) => {
           </Box>
         </div>
       </TargetModal>
-      <AlertMessage
-        open={alertMessageOpen.open}
-        setOpen={setAlertMessageOpen}
-        severity={alertMessageOpen.severity}
-        message={alertMessageOpen.message}
-      />
+      <AlertMessage alertProp={alertMessageOpen} />
     </>
   );
 };
