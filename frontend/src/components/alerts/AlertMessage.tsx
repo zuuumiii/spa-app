@@ -16,36 +16,35 @@ export interface AlertMessageProps {
   message: string;
 }
 
+interface Prop {
+  alertProp: AlertMessageProps;
+}
 // アラートメッセージ（何かアクションを行なった際の案内用に使い回す）
-const AlertMessage = ({
-  open,
-  setOpen,
-  severity,
-  message,
-}: AlertMessageProps) => {
+const AlertMessage: React.FC<Prop> = (props) => {
+  const { alertProp } = props;
   const handleCloseAlertMessage = (
     e?: React.SyntheticEvent,
     reason?: string
   ) => {
     if (reason === "clickaway") return;
 
-    setOpen(false);
+    alertProp.setOpen(false);
   };
 
   return (
     <>
       <Snackbar
-        open={open}
+        open={alertProp.open}
         autoHideDuration={4000}
         anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
         onClose={handleCloseAlertMessage}
       >
         <Alert
           onClose={handleCloseAlertMessage}
-          severity={severity}
+          severity={alertProp.severity}
           style={{ whiteSpace: "pre-wrap" }}
         >
-          {message}
+          {alertProp.message}
         </Alert>
       </Snackbar>
     </>
