@@ -4,8 +4,8 @@ export interface SignUpParams {
   email: string;
   precNo: number;
   blockNo: number;
-  password: string;
-  passwordConfirmation: string;
+  password?: string;
+  passwordConfirmation?: string;
 }
 
 // サインイン
@@ -15,7 +15,7 @@ export interface SignInParams {
 }
 
 // ユーザー更新
-export interface UserEditParams {
+export interface UserUpdateParams {
   name: string;
   email: string;
   precNo: number;

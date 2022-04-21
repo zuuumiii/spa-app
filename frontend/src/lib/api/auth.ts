@@ -1,7 +1,7 @@
 import client from "lib/api/client";
 import Cookies from "js-cookie";
 
-import { SignUpParams, SignInParams, UserEditParams } from "interfaces/index";
+import { SignUpParams, SignInParams, UserUpdateParams } from "interfaces/index";
 
 // サインアップ（新規アカウント作成）
 export const signUp = (params: SignUpParams) => {
@@ -14,7 +14,7 @@ export const signIn = (params: SignInParams) => {
 };
 
 //ユーザ情報更新
-export const userEdit = (params: UserEditParams) => {
+export const userEdit = (params: UserUpdateParams) => {
   return client.put("auth/", params, {
     headers: {
       "access-token": Cookies.get("_access_token")!,

@@ -10,6 +10,7 @@ import PrecBlockBox, {
 } from "components/selectbox/precblock/PrecBlockBox";
 
 import { PrecBlockList } from "components/selectbox/precblock/PrecBlockList";
+import { SignUpParams } from "interfaces";
 
 const useStyles = makeStyles((theme: Theme) => ({
   header: {
@@ -19,38 +20,15 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 interface Props {
   title: string;
-  name: string;
-  email: string;
-  password?: string;
-  passwordConfirmation?: string;
-  selectedPrecNo: number;
-  selectedBlockNo: number;
-  onChangeName: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  onChangeEmail: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  onChangePrecNo: (e: number) => void;
-  onChangeBlockNo: (e: number) => void;
-  onChangePassword?: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  onChangePasswordConfirmaiton?: (
-    e: React.ChangeEvent<HTMLInputElement>
-  ) => void;
+  user: SignUpParams;
+  onChangeUserParams: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onChangePrecNo: (selectedPrecNo: number, selectedBlockNo: number) => void;
+  onChangeBlockNo: (selectedBlockNo: number) => void;
 }
 
 const UserForm: React.FC<Props> = (props) => {
-  const {
-    title,
-    name,
-    email,
-    password,
-    passwordConfirmation,
-    selectedPrecNo,
-    selectedBlockNo,
-    onChangeName,
-    onChangeEmail,
-    onChangePrecNo,
-    onChangeBlockNo,
-    onChangePassword,
-    onChangePasswordConfirmaiton,
-  } = props;
+  const { title, user, onChangeUserParams, onChangePrecNo, onChangeBlockNo } =
+    props;
   const classes = useStyles();
 
   //１つ目のBOXに表示させるprecの一覧のみ取り出してStateへ
@@ -63,28 +41,23 @@ const UserForm: React.FC<Props> = (props) => {
     })
   );
 
-  //選択中のprecの持つblockを一覧化してRefに設定
+  //選択中のprecの持つblockを一覧化してRef初期値に設定
   const blockOptionsRef = useRef(
-    PrecBlockList.filter((p) => p.precNo === selectedPrecNo)[0].blocks.map(
-      (p) => {
-        return {
-          no: p.blockNo,
-          name: p.blockName,
-        };
-      }
-    )
+    PrecBlockList.filter((p) => p.precNo === user.precNo)[0].blocks.map((p) => {
+      return {
+        no: p.blockNo,
+        name: p.blockName,
+      };
+    })
   );
 
   const onPrecBoxChangeHandler = (precNo: number) => {
-    //選択したprecNoを親に渡す
-    onChangePrecNo(precNo);
     //選択したprecに属するblock一覧取得
     const selectedPrecBlocks = PrecBlockList.filter(
       (p) => p.precNo === precNo
     )[0].blocks;
-    //選択した項目の０番のblockを親に渡す
-    onChangeBlockNo(selectedPrecBlocks[0].blockNo);
-
+    //選択したprecNoとblockNoを持って親へ伝える
+    onChangePrecNo(precNo, selectedPrecBlocks[0].blockNo);
     //選択したblock一覧をRef.currentに設定し直し
     blockOptionsRef.current = selectedPrecBlocks.map((p) => {
       return {
@@ -104,9 +77,9 @@ const UserForm: React.FC<Props> = (props) => {
           required
           fullWidth
           label="名前"
-          value={name}
+          value={user.name}
           margin="dense"
-          onChange={onChangeName}
+          onChange={onChangeUserParams}
         />
         <TextField
           name="email"
@@ -114,20 +87,24 @@ const UserForm: React.FC<Props> = (props) => {
           required
           fullWidth
           label="Email"
-          value={email}
+          value={user.email}
           margin="dense"
-          onChange={onChangeEmail}
+          onChange={onChangeUserParams}
         />
         <PrecBlockBox
+          name="precNo"
           inputLabel="都道府県"
           items={precOptions}
-          value={selectedPrecNo}
-          onChange={(selected) => onPrecBoxChangeHandler(selected)}
+          value={user.precNo}
+          onChange={(selected) => {
+            onPrecBoxChangeHandler(selected);
+          }}
         />
         <PrecBlockBox
+          name="blockNo"
           inputLabel="観測所"
           items={blockOptionsRef.current}
-          value={selectedBlockNo}
+          value={user.blockNo}
           onChange={(selected) => onChangeBlockNo(selected)}
         />
 
@@ -140,22 +117,22 @@ const UserForm: React.FC<Props> = (props) => {
               fullWidth
               label="パスワード"
               type="password"
-              value={password}
+              value={user.password}
               margin="dense"
               autoComplete="current-password"
-              onChange={onChangePassword}
+              onChange={onChangeUserParams}
             />
             <TextField
-              name="password-confirmation"
+              name="passwordConfirmation"
               variant="outlined"
               required
               fullWidth
               label="確認用パスワード"
               type="password"
-              value={passwordConfirmation}
+              value={user.passwordConfirmation}
               margin="dense"
               autoComplete="current-password"
-              onChange={onChangePasswordConfirmaiton}
+              onChange={onChangeUserParams}
             />
           </>
         ) : (
