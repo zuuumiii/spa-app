@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 
 import CardContent from "@material-ui/core/CardContent";
 import CardHeader from "@material-ui/core/CardHeader";
@@ -41,8 +41,8 @@ const UserForm: React.FC<Props> = (props) => {
     })
   );
 
-  //選択中のprecの持つblockを一覧化してRef初期値に設定
-  const blockOptionsRef = useRef(
+  //選択中のprecの持つblockの一覧blockOptionsの初期値に設定
+  const [blockOptions, setBlockOptions] = useState<PrecBlockItem[]>(
     PrecBlockList.filter((p) => p.precNo === user.precNo)[0].blocks.map((p) => {
       return {
         no: p.blockNo,
@@ -58,13 +58,15 @@ const UserForm: React.FC<Props> = (props) => {
     )[0].blocks;
     //選択したprecNoとblockNoを持って親へ伝える
     onChangePrecNo(precNo, selectedPrecBlocks[0].blockNo);
-    //選択したblock一覧をRef.currentに設定し直し
-    blockOptionsRef.current = selectedPrecBlocks.map((p) => {
-      return {
-        no: p.blockNo,
-        name: p.blockName,
-      };
-    });
+    //選択したblock一覧をsetState
+    setBlockOptions(
+      selectedPrecBlocks.map((p) => {
+        return {
+          no: p.blockNo,
+          name: p.blockName,
+        };
+      })
+    );
   };
 
   return (
@@ -103,7 +105,7 @@ const UserForm: React.FC<Props> = (props) => {
         <PrecBlockBox
           name="blockNo"
           inputLabel="観測所"
-          items={blockOptionsRef.current}
+          items={blockOptions}
           value={user.blockNo}
           onChange={(selected) => onChangeBlockNo(selected)}
         />
