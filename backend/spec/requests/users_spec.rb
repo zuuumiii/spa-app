@@ -61,9 +61,6 @@ RSpec.describe "User", type: :request do
       end
     end
     context "削除できないとき" do
-      it "別のユーザから削除しようとすると、エラーが出て削除されない" do
-        
-      end
       it "認証されていないユーザーから削除できない" do
         expect{delete api_v1_user_registration_path(@user)}.to change{User.count}.by(0)
         res = JSON.parse(response.body)
@@ -75,20 +72,32 @@ RSpec.describe "User", type: :request do
   end
 
   describe "ユーザー編集" do
-    context "正しく編集できるとき" do
+    context "正しい編集できるとき" do
       it "正しく入力で編集できるとき" do
-    
+        @params["name"] = "aaaa"
+        expect{put api_v1_user_registration_path(@user), params: @params, headers: @auth_tokens}.to change{User.count}.by(0)
+        res = JSON.parse(response.body)
+        expect(res["status"]).to eq("success")
+        expect(res["data"]["name"]).to eq("aaaa")
+        expect(response).to have_http_status :ok
       end
     end
     context "編集できないとき" do
-      it "別のユーザから編集しようとすると、エラーが出て編集されない" do
-
-      end
       it "間違った入力で編集できない" do
-
+        @params["name"] = "#{"a" * 19}"
+        expect{put api_v1_user_registration_path(@user), params: @params, headers: @auth_tokens}.to change{User.count}.by(0)
+        res = JSON.parse(response.body)
+        expect(res["status"]).to eq("error")
+        expect(res["errors"]["full_messages"]).to include("名前は18文字以内で入力してください")
+        expect(response).to have_http_status 422
       end
       it "認証されてないユーザーから編集できない" do
-
+        @params["name"] = "aaaa"
+        expect{put api_v1_user_registration_path(@user), params: @params}.to change{User.count}.by(0)
+        res = JSON.parse(response.body)
+        expect(res["status"]).to eq("error")
+        expect(res["errors"]).to include("ユーザーが見つかりません。")
+        expect(response).to have_http_status 404
       end
     end
   end
