@@ -285,7 +285,7 @@ const FieldShow: React.FC = () => {
                   onClickSubmit={() => {
                     handleFieldShow();
                     setAlertMessageOpen(
-                      successMessage(setAlertMessageOpen, "目標を作成しました")
+                      successMessage(setAlertMessageOpen, "目標を更新しました")
                     );
                   }}
                   onClickDelete={() => {

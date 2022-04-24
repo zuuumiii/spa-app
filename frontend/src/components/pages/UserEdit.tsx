@@ -83,7 +83,7 @@ const UserEdit: React.FC = () => {
     } catch (err) {
       console.log(err);
       setAlertMessageOpen(
-        errorMessage(setAlertMessageOpen, "読み込みに失敗しました")
+        errorMessage(setAlertMessageOpen, "各項目を正しく入力してください")
       );
     }
   };
