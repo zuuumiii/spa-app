@@ -16,7 +16,7 @@ RSpec.describe "Create", type: :request do
 
   describe "ユーザー新規登録" do
     context "正しく入力されているとき" do
-      it "正しく投稿できる" do
+      it "正しく登録できる" do
         expect{post api_v1_user_registration_path, params: @params}.to change{User.count}.by(1)
         res = JSON.parse(response.body)
         expect(res["status"]).to eq("success")
@@ -27,7 +27,11 @@ RSpec.describe "Create", type: :request do
 
     context "誤って入力されているとき" do
       it "正しく登録できずエラーが含まれている" do
-        
+        @params["name"] = "#{"a" * 19}"
+        expect{post api_v1_user_registration_path, params: @params}.to change{User.count}.by(0)
+        res = JSON.parse(response.body)
+        expect(res["status"]).to eq("error")
+        expect(response).to have_http_status 422
       end
     end
   end
