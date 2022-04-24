@@ -2,22 +2,22 @@ require 'rails_helper'
 
 RSpec.describe "Create", type: :request do
   before do
-    @user = FactoryBot.create(:user)
+    @user = FactoryBot.build(:user)
     @auth_tokens = auth_sign_in(@user)
     @params = {
       name: @user.name,
       email: @user.email,
-      password: @user.password
-      password_confirmation: @user.password_confirmation
-      prec_no: @user.prec_no
-      block_no: @user.block_no
+      password: @user.password,
+      password_confirmation: @user.password_confirmation,
+      prec_no: @user.prec_no,
+      block_no: @user.block_no,
     }
   end
 
   describe "ユーザー新規登録" do
     context "正しく入力されているとき" do
       it "正しく投稿できる" do
-
+        expect{post api_v1_user_registration_path, params: @params}.to change{User.count}.by(1)
       end
     end
 
