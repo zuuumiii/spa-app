@@ -18,6 +18,10 @@ RSpec.describe "Create", type: :request do
     context "正しく入力されているとき" do
       it "正しく投稿できる" do
         expect{post api_v1_user_registration_path, params: @params}.to change{User.count}.by(1)
+        res = JSON.parse(response.body)
+        expect(res["status"]).to eq("success")
+        expect(res["data"]["name"]).to eq(@user.name)
+        expect(response).to have_http_status :ok
       end
     end
 
