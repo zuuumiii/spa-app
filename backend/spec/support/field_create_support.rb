@@ -3,7 +3,7 @@ module FieldCreateSupport
     visit "/"
     find("#field-create").click
     expect(current_path).to eq "/fieldCreate"
-    fill_in "field-name", with: field.field_name
+    fill_in "fieldName", with: field.field_name
     fill_in "product", with: field.product
     fill_in "area", with: field.area
     fill_in "info", with: field.info

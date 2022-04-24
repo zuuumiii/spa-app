@@ -41,7 +41,7 @@ RSpec.describe '圃場編集', type: :system, js: true do
       field_create(@field)
       click_on(@field.field_name)
       find("#field-update").click
-      fill_in "field-name", with: "圃場1"
+      fill_in "fieldName", with: "圃場1"
       click_button("登録")
       sleep(2)
       expect(current_path).to eq "/"
@@ -54,7 +54,7 @@ RSpec.describe '圃場編集', type: :system, js: true do
       field_create(@field)
       click_on(@field.field_name)
       find("#field-update").click
-      fill_in "field-name", with: "#{"a" * 19}"
+      fill_in "fieldName", with: "#{"a" * 19}"
       click_button("登録")
       sleep(2)
       expect(page).to have_content "圃場名は18文字以内で入力してください"
@@ -78,7 +78,7 @@ RSpec.describe '圃場登録', type: :system, js: true do
       sign_in(@field.user)
       find("#field-create").click
       expect(current_path).to eq "/fieldCreate"
-      fill_in "field-name", with: @field.field_name
+      fill_in "fieldName", with: @field.field_name
       fill_in "product", with: @field.product
       fill_in "area", with: 99999
       fill_in "info", with: @field.info

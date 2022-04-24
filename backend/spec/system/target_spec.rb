@@ -44,7 +44,7 @@ RSpec.describe '目標編集', type: :system, js: true do
       field_create(@target.field)
       target_create(@target)
       click_on(@target.target_name)
-      fill_in "target-name", with: "目標1"
+      fill_in "targetName", with: "目標1"
       click_button("登録")
       expect(page).to have_content "目標を更新しました"
       expect(page).to have_content "目標1"
@@ -56,7 +56,7 @@ RSpec.describe '目標編集', type: :system, js: true do
       field_create(@target.field)
       target_create(@target)
       click_on(@target.target_name)
-      fill_in "target-temp", with: 99999
+      fill_in "targetTemp", with: 99999
       click_button("登録")
       expect(page).to have_content "目標温度は10000より小さい値にしてください"
       expect(page).to have_no_content 99999
@@ -84,8 +84,8 @@ RSpec.describe '目標登録', type: :system, js: true do
       field_create(@target.field)
       click_on(@target.field.field_name)
       click_button("目標新規作成")
-      fill_in "target-name", with: "#{"a" * 19}"
-      fill_in "target-temp", with: @target.target_temp
+      fill_in "targetName", with: "#{"a" * 19}"
+      fill_in "targetTemp", with: @target.target_temp
       fill_in "memo", with: @target.memo
       click_button("登録")
       expect(page).to have_no_content @target.target_name

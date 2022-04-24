@@ -84,11 +84,11 @@ RSpec.describe 'ユーザー新規登録', type: :system, js: true do
       fill_in "name", with: @user.name
       fill_in "email", with: @user.email
       fill_in "password", with: @user.password
-      fill_in "password-confirmation", with: "aaa"
+      fill_in "passwordConfirmation", with: "aaa"
       click_button("登録")
       sleep(2)
       expect(current_path).to eq "/signup"
-      expect(page).to have_content "各項目を正しく入力してください。"
+      expect(page).to have_content "各項目を正しく入力してください"
     end
   end
 end
